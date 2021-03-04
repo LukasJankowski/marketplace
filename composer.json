@@ -1,12 +1,12 @@
 {
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "The marketplace framework.",
     "keywords": [
         "framework",
         "laravel"
     ],
-    "license": "MIT",
+    "license": "proprietary",
     "require": {
         "php": "^8.0",
         "fideloper/proxy": "^4.4",
