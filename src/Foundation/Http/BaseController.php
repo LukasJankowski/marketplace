@@ -1,13 +1,11 @@
 <?php
 
-
-namespace Marketplace\Core\Http\Controllers;
-
+namespace Marketplace\Foundation\Http;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Routing\ResponseFactory;
 
-class BaseController extends Controller
+abstract class BaseController extends Controller
 {
     /**
      * BaseController constructor.

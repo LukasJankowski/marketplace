@@ -1,8 +1,6 @@
 <?php
 
-
-namespace Marketplace\Core\Actions;
-
+namespace Marketplace\Core\Info;
 
 class GetInfoAction
 {

@@ -1,11 +1,8 @@
 <?php
 
+namespace Marketplace\Core\Info;
 
-namespace Marketplace\Core\Http\Controllers;
-
-
-use Marketplace\Core\Actions\GetInfoAction;
-use Marketplace\Core\Http\Resources\InfoResource;
+use Marketplace\Foundation\Http\BaseController;
 
 class InfoController extends BaseController
 {

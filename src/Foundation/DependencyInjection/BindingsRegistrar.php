@@ -1,12 +1,10 @@
 <?php
 
-
-namespace Marketplace\Core\DependencyInjection;
-
+namespace Marketplace\Foundation\DependencyInjection;
 
 use Illuminate\Contracts\Foundation\Application;
 
-final class BindingsRegistrar
+class BindingsRegistrar
 {
     /**
      * @var Application

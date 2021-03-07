@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-        \Marketplace\Core\CoreServiceProvider::class,
+        \Marketplace\Foundation\CoreServiceProvider::class,
 
         /*
          * Application Service Providers...

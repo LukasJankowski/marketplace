@@ -1,12 +1,11 @@
 <?php
 
-
-namespace Marketplace\Core\Contracts;
-
+namespace Marketplace\Foundation\Http;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Marketplace\Foundation\Contracts\Dto;
 
-abstract class AbstractFormRequest extends FormRequest
+abstract class BaseRequest extends FormRequest
 {
     /**
      * Get the DTO from the validated data.

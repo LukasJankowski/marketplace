@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Marketplace\Core\Http\Controllers\InfoController;
+use Marketplace\Core\Info\InfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +14,9 @@ use Marketplace\Core\Http\Controllers\InfoController;
 |
 */
 Route::group([
-    'name' => 'marketplace.core.',
+    'name' => 'marketplace.core.info.',
     'prefix' => 'v1',
     'middleware' => ['api']
 ], function () {
-    Route::get('/info', InfoController::class)->name('info');
+    Route::get('/info', InfoController::class)->name('dump');
 });

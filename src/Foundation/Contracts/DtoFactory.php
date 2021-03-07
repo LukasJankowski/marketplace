@@ -1,8 +1,6 @@
 <?php
 
-
-namespace Marketplace\Core\Contracts;
-
+namespace Marketplace\Foundation\Contracts;
 
 interface DtoFactory
 {

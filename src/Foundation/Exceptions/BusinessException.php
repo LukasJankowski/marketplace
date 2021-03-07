@@ -1,8 +1,6 @@
 <?php
 
-
-namespace Marketplace\Core\Exceptions;
-
+namespace Marketplace\Foundation\Exceptions;
 
 class BusinessException extends \Exception
 {
