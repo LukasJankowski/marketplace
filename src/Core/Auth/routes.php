@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Marketplace\Core\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,33 +14,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group([
-    'name' => 'marketplace.core.auth.',
+    'as' => 'marketplace.core.auth.',
     'prefix' => 'v1',
     'middleware' => ['api']
 ], function () {
 
     // Customers
     Route::group([
-        'name' => 'customer.',
+        'as' => 'customer.',
         'prefix' => 'customer',
     ], function () {
-//        Route::post('/login', InfoController::class)->name('login');
+        Route::post('/login', [AuthController::class, 'login'])->name('login');
     });
 
     // Providers
     Route::group([
-        'name' => 'provider.',
+        'as' => 'provider.',
         'prefix' => 'provider',
     ], function () {
-//        Route::post('/login', InfoController::class)->name('login');
+        Route::post('/login', [AuthController::class, 'login'])->name('login');
     });
 
     // Admins
     Route::group([
-        'name' => 'admin.',
+        'as' => 'admin.',
         'prefix' => 'admin',
     ], function () {
-//        Route::post('/login', InfoController::class)->name('login');
+        Route::post('/login', [AuthController::class, 'login'])->name('login');
     });
 
 });

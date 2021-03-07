@@ -14,7 +14,7 @@ use Marketplace\Core\Info\InfoController;
 |
 */
 Route::group([
-    'name' => 'marketplace.core.info.',
+    'as' => 'marketplace.core.info.',
     'prefix' => 'v1',
     'middleware' => ['api']
 ], function () {

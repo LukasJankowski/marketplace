@@ -2,9 +2,9 @@
 
 namespace Marketplace\Core\Info;
 
-use Marketplace\Foundation\Http\BaseController;
+use App\Http\Controllers\Controller;
 
-class InfoController extends BaseController
+class InfoController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -15,6 +15,6 @@ class InfoController extends BaseController
      */
     public function __invoke(GetInfoAction $action): InfoResource
     {
-        return new InfoResource($action->run());
+        return InfoResource::make($action->run());
     }
 }

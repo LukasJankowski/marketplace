@@ -1,12 +1,7 @@
 <?php
 
-
 namespace Marketplace\Foundation;
 
-
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 final class CoreServiceProvider extends ServiceProvider
@@ -50,20 +45,10 @@ final class CoreServiceProvider extends ServiceProvider
      */
     private function bootCoreModules()
     {
-        $this->configureApiRateLimiter();
+        $this->loadMigrationsFrom(self::CORE_DIR . '/Data/migrations');
 
         foreach (self::CORE_MODULES as $module) {
             $this->loadRoutesFrom(self::CORE_DIR . '/' . $module . '/routes.php');
         }
-    }
-
-    /**
-     * Configure the RateLimiter for APIs.
-     */
-    private function configureApiRateLimiter()
-    {
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
-        });
     }
 }

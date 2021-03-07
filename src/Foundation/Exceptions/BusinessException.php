@@ -19,7 +19,7 @@ class BusinessException extends \Exception
     public function __construct(string $businessMessage, $code = 0, \Throwable $previous = null)
     {
         $this->businessMessage = $businessMessage;
-        parent::__construct('Business Exception', $code, $previous);
+        parent::__construct('marketplace.core.error.business', $code, $previous);
     }
 
     /**

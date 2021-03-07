@@ -1,10 +1,10 @@
 <?php
 
-namespace Marketplace\Core\Info;
+namespace Marketplace\Core\Auth\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class InfoResource extends JsonResource
+class LoginResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,6 +15,9 @@ class InfoResource extends JsonResource
      */
     public function toArray($request): array
     {
-        return parent::toArray($request);
+        return [
+            'success' => true,
+            'token' => $this['api_token'],
+        ];
     }
 }

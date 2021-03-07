@@ -43,6 +43,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Marketplace\\": "src/",
             "Tests\\": "tests/"
         }
     },

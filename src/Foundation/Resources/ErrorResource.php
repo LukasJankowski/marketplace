@@ -1,20 +1,22 @@
 <?php
 
-namespace Marketplace\Core\Info;
+namespace Marketplace\Foundation\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class InfoResource extends JsonResource
+class ErrorResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
      * @return array
      */
     public function toArray($request): array
     {
-        return parent::toArray($request);
+        return [
+            'message' => $this['message'],
+            'errors' => $this['errors']
+        ];
     }
 }
