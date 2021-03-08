@@ -53,10 +53,10 @@ class LoginRequest extends FormRequest
      */
     public function getDto(): UserCredentialsDto
     {
-        $type = match ($this->route()->getName()) {
-            'marketplace.core.auth.customer.login' => Customer::class,
-            'marketplace.core.auth.provider.login' => Provider::class,
-            'marketplace.core.auth.admin.login' => Admin::class,
+        $type = match ($this->route('type')) {
+            'customer' => Customer::class,
+            'provider' => Provider::class,
+            'admin' => Admin::class,
         };
 
         return UserCredentialsDto::make(

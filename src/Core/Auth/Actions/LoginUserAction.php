@@ -41,26 +41,18 @@ class LoginUserAction
             ->first();
 
         if ($user && Hash::check($creds->getPassword(), $user->getAuthPassword())) {
-            $this->log('Successful login attempt', $creds);
+            $this->logger->info('Successful login attempt', [
+                'causer' => $user->getAuthIdentifier()
+            ]);
 
             return $this->refreshToken->run($user);
         }
 
-        $this->log('Failed login attempt', $creds);
-        throw new LoginException();
-    }
-
-    /**
-     * Log the login attempts.
-     *
-     * @param $message
-     * @param $creds
-     */
-    private function log($message, $creds)
-    {
-        $this->logger->info($message, [
+        $this->logger->info('Failed login attempt', [
             'email' => $creds->getEmail(),
             'type' => $creds->getType()
         ]);
+
+        throw new LoginException();
     }
 }

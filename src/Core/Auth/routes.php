@@ -15,32 +15,13 @@ use Marketplace\Core\Auth\AuthController;
 */
 Route::group([
     'as' => 'marketplace.core.auth.',
-    'prefix' => 'v1',
+    'prefix' => 'v1/auth',
     'middleware' => ['api']
 ], function () {
 
-    // Customers
-    Route::group([
-        'as' => 'customer.',
-        'prefix' => 'customer',
-    ], function () {
-        Route::post('/login', [AuthController::class, 'login'])->name('login');
-    });
+    Route::get('/check', [AuthController::class, 'check'])->name('check');
 
-    // Providers
-    Route::group([
-        'as' => 'provider.',
-        'prefix' => 'provider',
-    ], function () {
-        Route::post('/login', [AuthController::class, 'login'])->name('login');
-    });
-
-    // Admins
-    Route::group([
-        'as' => 'admin.',
-        'prefix' => 'admin',
-    ], function () {
-        Route::post('/login', [AuthController::class, 'login'])->name('login');
-    });
-
+    Route::post('/login/{type}', [AuthController::class, 'login'])
+        ->name('login')
+        ->where('type', '^(?:customer|provider|admin)$');
 });
