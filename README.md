@@ -18,8 +18,8 @@ https://www.figma.com/file/41QbphA8yh1yLXrmSoYE2m/Marketplace-Platform?node-id=0
 
 
 ### Developers
-Lukas Jankowski
-Florian Liebig
+Lukas Jankowski,
+Florian Liebig,
 Marvin Wende
 
 
