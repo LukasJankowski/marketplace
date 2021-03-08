@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Hash;
 use Marketplace\Core\Auth\Exceptions\LoginException;
 use Marketplace\Core\Auth\UserCredentialsDto;
+use Marketplace\Foundation\Logging\Logger;
 
 class LoginUserAction
 {
@@ -14,8 +15,12 @@ class LoginUserAction
      * LoginUserAction constructor.
      *
      * @param RefreshTokenAction $refreshToken
+     * @param Logger $logger
      */
-    public function __construct(private RefreshTokenAction $refreshToken) {}
+    public function __construct(
+        private RefreshTokenAction $refreshToken,
+        private Logger $logger
+    ) {}
 
     /**
      * Attempt to login the user.
@@ -36,9 +41,26 @@ class LoginUserAction
             ->first();
 
         if ($user && Hash::check($creds->getPassword(), $user->getAuthPassword())) {
+            $this->log('Successful login attempt', $creds);
+
             return $this->refreshToken->run($user);
         }
 
+        $this->log('Failed login attempt', $creds);
         throw new LoginException();
+    }
+
+    /**
+     * Log the login attempts.
+     *
+     * @param $message
+     * @param $creds
+     */
+    private function log($message, $creds)
+    {
+        $this->logger->info($message, [
+            'email' => $creds->getEmail(),
+            'type' => $creds->getType()
+        ]);
     }
 }
