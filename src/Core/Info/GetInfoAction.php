@@ -2,10 +2,16 @@
 
 namespace Marketplace\Core\Info;
 
+use Illuminate\Support\Env;
 use Marketplace\Foundation\Logging\Logger;
 
 class GetInfoAction
 {
+    /**
+     * GetInfoAction constructor.
+     *
+     * @param Logger $logger
+     */
     public function __construct(private Logger $logger) {}
 
     /**
@@ -18,9 +24,9 @@ class GetInfoAction
         $this->logger->info('Info requested');
 
         return [
-            'name' => env('APP_NAME'),
-            'version' => env('APP_VERSION'),
-            'base_url' => env('APP_URL'),
+            'name' => Env::get('APP_NAME'),
+            'version' => Env::get('APP_VERSION'),
+            'base_url' => Env::get('APP_URL'),
         ];
     }
 }

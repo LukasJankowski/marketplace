@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Core\Auth\Exceptions;
+namespace Marketplace\Core\Auth\Login;
 
 use Exception;
 use Illuminate\Http\JsonResponse;

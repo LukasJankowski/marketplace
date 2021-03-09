@@ -13,7 +13,7 @@ class InfoController extends Controller
      *
      * @return InfoResource
      */
-    public function __invoke(GetInfoAction $action): InfoResource
+    public function dump(GetInfoAction $action): InfoResource
     {
         return InfoResource::make($action->run());
     }

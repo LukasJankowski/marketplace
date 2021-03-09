@@ -18,5 +18,5 @@ Route::group([
     'prefix' => 'v1',
     'middleware' => ['api']
 ], function () {
-    Route::get('/info', InfoController::class)->name('dump');
+    Route::get('/info', [InfoController::class, 'dump'])->name('dump');
 });

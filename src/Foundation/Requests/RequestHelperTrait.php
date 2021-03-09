@@ -4,9 +4,6 @@ namespace Marketplace\Foundation\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
-use Marketplace\Core\Data\Admin\Admin;
-use Marketplace\Core\Data\Customer\Customer;
-use Marketplace\Core\Data\Provider\Provider;
 use Marketplace\Foundation\Exceptions\ValidationException as MarketplaceValidationException;
 use Marketplace\Foundation\Services\TypeService;
 

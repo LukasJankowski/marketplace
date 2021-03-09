@@ -1,10 +1,10 @@
 <?php
 
-namespace Marketplace\Core\Auth\Actions;
+namespace Marketplace\Core\Auth\Check;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Marketplace\Core\Auth\Exceptions\LoginException;
+use Marketplace\Core\Auth\Login\LoginException;
 use Marketplace\Foundation\Logging\Logger;
 
 class CheckLoginAction

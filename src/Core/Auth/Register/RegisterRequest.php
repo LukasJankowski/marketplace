@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Core\Auth\Requests;
+namespace Marketplace\Core\Auth\Register;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;

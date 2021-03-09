@@ -24,7 +24,6 @@ class RegisterTest extends TestCase
 
     public function testCanRegisterUser()
     {
-        // WIP
         $this->postJson($this->getRoute('customer'), [
             'salutation' => 'marketplace.core.data.field.salutation.male',
             'first_name' => 'John',
@@ -34,6 +33,8 @@ class RegisterTest extends TestCase
             'password' => 'password',
         ])
             ->assertStatus(201);
+
+        $this->markTestSkipped();
     }
 
     public function testCanRegisterUserWithoutSalutation()
@@ -58,5 +59,7 @@ class RegisterTest extends TestCase
             'password' => 'password',
         ])
             ->assertStatus(201);
+
+        $this->markTestSkipped();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Core\Auth\Resources;
+namespace Marketplace\Core\Auth\Login;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 

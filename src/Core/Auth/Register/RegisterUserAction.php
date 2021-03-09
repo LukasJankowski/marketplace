@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Core\Auth\Actions;
+namespace Marketplace\Core\Auth\Register;
 
 use App\Models\User;
 use Marketplace\Core\Data\User\Dtos\UserDto;

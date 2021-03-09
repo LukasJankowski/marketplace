@@ -4,12 +4,12 @@ namespace Marketplace\Core\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Marketplace\Core\Auth\Actions\CheckLoginAction;
-use Marketplace\Core\Auth\Actions\LoginUserAction;
-use Marketplace\Core\Auth\Actions\RegisterUserAction;
-use Marketplace\Core\Auth\Requests\LoginRequest;
-use Marketplace\Core\Auth\Requests\RegisterRequest;
-use Marketplace\Core\Auth\Resources\LoginResource;
+use Marketplace\Core\Auth\Check\CheckLoginAction;
+use Marketplace\Core\Auth\Login\LoginUserAction;
+use Marketplace\Core\Auth\Register\RegisterUserAction;
+use Marketplace\Core\Auth\Login\LoginRequest;
+use Marketplace\Core\Auth\Register\RegisterRequest;
+use Marketplace\Core\Auth\Login\LoginResource;
 use Marketplace\Core\Data\User\UserResource;
 
 class AuthController extends Controller
@@ -30,7 +30,7 @@ class AuthController extends Controller
      *
      * @return LoginResource
      *
-     * @throws Exceptions\LoginException
+     * @throws Login\LoginException
      */
     public function login(LoginRequest $request, LoginUserAction $action): LoginResource
     {
@@ -44,7 +44,7 @@ class AuthController extends Controller
      *
      * @return LoginResource
      *
-     * @throws Exceptions\LoginException
+     * @throws Login\LoginException
      */
     public function check(CheckLoginAction $action): LoginResource
     {

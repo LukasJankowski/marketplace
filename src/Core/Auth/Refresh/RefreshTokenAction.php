@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Core\Auth\Actions;
+namespace Marketplace\Core\Auth\Refresh;
 
 use App\Models\User;
 use Illuminate\Support\Str;
