@@ -5,6 +5,7 @@ namespace Marketplace\Core\Auth\Refresh;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Marketplace\Foundation\Logging\Logger;
 
 class RefreshTokenAction
 {
@@ -12,8 +13,12 @@ class RefreshTokenAction
      * RefreshTokenAction constructor.
      *
      * @param Request $request
+     * @param Logger $logger
      */
-    public function __construct(private Request $request) {}
+    public function __construct(
+        private Request $request,
+        private Logger $logger
+    ) {}
 
     /**
      * Refresh the users API token.
@@ -37,6 +42,8 @@ class RefreshTokenAction
 
         $user->setAttribute('api_token', Str::random(32));
         $user->save();
+
+        $this->logger->info('Refreshed API token', ['affected' => $user->getAuthIdentifier()]);
 
         return $user->fresh();
     }

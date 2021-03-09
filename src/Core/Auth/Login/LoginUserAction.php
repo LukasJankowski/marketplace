@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Marketplace\Core\Auth\Refresh\RefreshTokenAction;
 use Marketplace\Core\Data\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Logging\Logger;
+use Marketplace\Foundation\Services\TypeService;
 
 class LoginUserAction
 {
@@ -50,7 +51,7 @@ class LoginUserAction
 
         $this->logger->info('Failed login attempt', [
             'email' => $creds->getEmail(),
-            'type' => $creds->getType()
+            'type' => TypeService::getKeyByClass($creds->getType())
         ]);
 
         throw new LoginException();

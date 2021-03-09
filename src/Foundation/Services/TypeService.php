@@ -18,6 +18,30 @@ class TypeService
     ];
 
     /**
+     * Check if a given key exists.
+     *
+     * @param string $type
+     *
+     * @return bool
+     */
+    public static function keyExists(string $type): bool
+    {
+        return array_key_exists($type, self::TYPES);
+    }
+
+    /**
+     * Check if a given class exists.
+     *
+     * @param string $class
+     *
+     * @return bool
+     */
+    public static function classExists(string $class): bool
+    {
+        return in_array($class, self::TYPES, true);
+    }
+
+    /**
      * Get the class by key.
      *
      * @param string $type

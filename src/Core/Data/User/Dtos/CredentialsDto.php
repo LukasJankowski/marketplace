@@ -2,6 +2,8 @@
 
 namespace Marketplace\Core\Data\User\Dtos;
 
+use Marketplace\Foundation\Services\TypeService;
+
 class CredentialsDto
 {
     /**
@@ -25,9 +27,17 @@ class CredentialsDto
      * @param string $type
      *
      * @return self
+     *
+     * @throws \InvalidArgumentException
      */
     public static function make(string $email, string $password, string $type): self
     {
+        if (!TypeService::classExists($type)) {
+            throw new \InvalidArgumentException(
+                sprintf('Unknown type: %s', $type)
+            );
+        }
+
         return new self($email, $password, $type);
     }
 
