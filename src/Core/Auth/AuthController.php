@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Marketplace\Core\Auth\Check\CheckLoginAction;
 use Marketplace\Core\Auth\Login\LoginUserAction;
+use Marketplace\Core\Auth\Refresh\RefreshTokenAction;
 use Marketplace\Core\Auth\Register\RegisterUserAction;
 use Marketplace\Core\Auth\Login\LoginRequest;
 use Marketplace\Core\Auth\Register\RegisterRequest;
@@ -19,7 +20,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['throttle:5,1', 'guest'])->only(['login']);
+        $this->middleware(['throttle:5,1', 'guest'])->only(['login', 'register']);
     }
 
     /**
@@ -47,6 +48,19 @@ class AuthController extends Controller
      * @throws Login\LoginException
      */
     public function check(CheckLoginAction $action): LoginResource
+    {
+        return LoginResource::make($action->run());
+    }
+
+
+    /**
+     * Refresh the users token.
+     *
+     * @param RefreshTokenAction $action
+     *
+     * @return LoginResource
+     */
+    public function refresh(RefreshTokenAction $action): LoginResource
     {
         return LoginResource::make($action->run());
     }

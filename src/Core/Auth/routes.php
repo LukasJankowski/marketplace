@@ -22,6 +22,8 @@ Route::group([
 
     Route::get('/check', [AuthController::class, 'check'])->name('check');
 
+    Route::get('/refresh', [AuthController::class, 'refresh'])->name('refresh');
+
     Route::post('/login/{type}', [AuthController::class, 'login'])
         ->name('login')
         ->where('type', TypeService::getRouteRegexFromKeys());
