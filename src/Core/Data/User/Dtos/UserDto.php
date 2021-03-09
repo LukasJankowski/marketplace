@@ -21,7 +21,7 @@ class UserDto
      * @param string $email
      * @param string $password
      * @param string $type
-     * @param string $salutation
+     * @param null|string $salutation
      * @param string $firstName
      * @param string $lastName
      * @param string $phone
@@ -32,7 +32,7 @@ class UserDto
         string $email,
         string $password,
         string $type,
-        string $salutation,
+        ?string $salutation,
         string $firstName,
         string $lastName,
         string $phone,

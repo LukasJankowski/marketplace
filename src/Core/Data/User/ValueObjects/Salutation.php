@@ -14,24 +14,29 @@ class Salutation
     ];
 
     /**
+     * @const bool
+     */
+    public const SALUTATION_REQUIRED = false;
+
+    /**
      * Salutation constructor.
      *
-     * @param string $salutation
+     * @param null|string $salutation
      */
-    private function __construct(private string $salutation) {}
+    private function __construct(private ?string $salutation) {}
 
     /**
      * Create a new instance of self.
      *
-     * @param string $salutation
+     * @param null|string $salutation
      *
      * @return self
      *
      * @throws \InvalidArgumentException
      */
-    public static function make(string $salutation): self
+    public static function make(?string $salutation): self
     {
-        if (!in_array($salutation, self::SALUTATIONS, true)) {
+        if ($salutation !== null && !in_array($salutation, self::SALUTATIONS, true)) {
             throw new \InvalidArgumentException(
                 sprintf('Unknown salutation: %s', $salutation)
             );
@@ -43,9 +48,9 @@ class Salutation
     /**
      * Getter.
      *
-     * @return string
+     * @return null|string
      */
-    public function getSalutation(): string
+    public function getSalutation(): ?string
     {
         return $this->salutation;
     }

@@ -24,7 +24,7 @@ class PersonDto
     /**
      * Create the Person Dto.
      *
-     * @param string $salutation
+     * @param null|string $salutation
      * @param string $firstName
      * @param string $lastName
      * @param string $phone
@@ -32,7 +32,7 @@ class PersonDto
      * @return self
      */
     public static function make(
-        string $salutation,
+        ?string $salutation,
         string $firstName,
         string $lastName,
         string $phone
@@ -49,9 +49,9 @@ class PersonDto
     /**
      * Getter.
      *
-     * @return string
+     * @return null|string
      */
-    public function getSalutation(): string
+    public function getSalutation(): ?string
     {
         return $this->salutation->getSalutation();
     }

@@ -35,4 +35,28 @@ class RegisterTest extends TestCase
         ])
             ->assertStatus(201);
     }
+
+    public function testCanRegisterUserWithoutSalutation()
+    {
+        // WIP
+        $this->postJson($this->getRoute('customer'), [
+            'salutation' => null,
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'email@email.com',
+            'phone' => '+4912345678901',
+            'password' => 'password',
+        ])
+            ->assertStatus(201);
+
+        $this->postJson($this->getRoute('customer'), [
+            // no salutation
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'email@email.com',
+            'phone' => '+4912345678901',
+            'password' => 'password',
+        ])
+            ->assertStatus(201);
+    }
 }
