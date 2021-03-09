@@ -31,7 +31,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'salutation' => [
-                Salutation::SALUTATION_REQUIRED ? 'required' : 'nullable',
+                Salutation::isSalutationRequired() ? 'required' : 'nullable',
                 Rule::in(Salutation::SALUTATIONS)
             ],
             'first_name' => 'required|string',

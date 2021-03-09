@@ -37,7 +37,7 @@ final class CoreServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-
+        $this->registerCoreModules();
     }
 
     /**
@@ -50,5 +50,10 @@ final class CoreServiceProvider extends ServiceProvider
         foreach (self::CORE_MODULES as $module) {
             $this->loadRoutesFrom(self::CORE_DIR . '/' . $module . '/routes.php');
         }
+    }
+
+    private function registerCoreModules()
+    {
+        $this->mergeConfigFrom(self::CORE_DIR . '/Config/marketplace.php', 'marketplace');
     }
 }

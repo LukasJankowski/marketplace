@@ -2,6 +2,8 @@
 
 namespace Marketplace\Core\Data\User\ValueObjects;
 
+use Illuminate\Support\Facades\Config;
+
 class Salutation
 {
     /**
@@ -14,16 +16,22 @@ class Salutation
     ];
 
     /**
-     * @const bool
-     */
-    public const SALUTATION_REQUIRED = false;
-
-    /**
      * Salutation constructor.
      *
      * @param null|string $salutation
      */
     private function __construct(private ?string $salutation) {}
+
+
+    /**
+     * Check if salutations are required.
+     *
+     * @return bool
+     */
+    public static function isSalutationRequired(): bool
+    {
+        return (bool) Config::get('marketplace.core.data.field.salutations', false);
+    }
 
     /**
      * Create a new instance of self.
