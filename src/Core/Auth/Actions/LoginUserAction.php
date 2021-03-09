@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Hash;
 use Marketplace\Core\Auth\Exceptions\LoginException;
-use Marketplace\Core\Auth\UserCredentialsDto;
+use Marketplace\Core\Data\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Logging\Logger;
 
 class LoginUserAction
@@ -25,14 +25,14 @@ class LoginUserAction
     /**
      * Attempt to login the user.
      *
-     * @param UserCredentialsDto $creds
+     * @param CredentialsDto $creds
      *
      * @return User
      *
      * @throws LoginException
      * @throws ModelNotFoundException
      */
-    public function run(UserCredentialsDto $creds): User
+    public function run(CredentialsDto $creds): User
     {
         /** @var User $user */
         $user = User::query()

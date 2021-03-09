@@ -3,10 +3,14 @@
 namespace Marketplace\Core\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Marketplace\Core\Auth\Actions\CheckLoginAction;
 use Marketplace\Core\Auth\Actions\LoginUserAction;
+use Marketplace\Core\Auth\Actions\RegisterUserAction;
 use Marketplace\Core\Auth\Requests\LoginRequest;
+use Marketplace\Core\Auth\Requests\RegisterRequest;
 use Marketplace\Core\Auth\Resources\LoginResource;
+use Marketplace\Core\Data\User\UserResource;
 
 class AuthController extends Controller
 {
@@ -45,5 +49,20 @@ class AuthController extends Controller
     public function check(CheckLoginAction $action): LoginResource
     {
         return LoginResource::make($action->run());
+    }
+
+    /**
+     * Register a new user.
+     *
+     * @param RegisterRequest $request
+     * @param RegisterUserAction $action
+     *
+     * @return JsonResponse
+     */
+    public function register(RegisterRequest $request, RegisterUserAction $action): JsonResponse
+    {
+        return UserResource::make($action->run($request->getDto()))
+            ->response()
+            ->setStatusCode(201);
     }
 }

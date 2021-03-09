@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Core\Data\Models;
+namespace Marketplace\Core\Data\Customer;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

@@ -4,9 +4,13 @@ namespace Marketplace\Foundation\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
+use Marketplace\Core\Data\Admin\Admin;
+use Marketplace\Core\Data\Customer\Customer;
+use Marketplace\Core\Data\Provider\Provider;
 use Marketplace\Foundation\Exceptions\ValidationException as MarketplaceValidationException;
+use Marketplace\Foundation\Services\TypeService;
 
-trait FillMessagesTrait
+trait RequestHelperTrait
 {
     /**
      * @var string[]
@@ -15,6 +19,8 @@ trait FillMessagesTrait
         'required' => 'marketplace.core.validation.required',
         'email' => 'marketplace.core.validation.email',
         'min' => 'marketplace.core.validation.min',
+        'in' => 'marketplace.core.validation.in',
+        'string' => 'marketplace.core.validation.string',
     ];
 
     /**
@@ -45,12 +51,22 @@ trait FillMessagesTrait
      *
      * @throws ValidationException
      */
-    protected function failedValidation(Validator $validator)
+    protected function failedValidation(Validator $validator): void
     {
         try {
             parent::failedValidation($validator);
         } catch (ValidationException $e) {
             throw new MarketplaceValidationException($e->validator, $e->response, $e->errorBag);
         }
+    }
+
+    /**
+     * Get the user type.
+     *
+     * @return string
+     */
+    private function getUserType(): string
+    {
+        return TypeService::getClassByKey($this->route('type'));
     }
 }

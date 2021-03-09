@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Marketplace\Core\Auth\AuthController;
+use Marketplace\Foundation\Services\TypeService;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +24,9 @@ Route::group([
 
     Route::post('/login/{type}', [AuthController::class, 'login'])
         ->name('login')
-        ->where('type', '^(?:customer|provider|admin)$');
+        ->where('type', TypeService::getRouteRegexFromKeys());
+
+    Route::post('/register/{type}', [AuthController::class, 'register'])
+        ->name('register')
+        ->where('type', TypeService::getRouteRegexFromKeys());
 });

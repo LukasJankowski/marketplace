@@ -4,7 +4,7 @@ namespace Marketplace\Core\Auth\Tests;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Marketplace\Core\Data\Models\Customer;
+use Marketplace\Core\Data\Customer\Customer;
 use Tests\TestCase;
 
 class CheckTest extends TestCase

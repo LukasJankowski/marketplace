@@ -4,14 +4,25 @@ namespace Marketplace\Core\Auth\Tests;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Marketplace\Core\Data\Models\Admin;
-use Marketplace\Core\Data\Models\Customer;
-use Marketplace\Core\Data\Models\Provider;
+use Marketplace\Core\Data\Admin\Admin;
+use Marketplace\Foundation\Services\TypeService;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
     use RefreshDatabase;
+
+    /**
+     * Get the route.
+     *
+     * @param $type
+     *
+     * @return string
+     */
+    private function getRoute($type)
+    {
+        return route('marketplace.core.auth.login', ['type' => $type]);
+    }
 
     /**
      * Test for each type given.
@@ -23,16 +34,12 @@ class LoginTest extends TestCase
      */
     private function loginTest($type): array
     {
-        $model = match ($type) {
-            'customer' => Customer::class,
-            'provider' => Provider::class,
-            'admin' => Admin::class,
-        };
+        $model = TypeService::getClassByKey($type);
 
         $user = User::factory()->create(['type' => $model]);
 
         $response = $this->postJson(
-            route('marketplace.core.auth.login', ['type' => $type]),
+            $this->getRoute($type),
             ['email' => $user->email, 'password' => 'password']
         );
 
@@ -62,7 +69,7 @@ class LoginTest extends TestCase
         $user = User::factory()->create(['type' => Admin::class]);
 
         $this->postJson(
-            route('marketplace.core.auth.login', ['type' => 'customer']),
+            $this->getRoute('customer'),
             ['email' => $user->email, 'password' => 'password']
         )
             ->assertStatus(403)
@@ -72,7 +79,7 @@ class LoginTest extends TestCase
     public function testCantLoginWithInvalidCredentials()
     {
         $this->postJson(
-            route('marketplace.core.auth.login', ['type' => 'customer']),
+            $this->getRoute('customer'),
             ['email' => 'test@test.com', 'password' => 'password']
         )
             ->assertStatus(403)
@@ -82,7 +89,7 @@ class LoginTest extends TestCase
     public function testCantLoginWithInsufficientCredentials()
     {
         $this->postJson(
-            route('marketplace.core.auth.login', ['type' => 'customer']),
+            $this->getRoute('customer'),
             ['email' => 'invalid-email', 'password' => 'short']
         )
             ->assertStatus(422)
@@ -95,7 +102,7 @@ class LoginTest extends TestCase
     {
         for ($i = 0; $i < 5; $i++) {
             $this->postJson(
-                route('marketplace.core.auth.login', ['type' => 'customer']),
+                $this->getRoute('customer'),
                 ['email' => 'test@test.com', 'password' => 'password']
             )
                 ->assertStatus(403)
@@ -103,7 +110,7 @@ class LoginTest extends TestCase
         }
 
         $this->postJson(
-            route('marketplace.core.auth.login', ['type' => 'customer']),
+            $this->getRoute('customer'),
             ['email' => 'test@test.com', 'password' => 'password']
         )->assertStatus(429);
     }
@@ -113,31 +120,31 @@ class LoginTest extends TestCase
         $user = User::factory()->create(['type' => Admin::class]);
 
         $this->postJson(
-            route('marketplace.core.auth.login', ['type' => 'invalid-type']),
+            $this->getRoute('invalid-type'),
             ['email' => $user->email, 'password' => 'password']
         )
             ->assertStatus(404);
 
         $this->postJson(
-            route('marketplace.core.auth.login', ['type' => 'customerprovider']),
+            $this->getRoute('customerprovider'),
             ['email' => $user->email, 'password' => 'password']
         )
             ->assertStatus(404);
 
         $this->postJson(
-            route('marketplace.core.auth.login', ['type' => 'customer123']),
+            $this->getRoute('customer123'),
             ['email' => $user->email, 'password' => 'password']
         )
             ->assertStatus(404);
 
         $this->postJson(
-            route('marketplace.core.auth.login', ['type' => ' ']),
+            $this->getRoute(' '),
             ['email' => $user->email, 'password' => 'password']
         )
             ->assertStatus(404);
 
         $this->postJson(
-            route('marketplace.core.auth.login', ['type' => 'CuSTomErr']),
+            $this->getRoute('CuSTomErr'),
             ['email' => $user->email, 'password' => 'password']
         )
             ->assertStatus(404);

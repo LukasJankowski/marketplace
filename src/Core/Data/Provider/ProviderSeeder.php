@@ -1,10 +1,10 @@
 <?php
 
-namespace Marketplace\Core\Data\Seeders;
+namespace Marketplace\Core\Data\Provider;
 
 use Illuminate\Database\Seeder;
 
-class AdminSeeder extends Seeder
+class ProviderSeeder extends Seeder
 {
     /**
      * Run the database seeds.

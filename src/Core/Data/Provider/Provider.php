@@ -1,11 +1,11 @@
 <?php
 
-namespace Marketplace\Core\Data\Models;
+namespace Marketplace\Core\Data\Provider;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class Provider extends Model
 {
     use HasFactory;
 }

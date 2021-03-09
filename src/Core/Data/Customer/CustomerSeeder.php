@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Core\Data\Seeders;
+namespace Marketplace\Core\Data\Customer;
 
 use Illuminate\Database\Seeder;
 

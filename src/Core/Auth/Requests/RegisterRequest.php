@@ -3,10 +3,12 @@
 namespace Marketplace\Core\Auth\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Marketplace\Core\Data\User\Dtos\CredentialsDto;
+use Illuminate\Validation\Rule;
+use Marketplace\Core\Data\User\Dtos\UserDto;
 use Marketplace\Foundation\Requests\RequestHelperTrait;
+use Marketplace\Core\Data\User\ValueObjects\Salutation;
 
-class LoginRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     use RequestHelperTrait;
 
@@ -28,7 +30,14 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'salutation' => [
+                'required',
+                Rule::in(Salutation::SALUTATIONS)
+            ],
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
             'email' => 'required|email',
+            'phone' => 'nullable|string',
             'password' => 'required|min:6',
         ];
     }
@@ -40,20 +49,30 @@ class LoginRequest extends FormRequest
      */
     public function messages(): array
     {
-        return $this->fillMessages(['required', 'email', 'min:6']);
+        return $this->fillMessages([
+            'required',
+            'in:' . implode(',', Salutation::SALUTATIONS),
+            'string',
+            'email',
+            'min:6'
+        ]);
     }
 
     /**
      * Create the DTO.
      *
-     * @return CredentialsDto
+     * @return UserDto
      */
-    public function getDto(): CredentialsDto
+    public function getDto(): UserDto
     {
-        return CredentialsDto::make(
+        return UserDto::make(
             $this->get('email'),
             $this->get('password'),
-            $this->getUserType()
+            $this->getUserType(),
+            $this->get('salutation'),
+            $this->get('first_name'),
+            $this->get('last_name'),
+            $this->get('phone')
         );
     }
 }

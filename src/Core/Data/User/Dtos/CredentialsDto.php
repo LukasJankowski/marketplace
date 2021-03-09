@@ -1,11 +1,11 @@
 <?php
 
-namespace Marketplace\Core\Auth;
+namespace Marketplace\Core\Data\User\Dtos;
 
-class UserCredentialsDto
+class CredentialsDto
 {
     /**
-     * UserCredentialsDto constructor.
+     * CredentialsDto constructor.
      *
      * @param string $email
      * @param string $password
@@ -18,13 +18,13 @@ class UserCredentialsDto
     ) {}
 
     /**
-     * Create the UserCredentials Dto.
+     * Create the Credentials Dto.
      *
      * @param string $email
      * @param string $password
      * @param string $type
      *
-     * @return UserCredentialsDto
+     * @return self
      */
     public static function make(string $email, string $password, string $type): self
     {

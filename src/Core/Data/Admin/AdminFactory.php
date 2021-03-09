@@ -1,18 +1,17 @@
 <?php
 
-namespace Marketplace\Core\Data\Factories;
+namespace Marketplace\Core\Data\Admin;
 
-use Marketplace\Core\Data\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CustomerFactory extends Factory
+class AdminFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Customer::class;
+    protected $model = Admin::class;
 
     /**
      * Define the model's default state.

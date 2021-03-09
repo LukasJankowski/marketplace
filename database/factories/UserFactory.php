@@ -5,9 +5,8 @@ namespace Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Marketplace\Core\Data\Models\Admin;
-use Marketplace\Core\Data\Models\Customer;
-use Marketplace\Core\Data\Models\Provider;
+use Marketplace\Core\Data\User\ValueObjects\Salutation;
+use Marketplace\Foundation\Services\TypeService;
 
 class UserFactory extends Factory
 {
@@ -26,11 +25,14 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'salutation' => $this->faker->randomElement(Salutation::SALUTATIONS),
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'phone' => $this->faker->randomElement([$this->faker->phoneNumber, null]),
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'type' => $this->faker->randomElement([Customer::class, Provider::class, Admin::class]),
+            'type' => $this->faker->randomElement(TypeService::getClasses()),
             'api_token' => Str::random(32),
             'remember_token' => Str::random(10),
         ];
