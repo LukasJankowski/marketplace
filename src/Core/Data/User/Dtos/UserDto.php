@@ -5,7 +5,7 @@ namespace Marketplace\Core\Data\User\Dtos;
 class UserDto
 {
     /**
-     * UserCredentialsDto constructor.
+     * UserDto constructor.
      *
      * @param CredentialsDto $credentials
      * @param PersonDto $person
@@ -16,7 +16,7 @@ class UserDto
     ) {}
 
     /**
-     * Create the Details Dto.
+     * Create the User Dto.
      *
      * @param string $email
      * @param string $password

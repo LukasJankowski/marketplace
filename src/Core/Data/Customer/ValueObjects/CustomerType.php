@@ -48,6 +48,4 @@ class CustomerType
     {
         return $this->customerType;
     }
-
-
 }

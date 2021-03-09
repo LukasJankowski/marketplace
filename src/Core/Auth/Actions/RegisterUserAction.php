@@ -25,6 +25,10 @@ class RegisterUserAction
     public function run(UserDto $details): User
     {
         // WIP
+        // Register user
+        // Send events
+        // Avoid duplicate users (only differentiate by type) -> test
+        // Write log
         return User::factory()->make();
     }
 }
