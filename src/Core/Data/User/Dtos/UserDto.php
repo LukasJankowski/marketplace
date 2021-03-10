@@ -2,17 +2,19 @@
 
 namespace Marketplace\Core\Data\User\Dtos;
 
+use Marketplace\Core\Data\Account\Dtos\AccountDto;
+
 class UserDto
 {
     /**
      * UserDto constructor.
      *
      * @param CredentialsDto $credentials
-     * @param PersonDto $person
+     * @param AccountDto $person
      */
     private function __construct(
         private CredentialsDto $credentials,
-        private PersonDto $person,
+        private AccountDto $person,
     ) {}
 
     /**
@@ -40,7 +42,7 @@ class UserDto
     {
         return new self(
             CredentialsDto::make($email, $password, $type),
-            PersonDto::make($salutation, $firstName, $lastName, $phone)
+            AccountDto::make($salutation, $firstName, $lastName, $phone)
         );
     }
 
@@ -57,9 +59,9 @@ class UserDto
     /**
      * Getter.
      *
-     * @return PersonDto
+     * @return AccountDto
      */
-    public function getPerson(): PersonDto
+    public function getAccount(): AccountDto
     {
         return $this->person;
     }

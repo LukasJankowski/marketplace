@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Marketplace\Core\Data\User\Dtos\UserDto;
 use Marketplace\Foundation\Requests\RequestHelperTrait;
-use Marketplace\Core\Data\User\ValueObjects\Salutation;
+use Marketplace\Core\Data\Account\ValueObjects\Salutation;
 
 class RegisterRequest extends FormRequest
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Core\Data\User\ValueObjects;
+namespace Marketplace\Core\Data\Account\ValueObjects;
 
 use Illuminate\Support\Facades\Config;
 

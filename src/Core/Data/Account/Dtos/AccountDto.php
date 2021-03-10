@@ -1,10 +1,10 @@
 <?php
 
-namespace Marketplace\Core\Data\User\Dtos;
+namespace Marketplace\Core\Data\Account\Dtos;
 
-use Marketplace\Core\Data\User\ValueObjects\Salutation;
+use Marketplace\Core\Data\Account\ValueObjects\Salutation;
 
-class PersonDto
+class AccountDto
 {
     /**
      * PersonDto constructor.

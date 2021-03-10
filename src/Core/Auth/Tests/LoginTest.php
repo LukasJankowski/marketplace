@@ -4,7 +4,6 @@ namespace Marketplace\Core\Auth\Tests;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Marketplace\Core\Data\Admin\Admin;
 use Marketplace\Foundation\Services\TypeService;
 use Tests\TestCase;
 
@@ -66,7 +65,7 @@ class LoginTest extends TestCase
 
     public function testCantLoginWithMismatchingTypes()
     {
-        $user = User::factory()->create(['type' => Admin::class]);
+        $user = User::factory()->create(['type' => 'admin']);
 
         $this->postJson(
             $this->getRoute('customer'),
@@ -117,7 +116,7 @@ class LoginTest extends TestCase
 
     public function testCantLoginWithInvalidType()
     {
-        $user = User::factory()->create(['type' => Admin::class]);
+        $user = User::factory()->create(['type' => 'admin']);
 
         $this->postJson(
             $this->getRoute('invalid-type'),

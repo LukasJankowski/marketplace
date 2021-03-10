@@ -2,19 +2,15 @@
 
 namespace Marketplace\Foundation\Services;
 
-use Marketplace\Core\Data\Admin\Admin;
-use Marketplace\Core\Data\Customer\Customer;
-use Marketplace\Core\Data\Provider\Provider;
-
 class TypeService
 {
     /**
      * @const string[]
      */
     public const TYPES = [
-        'customer' => Customer::class,
-        'provider' => Provider::class,
-        'admin' => Admin::class,
+        'customer' => 'customer',
+        'provider' => 'provider',
+        'admin' => 'admin',
     ];
 
     /**
