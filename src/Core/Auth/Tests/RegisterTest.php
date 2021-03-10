@@ -3,6 +3,8 @@
 namespace Marketplace\Core\Auth\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Marketplace\Core\Auth\Register\UserRegistered;
 use Marketplace\Core\Data\Account\ValueObjects\Salutation;
 use Marketplace\Foundation\Exceptions\BusinessException;
 use Tests\TestCase;
@@ -176,5 +178,25 @@ class RegisterTest extends TestCase
             'email' => 'email@email.com',
             'type' => 'provider'
         ]);
+    }
+
+    public function testEventIsEmittedOnRegister()
+    {
+        Event::fake();
+
+        $this->postJson($this->getRoute('customer'), [
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'email@email.com',
+            'password' => 'password',
+        ])
+            ->assertStatus(201)
+            ->assertJsonPath('data.email', 'email@email.com')
+            ->assertJsonPath('data.type', 'customer');
+
+        Event::assertDispatched(
+            UserRegistered::class,
+            fn(UserRegistered $e) => $e->getUser()->getAttribute('email') === 'email@email.com'
+        );
     }
 }

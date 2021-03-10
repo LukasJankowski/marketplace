@@ -37,6 +37,8 @@ final class CoreServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->register(CoreEventServiceProvider::class);
+
         $this->registerCoreModules();
     }
 

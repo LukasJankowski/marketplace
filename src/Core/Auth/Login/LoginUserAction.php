@@ -45,6 +45,8 @@ class LoginUserAction
                 'causer' => $user->getAuthIdentifier()
             ]);
 
+            UserLoggedIn::dispatch($user);
+
             return $this->refreshToken->run($user);
         }
 

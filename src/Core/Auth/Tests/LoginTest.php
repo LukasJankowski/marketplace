@@ -4,6 +4,8 @@ namespace Marketplace\Core\Auth\Tests;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Marketplace\Core\Auth\Login\UserLoggedIn;
 use Marketplace\Foundation\Services\TypeService;
 use Tests\TestCase;
 
@@ -147,5 +149,19 @@ class LoginTest extends TestCase
             ['email' => $user->email, 'password' => 'password']
         )
             ->assertStatus(404);
+    }
+
+    public function testEventIsEmittedOnLogin()
+    {
+        Event::fake();
+
+        [$r, $u] = $this->loginTest('customer');
+        $r->assertStatus(200);
+        $r->assertJsonPath('data.token', $u->api_token);
+
+        Event::assertDispatched(
+            UserLoggedIn::class,
+            fn(UserLoggedIn $e) => $e->getUser()->getAuthIdentifier() === $u->getAuthIdentifier()
+        );
     }
 }
