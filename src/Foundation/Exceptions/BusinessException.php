@@ -2,33 +2,35 @@
 
 namespace Marketplace\Foundation\Exceptions;
 
+use Illuminate\Http\JsonResponse;
+use Marketplace\Foundation\Resources\ErrorResource;
+
 class BusinessException extends \Exception
 {
     /**
-     * @var string
-     */
-    private string $businessMessage;
-
-    /**
      * BusinessException constructor.
      *
-     * @param  string  $businessMessage
-     * @param  int  $code
-     * @param  \Throwable|null  $previous
+     * @param string $message
+     * @param int $code
+     * @param \Throwable|null $previous
      */
-    public function __construct(string $businessMessage, $code = 0, \Throwable $previous = null)
+    public function __construct(string $message, $code = 0, \Throwable $previous = null)
     {
-        $this->businessMessage = $businessMessage;
-        parent::__construct('marketplace.core.error.business', $code, $previous);
+        parent::__construct($message, $code, $previous);
     }
 
     /**
-     * Get the specific message regarding the error.
+     * Render response of the exception
      *
-     * @return string
+     * @return JsonResponse
      */
-    public function getBusinessMessage(): string
+    public function render(): JsonResponse
     {
-        return $this->businessMessage;
+        return ErrorResource::make([
+            'message' => $this->getMessage(),
+            'errors' => [],
+        ])
+            ->response()
+            ->setStatusCode(422);
     }
 }

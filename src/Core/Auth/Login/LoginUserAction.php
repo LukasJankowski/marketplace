@@ -9,6 +9,7 @@ use Marketplace\Core\Auth\Refresh\RefreshTokenAction;
 use Marketplace\Core\Data\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Logging\Logger;
 use Marketplace\Foundation\Services\TypeService;
+use Marketplace\Foundation\Services\User\UserService;
 
 class LoginUserAction
 {
@@ -16,10 +17,12 @@ class LoginUserAction
      * LoginUserAction constructor.
      *
      * @param RefreshTokenAction $refreshToken
+     * @param UserService $service
      * @param Logger $logger
      */
     public function __construct(
         private RefreshTokenAction $refreshToken,
+        private UserService $service,
         private Logger $logger
     ) {}
 
@@ -35,11 +38,7 @@ class LoginUserAction
      */
     public function run(CredentialsDto $creds): User
     {
-        /** @var User $user */
-        $user = User::query()
-            ->where('email', $creds->getEmail())
-            ->where('type', $creds->getType())
-            ->first();
+        $user = $this->service->getUserByCredentials($creds);
 
         if ($user && Hash::check($creds->getPassword(), $user->getAuthPassword())) {
             $this->logger->info('Successful login attempt', [

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Marketplace\Foundation\Logging\Logger;
+use Marketplace\Foundation\Services\TokenService;
 
 class RefreshTokenAction
 {
@@ -40,7 +41,7 @@ class RefreshTokenAction
             );
         }
 
-        $user->setAttribute('api_token', Str::random(32));
+        $user->setAttribute('api_token', TokenService::generateApiToken());
         $user->save();
 
         $this->logger->info('Refreshed API token', ['affected' => $user->getAuthIdentifier()]);

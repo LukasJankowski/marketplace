@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Marketplace\Core\Data\User\ValueObjects\Salutation;
+use Marketplace\Foundation\Services\TokenService;
 use Marketplace\Foundation\Services\TypeService;
 
 class UserFactory extends Factory
@@ -25,12 +26,11 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'username' => $this->faker->userName,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'type' => $this->faker->randomElement(TypeService::getClasses()),
-            'api_token' => Str::random(32),
+            'api_token' => TokenService::generateApiToken(),
             'remember_token' => Str::random(10),
         ];
     }

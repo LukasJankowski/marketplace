@@ -2,9 +2,10 @@
 
 namespace Marketplace\Core\Data\Account\Dtos;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Marketplace\Core\Data\Account\ValueObjects\Salutation;
 
-class AccountDto
+class AccountDto implements Arrayable
 {
     /**
      * PersonDto constructor.
@@ -12,13 +13,13 @@ class AccountDto
      * @param Salutation $salutation
      * @param string $firstName
      * @param string $lastName
-     * @param string $phone
+     * @param null|string $phone
      */
     private function __construct(
         private Salutation $salutation,
         private string $firstName,
         private string $lastName,
-        private string $phone
+        private ?string $phone
     ) {}
 
     /**
@@ -27,7 +28,7 @@ class AccountDto
      * @param null|string $salutation
      * @param string $firstName
      * @param string $lastName
-     * @param string $phone
+     * @param null|string $phone
      *
      * @return self
      */
@@ -35,7 +36,7 @@ class AccountDto
         ?string $salutation,
         string $firstName,
         string $lastName,
-        string $phone
+        ?string $phone
     ): self
     {
         return new self(
@@ -79,10 +80,25 @@ class AccountDto
     /**
      * Getter.
      *
-     * @return string
+     * @return null|string
      */
-    public function getPhone(): string
+    public function getPhone(): ?string
     {
         return $this->phone;
+    }
+
+    /**
+     * Convert data to array.
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'salutation' => $this->getSalutation(),
+            'first_name' => $this->getFirstName(),
+            'last_name' => $this->getLastName(),
+            'phone' => $this->getPhone()
+        ];
     }
 }

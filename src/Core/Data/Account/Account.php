@@ -12,6 +12,17 @@ class Account extends Model
     use HasFactory;
 
     /**
+     * @var string[]
+     */
+    protected $fillable = [
+        'user_id',
+        'salutation',
+        'first_name',
+        'last_name',
+        'phone'
+    ];
+
+    /**
      * Account belongs to user.
      *
      * @return BelongsTo

@@ -2,9 +2,10 @@
 
 namespace Marketplace\Core\Data\User\Dtos;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Marketplace\Foundation\Services\TypeService;
 
-class CredentialsDto
+class CredentialsDto implements Arrayable
 {
     /**
      * CredentialsDto constructor.
@@ -69,5 +70,19 @@ class CredentialsDto
     public function getType(): string
     {
         return $this->type;
+    }
+
+    /**
+     * Convert data to array.
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'email' => $this->getEmail(),
+            'password' => $this->getPassword(),
+            'type' => $this->getType()
+        ];
     }
 }

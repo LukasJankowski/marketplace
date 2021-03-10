@@ -1,22 +1,25 @@
 <?php
 
-namespace Marketplace\Foundation\Resources;
+namespace Marketplace\Core\Data\Account;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ErrorResource extends JsonResource
+class AccountResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return array
      */
     public function toArray($request): array
     {
         return [
-            'message' => $this['message'],
-            'errors' => $this->when(!empty($this['errors']), $this['errors']),
+            'salutation' => $this['salutation'],
+            'first_name' => $this['first_name'],
+            'last_name' => $this['last_name'],
+            'phone' => $this['phone'],
         ];
     }
 }

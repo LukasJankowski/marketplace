@@ -26,7 +26,7 @@ class UserDto
      * @param null|string $salutation
      * @param string $firstName
      * @param string $lastName
-     * @param string $phone
+     * @param null|string $phone
      *
      * @return self
      */
@@ -37,7 +37,7 @@ class UserDto
         ?string $salutation,
         string $firstName,
         string $lastName,
-        string $phone,
+        ?string $phone,
     ): self
     {
         return new self(

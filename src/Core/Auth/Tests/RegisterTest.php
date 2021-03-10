@@ -3,6 +3,8 @@
 namespace Marketplace\Core\Auth\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Marketplace\Core\Data\Account\ValueObjects\Salutation;
+use Marketplace\Foundation\Exceptions\BusinessException;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
@@ -32,14 +34,34 @@ class RegisterTest extends TestCase
             'phone' => '+4912345678901',
             'password' => 'password',
         ])
-            ->assertStatus(201);
+            ->assertStatus(201)
+            ->assertJson([
+                'data' => [
+                    'email' => 'email@email.com',
+                    'type' => 'customer',
+                    'account' => [
+                        'salutation' => 'marketplace.core.data.field.salutation.male',
+                        'first_name' => 'John',
+                        'last_name' => 'Doe',
+                        'phone' => '+4912345678901',
+                    ]
+                ]
+            ]);
 
-        $this->markTestSkipped();
+        $this->assertDatabaseHas('users', [
+            'email' => 'email@email.com',
+            'type' => 'customer',
+        ])
+            ->assertDatabaseHas('accounts', [
+            'salutation' => 'marketplace.core.data.field.salutation.male',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'phone' => '+4912345678901',
+        ]);
     }
 
     public function testCanRegisterUserWithoutSalutation()
     {
-        // WIP
         $this->postJson($this->getRoute('customer'), [
             'salutation' => null,
             'first_name' => 'John',
@@ -48,18 +70,111 @@ class RegisterTest extends TestCase
             'phone' => '+4912345678901',
             'password' => 'password',
         ])
-            ->assertStatus(201);
+            ->assertStatus(201)
+            ->assertJson([
+                'data' => [
+                    'account' => [
+                        'salutation' => null,
+                    ]
+                ]
+            ]);
 
+        $this->assertDatabaseHas('accounts', [
+            'salutation' => null
+        ]);
+    }
+
+    public function testCantRegisterUserWithoutData()
+    {
+        $this->postJson($this->getRoute('customer'), [])
+            ->assertStatus(422)
+            ->assertJson([
+                'data' => [
+                    'message' => 'marketplace.core.validation.invalid',
+                    'errors' => [
+                        'first_name' => ['marketplace.core.validation.required'],
+                        'last_name' => ['marketplace.core.validation.required'],
+                        'email' => ['marketplace.core.validation.required'],
+                        'password' => ['marketplace.core.validation.required'],
+                    ]
+                ]
+            ]);
+    }
+
+    public function testCantRegisterUserWithInvalidData()
+    {
         $this->postJson($this->getRoute('customer'), [
-            // no salutation
+            'first_name' => 'John',
+            'email' => 'invalid-email',
+            'password' => 'pass',
+            'salutation' => 'marketplace.core.data.field.salutation.invalid-salutation',
+        ])
+            ->assertStatus(422)
+            ->assertJson([
+                'data' => [
+                    'message' => 'marketplace.core.validation.invalid',
+                    'errors' => [
+                        'last_name' => ['marketplace.core.validation.required'],
+                        'email' => ['marketplace.core.validation.email'],
+                        'password' => ['marketplace.core.validation.min:6'],
+                        'salutation' => ['marketplace.core.validation.in:' . implode(',', Salutation::SALUTATIONS)],
+                    ]
+                ]
+            ]);
+    }
+
+    public function testCantRegisterDuplicateUsers()
+    {
+        $this->postJson($this->getRoute('customer'), [
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'email@email.com',
-            'phone' => '+4912345678901',
             'password' => 'password',
         ])
-            ->assertStatus(201);
+            ->assertStatus(201)
+            ->assertJsonPath('data.email', 'email@email.com')
+            ->assertJsonPath('data.type', 'customer');
 
-        $this->markTestSkipped();
+        $this->postJson($this->getRoute('customer'), [
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'email@email.com',
+            'password' => 'password',
+        ])
+            ->assertStatus(422)
+            ->assertJsonPath('data.message', 'marketplace.core.auth.register.duplicate');
+    }
+
+    public function testCanRegisterSameUserWithDifferentTypes()
+    {
+        $this->postJson($this->getRoute('customer'), [
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'email@email.com',
+            'password' => 'password',
+        ])
+            ->assertStatus(201)
+            ->assertJsonPath('data.email', 'email@email.com')
+            ->assertJsonPath('data.type', 'customer');
+
+        $this->postJson($this->getRoute('provider'), [
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'email@email.com',
+            'password' => 'password',
+        ])
+            ->assertStatus(201)
+            ->assertJsonPath('data.email', 'email@email.com')
+            ->assertJsonPath('data.type', 'provider');
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'email@email.com',
+            'type' => 'customer'
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'email@email.com',
+            'type' => 'provider'
+        ]);
     }
 }
