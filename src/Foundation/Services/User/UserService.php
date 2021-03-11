@@ -5,7 +5,6 @@ namespace Marketplace\Foundation\Services\User;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Marketplace\Core\Data\User\Dtos\CredentialsDto;
-use Marketplace\Foundation\Services\TokenService;
 
 class UserService
 {
@@ -33,9 +32,6 @@ class UserService
      */
     public function create(CredentialsDto $creds): ?User
     {
-        $data = $creds->toArray();
-        $data += ['api_token' => TokenService::generateApiToken()];
-
-        return User::query()->create($data);
+        return User::query()->create($creds->toArray());
     }
 }

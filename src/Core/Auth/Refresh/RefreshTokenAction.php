@@ -41,7 +41,7 @@ class RefreshTokenAction
             );
         }
 
-        $user->setAttribute('api_token', TokenService::generateApiToken());
+        $user->setAttribute('api_token', TokenService::generateApiToken($user->getAuthIdentifier()));
         $user->save();
 
         $this->logger->info('Refreshed API token', ['affected' => $user->getAuthIdentifier()]);

@@ -42,6 +42,12 @@ return [
              * By default it is 5 per minute.
              */
             'throttling' => 5,
+            /**
+             * The default lifetime of a token before it requires a refresh in minutes.
+             *
+             * By default it is 120 minutes.
+             */
+            'lifetime' => 120,
         ],
     ],
 ];

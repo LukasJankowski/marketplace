@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'type' => $this->faker->randomElement(TypeService::getClasses()),
-            'api_token' => TokenService::generateApiToken(),
+            'api_token' => null,
             'remember_token' => Str::random(10),
         ];
     }
@@ -46,6 +46,19 @@ class UserFactory extends Factory
             return [
                 'email_verified_at' => null,
             ];
+        });
+    }
+
+    /**
+     * Set the token after getting the id from creating.
+     *
+     * @return UserFactory
+     */
+    public function configure(): UserFactory
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->setAttribute('api_token', TokenService::generateApiToken($user->getAuthIdentifier()));
+            $user->save();
         });
     }
 }

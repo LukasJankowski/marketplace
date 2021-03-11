@@ -37,6 +37,7 @@ final class CoreServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->register(CoreEventServiceProvider::class);
+        $this->app->register(CoreAuthServiceProvider::class);
         $this->app->register(CoreRouteServiceProvider::class);
 
         $this->mergeConfigFrom(self::CORE_DIR . '/Config/marketplace.php', 'marketplace');
