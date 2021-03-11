@@ -16,14 +16,6 @@ use Marketplace\Core\Data\User\UserResource;
 class AuthController extends Controller
 {
     /**
-     * AuthController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware(['throttle:5,1', 'guest'])->only(['login', 'register']);
-    }
-
-    /**
      * Handle the incoming request.
      *
      * @param LoginRequest $request

@@ -16,19 +16,22 @@ use Marketplace\Foundation\Services\TypeService;
 */
 Route::group([
     'as' => 'marketplace.core.auth.',
-    'prefix' => 'v1/auth',
-    'middleware' => ['api']
+    'prefix' => 'auth'
 ], function () {
 
     Route::get('/check', [AuthController::class, 'check'])->name('check');
 
     Route::get('/refresh', [AuthController::class, 'refresh'])->name('refresh');
 
-    Route::post('/login/{type}', [AuthController::class, 'login'])
-        ->name('login')
-        ->where('type', TypeService::getRouteRegexFromKeys());
+    Route::group(['middleware' => ['throttle:auth']], function () {
 
-    Route::post('/register/{type}', [AuthController::class, 'register'])
-        ->name('register')
-        ->where('type', TypeService::getRouteRegexFromKeys());
+        Route::post('/login/{type}', [AuthController::class, 'login'])
+            ->name('login')
+            ->where('type', TypeService::getRouteRegexFromKeys());
+
+        Route::post('/register/{type}', [AuthController::class, 'register'])
+            ->name('register')
+            ->where('type', TypeService::getRouteRegexFromKeys());
+
+    });
 });

@@ -19,7 +19,6 @@ final class CoreServiceProvider extends ServiceProvider
         'Auth',
     ];
 
-
     /**
      * Bootstrap any application services.
      *
@@ -27,7 +26,7 @@ final class CoreServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->bootCoreModules();
+        $this->loadMigrationsFrom(self::CORE_DIR . '/Data/migrations');
     }
 
     /**
@@ -38,24 +37,8 @@ final class CoreServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->register(CoreEventServiceProvider::class);
+        $this->app->register(CoreRouteServiceProvider::class);
 
-        $this->registerCoreModules();
-    }
-
-    /**
-     * Boot the core modules.
-     */
-    private function bootCoreModules()
-    {
-        $this->loadMigrationsFrom(self::CORE_DIR . '/Data/migrations');
-
-        foreach (self::CORE_MODULES as $module) {
-            $this->loadRoutesFrom(self::CORE_DIR . '/' . $module . '/routes.php');
-        }
-    }
-
-    private function registerCoreModules()
-    {
         $this->mergeConfigFrom(self::CORE_DIR . '/Config/marketplace.php', 'marketplace');
     }
 }

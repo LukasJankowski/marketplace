@@ -15,8 +15,6 @@ use Marketplace\Core\Info\InfoController;
 */
 Route::group([
     'as' => 'marketplace.core.info.',
-    'prefix' => 'v1',
-    'middleware' => ['api']
 ], function () {
     Route::get('/info', [InfoController::class, 'dump'])->name('dump');
 });

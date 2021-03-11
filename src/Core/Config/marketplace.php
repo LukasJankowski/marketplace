@@ -32,5 +32,16 @@ return [
                 'salutations' => false,
             ],
         ],
+        /**
+         * Everything related to the core auth.
+         */
+        'auth' => [
+            /**
+             * The default throttling used by the core to avoid too many auth attempts.
+             *
+             * By default it is 5 per minute.
+             */
+            'throttling' => 5,
+        ],
     ],
 ];
