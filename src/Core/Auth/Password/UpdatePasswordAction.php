@@ -1,17 +1,18 @@
 <?php
 
-namespace Marketplace\Core\Auth\Verify;
+namespace Marketplace\Core\Auth\Password;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Marketplace\Core\Data\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Logging\Logger;
 use Marketplace\Foundation\Services\User\UserService;
 
-class VerifyUserAction
+class UpdatePasswordAction
 {
     /**
-     * VerifyUserAction constructor.
+     * UpdatePasswordAction constructor.
      *
      * @param Logger $logger
      * @param Request $request
@@ -24,31 +25,30 @@ class VerifyUserAction
     ) {}
 
     /**
-     * Verify the users email.
+     * Update the password.
+     *
+     * @param CredentialsDto $creds
      *
      * @return User
      */
-    public function run(): User
+    public function run(CredentialsDto $creds): User
     {
-        if (!$this->request->hasValidSignature()) {
-            $this->logger->info('Failed user verification.');
-
-            throw new UserVerificationException();
-        }
-
         try {
-            $user = $this->userService->markUserVerified($this->request->route('id'));
+            $user = $this->userService->updatePasswordOfUser(
+                $this->request->route('id'),
+                $creds->getPassword()
+            );
 
-            $this->logger->info('Verified user.', ['user' => $user->getAuthIdentifier()]);
+            $this->logger->info('Updated password of user.', ['user' => $user->getAuthIdentifier()]);
 
             return $user;
 
         } catch (ModelNotFoundException $e) {
-            $this->logger->info('Failed to find user to verify.', [
+            $this->logger->info('Failed to find user to update password.', [
                 'route_id' => $this->request->route('id')
             ]);
 
-            throw new UserVerificationException(previous: $e);
+            throw new UpdatePasswordException(previous: $e);
         }
     }
 }

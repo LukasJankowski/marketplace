@@ -4,6 +4,7 @@ namespace Marketplace\Foundation\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
+use Marketplace\Foundation\Exceptions\AuthorizationException;
 use Marketplace\Foundation\Exceptions\ValidationException as MarketplaceValidationException;
 use Marketplace\Foundation\Services\TypeService;
 
@@ -35,7 +36,7 @@ trait RequestHelperTrait
             $message = $this->messages[$rule[0]];
             $messageList[$rule[0]] = isset($rule[1])
                 ? $message . ':' . $rule[1]
-                : $message;;
+                : $message;
         }
 
         return $messageList;
@@ -55,6 +56,18 @@ trait RequestHelperTrait
         } catch (ValidationException $e) {
             throw new MarketplaceValidationException($e->validator, $e->response, $e->errorBag);
         }
+    }
+
+    /**
+     * Handle a failed authorization attempt.
+     *
+     * @return void
+     *
+     * @throws AuthorizationException
+     */
+    protected function failedAuthorization()
+    {
+        throw new AuthorizationException();
     }
 
     /**

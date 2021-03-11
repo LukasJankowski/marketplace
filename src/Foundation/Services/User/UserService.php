@@ -6,6 +6,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Hash;
+use Marketplace\Core\Auth\Reset\SendResetNotification;
 use Marketplace\Core\Auth\Verify\SendVerificationNotification;
 use Marketplace\Core\Data\User\Dtos\CredentialsDto;
 
@@ -35,7 +37,10 @@ class UserService
      */
     public function create(CredentialsDto $creds): ?User
     {
-        return User::query()->create($creds->toArray());
+        $data = $creds->toArray();
+        $data['password'] = $this->hashPassword($data['password']);
+
+        return User::query()->create($data);
     }
 
 
@@ -52,7 +57,7 @@ class UserService
         $user->setAttribute('email_verified_at', Carbon::now());
         $user->save();
 
-        return $user;
+        return $user->fresh();
     }
 
     /**
@@ -81,5 +86,51 @@ class UserService
         }
 
         $user->notify(new SendVerificationNotification());
+    }
+
+    /**
+     * Send the password reset email to the user.
+     *
+     * @param int|string|User $user
+     */
+    public function sendPasswordResetEmailToUser(int|string|User $user)
+    {
+        if (!is_object($user)) {
+            $user = $this->getUserById($user);
+        }
+
+        $user->notify(new SendResetNotification());
+    }
+
+    /**
+     * Update the password of the user.
+     *
+     * @param int|string|User $user
+     * @param string $password
+     *
+     * @return User
+     */
+    public function updatePasswordOfUser(int|string|User $user, string $password): User
+    {
+        if (!is_object($user)) {
+            $user = $this->getUserById($user);
+        }
+
+        $user->setAttribute('password', $this->hashPassword($password));
+        $user->save();
+
+        return $user->fresh();
+    }
+
+    /**
+     * Hash a password.
+     *
+     * @param string $password
+     *
+     * @return string
+     */
+    public function hashPassword(string $password): string
+    {
+        return Hash::make($password);
     }
 }

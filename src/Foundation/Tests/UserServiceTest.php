@@ -5,7 +5,9 @@ namespace Marketplace\Foundation\Tests;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
+use Marketplace\Core\Auth\Reset\SendResetNotification;
 use Marketplace\Core\Auth\Verify\SendVerificationNotification;
 use Marketplace\Core\Data\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Services\User\UserService;
@@ -29,6 +31,26 @@ class UserServiceTest extends TestCase
 
         $service = new UserService();
         $this->assertEquals($user, $service->getUserByCredentials($creds));
+    }
+
+    public function testCanAlwaysGetExistingUsersByCredentials()
+    {
+        // A weird bug did occur a while back. The service function didn't always
+        // provide the model but returned null for unknown reasons.
+        for ($i = 0; $i < 25; $i++) {
+            $user = User::factory()->create();
+
+            $creds = CredentialsDto::make(
+                $user->email,
+                $user->password,
+                $user->type
+            );
+
+            $user = User::query()->where('email', $user->email)->first();
+
+            $service = new UserService();
+            $this->assertEquals($user, $service->getUserByCredentials($creds));
+        }
     }
 
     public function testReturnsNullIfNoMatchingUserExists()
@@ -56,7 +78,6 @@ class UserServiceTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'email' => 'email@email.com',
-            'password' => 'password',
             'type' => 'customer',
         ]);
     }
@@ -118,5 +139,39 @@ class UserServiceTest extends TestCase
         $service->sendVerificationEmailToUser($u);
 
         Notification::assertSentTo($u, SendVerificationNotification::class);
+    }
+
+    public function testCanHashPassword()
+    {
+        $service = new UserService();
+        $this->assertTrue(
+            Hash::check('password', $service->hashPassword('password'))
+        );
+    }
+
+    public function testCanUpdatePasswordOfUser()
+    {
+        $u = User::factory()->create();
+
+        $service = new UserService();
+        $service->updatePasswordOfUser($u->id, 'another');
+
+        $u->refresh();
+
+        $this->assertTrue(
+            Hash::check('another', $u->password)
+        );
+    }
+
+    public function testCanSendPasswordResetToUser()
+    {
+        Notification::fake();
+
+        $u = User::factory()->create();
+
+        $service = new UserService();
+        $service->sendPasswordResetEmailToUser($u);
+
+        Notification::assertSentTo($u, SendResetNotification::class);
     }
 }
