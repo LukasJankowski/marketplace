@@ -14,7 +14,17 @@ class CheckTest extends TestCase
     {
         $u = User::factory()->create(['type' => 'customer']);
 
-        $this->actingAs($u)->getJson(route('marketplace.core.auth.check'))
+        $this->actingAs($u, 'api')->getJson(route('marketplace.core.auth.check'))
+            ->assertStatus(200)
+            ->assertJsonPath('data.token', $u->api_token);
+    }
+
+    public function testCanCheckStatusIfAuthenticatedManually()
+    {
+        $u = User::factory()->create(['type' => 'customer']);
+
+        $this->withHeader('Authorization', 'Bearer ' . $u->api_token)
+            ->getJson(route('marketplace.core.auth.check'))
             ->assertStatus(200)
             ->assertJsonPath('data.token', $u->api_token);
     }
