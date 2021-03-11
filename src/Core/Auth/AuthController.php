@@ -11,6 +11,7 @@ use Marketplace\Core\Auth\Register\RegisterUserAction;
 use Marketplace\Core\Auth\Login\LoginRequest;
 use Marketplace\Core\Auth\Register\RegisterRequest;
 use Marketplace\Core\Auth\Login\LoginResource;
+use Marketplace\Core\Auth\Verify\VerifyUserAction;
 use Marketplace\Core\Data\User\UserResource;
 use Marketplace\Foundation\Exceptions\BusinessException;
 
@@ -73,5 +74,17 @@ class AuthController extends Controller
         return UserResource::make($action->run($request->getDto()))
             ->response()
             ->setStatusCode(201);
+    }
+
+    /**
+     * Verify a user by email.
+     *
+     * @param VerifyUserAction $action
+     *
+     * @return UserResource
+     */
+    public function verify(VerifyUserAction $action): UserResource
+    {
+        return UserResource::make($action->run());
     }
 }

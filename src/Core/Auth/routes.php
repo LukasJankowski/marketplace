@@ -23,6 +23,8 @@ Route::group([
 
     Route::get('/refresh', [AuthController::class, 'refresh'])->name('refresh');
 
+    Route::get('/verify/{id}', [AuthController::class, 'verify'])->name('verify');
+
     Route::group(['middleware' => ['throttle:auth']], function () {
 
         Route::post('/login/{type}', [AuthController::class, 'login'])

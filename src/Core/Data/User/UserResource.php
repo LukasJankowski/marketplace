@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'id' => $this['id'],
             'email' => $this['email'],
             'type' => TypeService::getKeyByClass($this['type']),
+            'verified' => (bool) $this['email_verified_at'],
             'account' => AccountResource::make($this['account']),
         ];
     }

@@ -3,6 +3,7 @@
 namespace Marketplace\Foundation\Tests;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Marketplace\Core\Data\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Services\User\UserService;
@@ -57,4 +58,41 @@ class UserServiceTest extends TestCase
             'type' => 'customer',
         ]);
     }
+
+    public function testCanMarkUserAsVerified()
+    {
+        $user = User::factory()->unverified()->create();
+
+        $service = new UserService();
+        $user = $service->markUserVerified($user->id);
+
+        $this->assertDatabaseHas('users', [
+            'email' => $user->email,
+            'type' => $user->type,
+            'email_verified_at' => $user->email_verified_at
+        ]);
+    }
+
+    public function testCanVerifyAlreadyVerifiedUsers()
+    {
+        $user = User::factory()->create();
+
+        $service = new UserService();
+        $user = $service->markUserVerified($user->id);
+
+        $this->assertDatabaseHas('users', [
+            'email' => $user->email,
+            'type' => $user->type,
+            'email_verified_at' => $user->email_verified_at
+        ]);
+    }
+
+    public function testThrowsExceptionOnInvalidUserId()
+    {
+        $this->expectException(ModelNotFoundException::class);
+
+        $service = new UserService();
+        $user = $service->markUserVerified(999);
+    }
+
 }
