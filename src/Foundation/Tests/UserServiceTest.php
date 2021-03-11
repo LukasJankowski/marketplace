@@ -5,6 +5,8 @@ namespace Marketplace\Foundation\Tests;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
+use Marketplace\Core\Auth\Verify\SendVerificationNotification;
 use Marketplace\Core\Data\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Services\User\UserService;
 use Tests\TestCase;
@@ -92,7 +94,29 @@ class UserServiceTest extends TestCase
         $this->expectException(ModelNotFoundException::class);
 
         $service = new UserService();
-        $user = $service->markUserVerified(999);
+        $service->getUserById(999);
     }
 
+    public function testCanGetUserById()
+    {
+        $u = User::factory()->create();
+
+        $service = new UserService();
+        $this->assertEquals(
+            User::query()->find($u->id),
+            $service->getUserById($u->id)
+        );
+    }
+
+    public function testCanSendVerificationToUser()
+    {
+        Notification::fake();
+
+        $u = User::factory()->create();
+
+        $service = new UserService();
+        $service->sendVerificationEmailToUser($u);
+
+        Notification::assertSentTo($u, SendVerificationNotification::class);
+    }
 }

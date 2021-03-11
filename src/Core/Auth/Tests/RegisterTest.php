@@ -2,16 +2,25 @@
 
 namespace Marketplace\Core\Auth\Tests;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
 use Marketplace\Core\Auth\Register\UserRegistered;
+use Marketplace\Core\Auth\Verify\SendVerificationNotification;
 use Marketplace\Core\Data\Account\ValueObjects\Salutation;
-use Marketplace\Foundation\Exceptions\BusinessException;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        Notification::fake();
+    }
 
     /**
      * Get the route.
@@ -197,6 +206,24 @@ class RegisterTest extends TestCase
         Event::assertDispatched(
             UserRegistered::class,
             fn(UserRegistered $e) => $e->getUser()->getAttribute('email') === 'email@email.com'
+        );
+    }
+
+    public function testNotificationSentOnRegister()
+    {
+        $this->postJson($this->getRoute('customer'), [
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'email@email.com',
+            'password' => 'password',
+        ])
+            ->assertStatus(201)
+            ->assertJsonPath('data.email', 'email@email.com')
+            ->assertJsonPath('data.type', 'customer');
+
+        Notification::assertSentTo(
+            User::first(),
+            SendVerificationNotification::class
         );
     }
 }
