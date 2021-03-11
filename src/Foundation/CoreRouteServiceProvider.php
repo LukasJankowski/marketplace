@@ -40,7 +40,7 @@ class CoreRouteServiceProvider extends ServiceProvider
             return Limit::perMinute(
                 Config::get('marketplace.core.auth.throttling', 5)
             )
-                ->by(optional($request->user())->id ?: $request->ip());
+                ->by(optional($request->user())->getAuthIdentifier() ?: $request->ip());
         });
     }
 }

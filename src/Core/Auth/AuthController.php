@@ -12,6 +12,7 @@ use Marketplace\Core\Auth\Login\LoginRequest;
 use Marketplace\Core\Auth\Register\RegisterRequest;
 use Marketplace\Core\Auth\Login\LoginResource;
 use Marketplace\Core\Data\User\UserResource;
+use Marketplace\Foundation\Exceptions\BusinessException;
 
 class AuthController extends Controller
 {
@@ -64,6 +65,8 @@ class AuthController extends Controller
      * @param RegisterUserAction $action
      *
      * @return JsonResponse
+     *
+     * @throws BusinessException
      */
     public function register(RegisterRequest $request, RegisterUserAction $action): JsonResponse
     {
