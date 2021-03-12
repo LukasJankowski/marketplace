@@ -16,7 +16,6 @@ use Marketplace\Core\Auth\Reset\ResetRequest;
 use Marketplace\Core\Auth\Reset\ResetResource;
 use Marketplace\Core\Auth\Verify\VerifyUserAction;
 use Marketplace\Core\User\UserResource;
-use Marketplace\Foundation\Exceptions\BusinessException;
 use Marketplace\Foundation\Exceptions\ValidationException;
 
 class AuthController extends Controller
@@ -71,7 +70,7 @@ class AuthController extends Controller
      *
      * @return JsonResponse
      *
-     * @throws BusinessException
+     * @throws ValidationException
      */
     public function register(RegisterRequest $request, RegisterUserAction $action): JsonResponse
     {

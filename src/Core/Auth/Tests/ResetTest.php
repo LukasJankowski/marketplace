@@ -6,11 +6,12 @@ use Marketplace\Core\User\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Marketplace\Core\Auth\Reset\SendResetNotification;
+use Marketplace\Foundation\Tests\TestsHelperTrait;
 use Tests\TestCase;
 
 class ResetTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, TestsHelperTrait;
 
     public function setUp(): void
     {
@@ -21,7 +22,7 @@ class ResetTest extends TestCase
 
     public function testCanSendPasswordReset()
     {
-        $u = User::factory()->create(['type' => 'customer']);
+        $u = $this->getUser();
 
         $this->postJson(route('marketplace.core.auth.reset', ['type' => 'customer']), [
             'email' => $u->email

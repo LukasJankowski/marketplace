@@ -11,6 +11,11 @@ class TokenService
     /**
      * @const string
      */
+    public const SECRET_KEY = 'APP_SECRET';
+
+    /**
+     * @const string
+     */
     public const TOKEN_DIVIDER = '.';
 
     /**
@@ -81,10 +86,12 @@ class TokenService
      */
     private static function getSecret(): string
     {
-        $secret = Env::get('APP_SECRET', false);
+        $secret = Env::get(self::SECRET_KEY, false);
 
         if ($secret === false) {
-            throw new \RuntimeException('No APP_SECRET has been specified.');
+            throw new \RuntimeException(
+                sprintf('No %s has been specified.', self::SECRET_KEY)
+            );
         }
 
         return $secret;

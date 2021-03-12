@@ -3,11 +3,13 @@
 namespace Marketplace\Foundation\Exceptions;
 
 use Illuminate\Auth\Access\AuthorizationException as IlluminateAuthorizationException;
-use Illuminate\Http\JsonResponse;
-use Marketplace\Foundation\Resources\ErrorResource;
 
 class AuthorizationException extends IlluminateAuthorizationException
 {
+    use ExceptionHelperTrait;
+
+    private int $status;
+
     /**
      * AuthorizationException constructor.
      *
@@ -22,20 +24,6 @@ class AuthorizationException extends IlluminateAuthorizationException
     )
     {
         parent::__construct($message, $code, $previous);
-    }
-
-    /**
-     * Render response of the exception
-     *
-     * @return JsonResponse
-     */
-    public function render(): JsonResponse
-    {
-        return ErrorResource::make([
-            'message' => $this->getMessage(),
-            'errors' => [],
-        ])
-            ->response()
-            ->setStatusCode($this->code);
+        $this->status = $code;
     }
 }

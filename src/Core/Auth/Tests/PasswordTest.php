@@ -6,15 +6,16 @@ use Marketplace\Core\User\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
+use Marketplace\Foundation\Tests\TestsHelperTrait;
 use Tests\TestCase;
 
 class PasswordTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, TestsHelperTrait;
 
     public function testCanUpdatePasswordOfUser()
     {
-        $u = User::factory()->create();
+        $u = $this->getUser();
 
         $url = URL::signedRoute('marketplace.core.auth.password', ['type' => 'customer', 'id' => $u->id]);
 
@@ -33,7 +34,7 @@ class PasswordTest extends TestCase
 
     public function testCantUpdatePasswordWithInvalidUrl()
     {
-        $u = User::factory()->create();
+        $u = $this->getUser();
 
         $url = URL::signedRoute('marketplace.core.auth.password', ['type' => 'customer', 'id' => $u->id]);
         $url = substr($url, 0, -6); // broken signature
@@ -54,7 +55,7 @@ class PasswordTest extends TestCase
 
     public function testCantUpdatePasswordWithoutPassword()
     {
-        $u = User::factory()->create();
+        $u = $this->getUser();
 
         $url = URL::signedRoute('marketplace.core.auth.password', ['type' => 'customer', 'id' => $u->id]);
 
@@ -66,7 +67,7 @@ class PasswordTest extends TestCase
 
     public function testCantUpdateWithInsufficientPassword()
     {
-        $u = User::factory()->create();
+        $u = $this->getUser();
 
         $url = URL::signedRoute('marketplace.core.auth.password', ['type' => 'customer', 'id' => $u->id]);
 
@@ -76,5 +77,4 @@ class PasswordTest extends TestCase
             ->assertJsonPath('data.message', 'marketplace.core.validation.invalid')
             ->assertJsonPath('data.errors.password.0', 'marketplace.core.validation.min:6');
     }
-
 }

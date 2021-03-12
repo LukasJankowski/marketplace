@@ -20,7 +20,7 @@ class AccountService
     {
         $data = $account->toArray();
         $data['user_id'] = $user instanceof User
-            ? $user->getAttribute('id')
+            ? $user->getAuthIdentifier()
             : $user;
 
         return Account::query()->create($data);

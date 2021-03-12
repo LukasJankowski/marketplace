@@ -40,13 +40,7 @@ class LoginUserAction
     {
         $user = $this->service->getUserByCredentials($creds);
 
-        if ($user && Hash::check($creds->getPassword(), $user->getAuthPassword())) {
-            $this->logger->info('Successful login attempt', [
-                'causer' => $user->getAuthIdentifier()
-            ]);
-
-            UserLoggedIn::dispatch($user);
-
+        if ($this->checkLogin($creds, $user)) {
             return $this->refreshToken->run($user);
         }
 
@@ -56,5 +50,28 @@ class LoginUserAction
         ]);
 
         throw new LoginException();
+    }
+
+    /**
+     * Check if the credentials are valid.
+     *
+     * @param CredentialsDto $creds
+     * @param User|null $user
+     *
+     * @return bool
+     */
+    private function checkLogin(CredentialsDto $creds, null|User $user): bool
+    {
+        if ($user && Hash::check($creds->getPassword(), $user->getAuthPassword())) {
+            $this->logger->info('Successful login attempt', [
+                'causer' => $user->getAuthIdentifier()
+            ]);
+
+            UserLoggedIn::dispatch($user);
+
+            return true;
+        }
+
+        return false;
     }
 }

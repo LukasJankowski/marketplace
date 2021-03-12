@@ -36,6 +36,28 @@ class ResetPasswordAction
      */
     public function run(CredentialsDto $creds): User
     {
+        $user = $this->fetchUser($creds);
+
+        $this->userService->sendPasswordResetEmailToUser($user);
+
+        $this->logger->info('Reset password sent.', [
+            'email' => $creds->getEmail(),
+            'type' => TypeService::getKeyByClass($creds->getType())
+        ]);
+
+        return $user;
+    }
+
+    /**
+     * Fetch the associated user.
+     *
+     * @param CredentialsDto $creds
+     * @return User
+     *
+     * @throws ValidationException
+     */
+    private function fetchUser(CredentialsDto $creds): User
+    {
         $user = $this->userService->getUserByCredentials($creds);
 
         if ($user === null) {
@@ -48,13 +70,6 @@ class ResetPasswordAction
                 'email' => 'marketplace.core.auth.reset.invalid'
             ]);
         }
-
-        $this->userService->sendPasswordResetEmailToUser($user);
-
-        $this->logger->info('Reset password sent.', [
-            'email' => $creds->getEmail(),
-            'type' => TypeService::getKeyByClass($creds->getType())
-        ]);
 
         return $user;
     }

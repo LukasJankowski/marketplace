@@ -3,16 +3,22 @@
 namespace Marketplace\Core\Auth\Login;
 
 use Exception;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\MessageBag;
-use Marketplace\Foundation\Resources\ErrorResource;
+use Marketplace\Foundation\Exceptions\ExceptionHelperTrait;
 
 class LoginException extends Exception
 {
+    use ExceptionHelperTrait;
+
     /**
      * @var MessageBag
      */
     private MessageBag $errors;
+
+    /**
+     * @var int
+     */
+    private int $status = 403;
 
     /**
      * LoginException constructor.
@@ -35,20 +41,5 @@ class LoginException extends Exception
     public function errors(): array
     {
         return $this->errors->messages();
-    }
-
-    /**
-     * Render response of the exception
-     *
-     * @return JsonResponse
-     */
-    public function render(): JsonResponse
-    {
-        return ErrorResource::make([
-            'message' => $this->getMessage(),
-            'errors' => $this->errors(),
-        ])
-            ->response()
-            ->setStatusCode(403);
     }
 }

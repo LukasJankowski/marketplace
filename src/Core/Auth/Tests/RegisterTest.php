@@ -34,7 +34,6 @@ class RegisterTest extends TestCase
         return route('marketplace.core.auth.register', ['type' => $type]);
     }
 
-
     public function testCanRegisterUser()
     {
         $this->postJson($this->getRoute('customer'), [
@@ -153,7 +152,8 @@ class RegisterTest extends TestCase
             'password' => 'password',
         ])
             ->assertStatus(422)
-            ->assertJsonPath('data.message', 'marketplace.core.auth.register.duplicate');
+            ->assertJsonPath('data.message', 'marketplace.core.validation.invalid')
+            ->assertJsonPath('data.errors.email.0', 'marketplace.core.auth.register.duplicate');
     }
 
     public function testCanRegisterSameUserWithDifferentTypes()

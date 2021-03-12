@@ -2,17 +2,17 @@
 
 namespace Marketplace\Core\Auth\Tests;
 
-use Marketplace\Core\User\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Marketplace\Foundation\Tests\TestsHelperTrait;
 use Tests\TestCase;
 
 class CheckTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, TestsHelperTrait;
 
     public function testCanCheckStatusIfAuthenticated()
     {
-        $u = User::factory()->create(['type' => 'customer']);
+        $u = $this->getUser();
 
         $this->actingAs($u, 'api')->getJson(route('marketplace.core.auth.check'))
             ->assertStatus(200)
@@ -21,7 +21,7 @@ class CheckTest extends TestCase
 
     public function testCanCheckStatusIfAuthenticatedManually()
     {
-        $u = User::factory()->create(['type' => 'customer']);
+        $u = $this->getUser();
 
         $this->withHeader('Authorization', 'Bearer ' . $u->api_token)
             ->getJson(route('marketplace.core.auth.check'))

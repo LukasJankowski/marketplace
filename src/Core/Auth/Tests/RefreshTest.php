@@ -4,15 +4,16 @@ namespace Marketplace\Core\Auth\Tests;
 
 use Marketplace\Core\User\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Marketplace\Foundation\Tests\TestsHelperTrait;
 use Tests\TestCase;
 
 class RefreshTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, TestsHelperTrait;
 
     public function testCanRefreshTokenIfAuthenticated()
     {
-        $u = User::factory()->create(['type' => 'customer']);
+        $u = $this->getUser();
 
         $this->actingAs($u)->getJson(route('marketplace.core.auth.refresh'))
             ->assertStatus(200)

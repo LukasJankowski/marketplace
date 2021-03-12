@@ -34,15 +34,7 @@ class UpdatePasswordAction
     public function run(CredentialsDto $creds): User
     {
         try {
-            $user = $this->userService->updatePasswordOfUser(
-                $this->request->route('id'),
-                $creds->getPassword()
-            );
-
-            $this->logger->info('Updated password of user.', ['user' => $user->getAuthIdentifier()]);
-
-            return $user;
-
+            return $this->updatePassword($creds);
         } catch (ModelNotFoundException $e) {
             $this->logger->info('Failed to find user to update password.', [
                 'route_id' => $this->request->route('id')
@@ -50,5 +42,24 @@ class UpdatePasswordAction
 
             throw new UpdatePasswordException(previous: $e);
         }
+    }
+
+    /**
+     * Update the users password.
+     *
+     * @param CredentialsDto $creds
+     *
+     * @return User
+     */
+    private function updatePassword(CredentialsDto $creds): User
+    {
+        $user = $this->userService->updatePasswordOfUser(
+            $this->request->route('id'),
+            $creds->getPassword()
+        );
+
+        $this->logger->info('Updated password of user.', ['user' => $user->getAuthIdentifier()]);
+
+        return $user;
     }
 }
