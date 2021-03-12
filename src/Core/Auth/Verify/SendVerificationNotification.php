@@ -2,7 +2,7 @@
 
 namespace Marketplace\Core\Auth\Verify;
 
-use App\Models\User;
+use Marketplace\Core\User\User;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

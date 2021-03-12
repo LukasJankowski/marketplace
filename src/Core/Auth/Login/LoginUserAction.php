@@ -2,10 +2,10 @@
 
 namespace Marketplace\Core\Auth\Login;
 
-use App\Models\User;
+use Marketplace\Core\User\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Hash;
-use Marketplace\Core\Auth\Refresh\RefreshTokenAction;
+use Marketplace\Core\Auth\RefreshTokenAction;
 use Marketplace\Core\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Logging\Logger;
 use Marketplace\Core\Type\TypeService;

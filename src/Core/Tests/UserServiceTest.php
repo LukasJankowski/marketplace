@@ -2,7 +2,7 @@
 
 namespace Marketplace\Core\Tests;
 
-use App\Models\User;
+use Marketplace\Core\User\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;

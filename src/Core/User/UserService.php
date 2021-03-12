@@ -2,7 +2,6 @@
 
 namespace Marketplace\Core\User;
 
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

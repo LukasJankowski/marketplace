@@ -2,7 +2,7 @@
 
 namespace Marketplace\Core\Auth\Login;
 
-use App\Models\User;
+use Marketplace\Core\User\User;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 

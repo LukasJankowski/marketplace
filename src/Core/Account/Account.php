@@ -2,7 +2,7 @@
 
 namespace Marketplace\Core\Account;
 
-use App\Models\User;
+use Marketplace\Core\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

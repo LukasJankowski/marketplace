@@ -2,7 +2,7 @@
 
 namespace Marketplace\Core\Auth\Tests;
 
-use App\Models\User;
+use Marketplace\Core\User\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

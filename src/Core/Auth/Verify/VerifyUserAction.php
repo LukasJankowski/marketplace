@@ -2,7 +2,7 @@
 
 namespace Marketplace\Core\Auth\Verify;
 
-use App\Models\User;
+use Marketplace\Core\User\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Marketplace\Foundation\Logging\Logger;

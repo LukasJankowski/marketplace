@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Marketplace\Core\User;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Marketplace\Core\Account\Account;
-use Marketplace\Core\User\UserFactory;
 
 class User extends Authenticatable
 {

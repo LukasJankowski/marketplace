@@ -1,8 +1,8 @@
 <?php
 
-namespace Marketplace\Core\Auth\Refresh;
+namespace Marketplace\Core\Auth;
 
-use App\Models\User;
+use Marketplace\Core\User\User;
 use Illuminate\Http\Request;
 use Marketplace\Foundation\Logging\Logger;
 use Marketplace\Core\Api\TokenService;

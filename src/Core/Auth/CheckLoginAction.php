@@ -2,7 +2,7 @@
 
 namespace Marketplace\Core\Auth;
 
-use App\Models\User;
+use Marketplace\Core\User\User;
 use Illuminate\Http\Request;
 use Marketplace\Core\Auth\Login\LoginException;
 use Marketplace\Foundation\Logging\Logger;

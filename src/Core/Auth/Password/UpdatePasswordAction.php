@@ -2,7 +2,7 @@
 
 namespace Marketplace\Core\Auth\Password;
 
-use App\Models\User;
+use Marketplace\Core\User\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Marketplace\Core\User\Dtos\CredentialsDto;

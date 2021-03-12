@@ -2,7 +2,7 @@
 
 namespace Marketplace\Core\Auth\Register;
 
-use App\Models\User;
+use Marketplace\Core\User\User;
 use Marketplace\Core\User\Dtos\UserDto;
 use Marketplace\Foundation\Exceptions\BusinessException;
 use Marketplace\Foundation\Logging\Logger;

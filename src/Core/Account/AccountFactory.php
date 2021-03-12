@@ -2,7 +2,7 @@
 
 namespace Marketplace\Core\Account;
 
-use App\Models\User;
+use Marketplace\Core\User\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Marketplace\Core\Account\ValueObjects\Salutation;
 

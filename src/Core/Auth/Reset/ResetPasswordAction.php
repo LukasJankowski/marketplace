@@ -2,7 +2,7 @@
 
 namespace Marketplace\Core\Auth\Reset;
 
-use App\Models\User;
+use Marketplace\Core\User\User;
 use Illuminate\Http\Request;
 use Marketplace\Core\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Exceptions\ValidationException;

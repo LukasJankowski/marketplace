@@ -7,7 +7,6 @@ use Illuminate\Http\JsonResponse;
 use Marketplace\Core\Auth\Login\LoginUserAction;
 use Marketplace\Core\Auth\Password\UpdatePasswordAction;
 use Marketplace\Core\Auth\Password\UpdatePasswordRequest;
-use Marketplace\Core\Auth\Refresh\RefreshTokenAction;
 use Marketplace\Core\Auth\Register\RegisterUserAction;
 use Marketplace\Core\Auth\Login\LoginRequest;
 use Marketplace\Core\Auth\Register\RegisterRequest;
