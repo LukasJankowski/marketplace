@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Foundation\Services\User;
+namespace Marketplace\Core\User;
 
 use App\Models\User;
 use Carbon\Carbon;
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Hash;
 use Marketplace\Core\Auth\Reset\SendResetNotification;
 use Marketplace\Core\Auth\Verify\SendVerificationNotification;
-use Marketplace\Core\Data\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\Dtos\CredentialsDto;
 
 class UserService
 {

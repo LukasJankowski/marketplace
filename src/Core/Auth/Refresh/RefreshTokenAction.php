@@ -4,9 +4,8 @@ namespace Marketplace\Core\Auth\Refresh;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Marketplace\Foundation\Logging\Logger;
-use Marketplace\Foundation\Services\TokenService;
+use Marketplace\Core\Api\TokenService;
 
 class RefreshTokenAction
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Marketplace\Core\Data\User\Dtos;
+namespace Marketplace\Core\User\Dtos;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Marketplace\Foundation\Services\TypeService;
+use Marketplace\Core\Type\TypeService;
 
 class CredentialsDto implements Arrayable
 {

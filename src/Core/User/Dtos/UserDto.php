@@ -1,8 +1,8 @@
 <?php
 
-namespace Marketplace\Core\Data\User\Dtos;
+namespace Marketplace\Core\User\Dtos;
 
-use Marketplace\Core\Data\Account\Dtos\AccountDto;
+use Marketplace\Core\Account\Dtos\AccountDto;
 
 class UserDto
 {

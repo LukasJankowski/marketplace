@@ -14,7 +14,7 @@
 
         <testsuite name="Core">
             <directory suffix="Test.php">./src/Core/*/Tests</directory>
-            <directory suffix="Test.php">./src/Foundation/Tests</directory>
+            <directory suffix="Test.php">./src/Core/Tests</directory>
         </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">

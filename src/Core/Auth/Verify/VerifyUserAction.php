@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Marketplace\Foundation\Logging\Logger;
-use Marketplace\Foundation\Services\User\UserService;
+use Marketplace\Core\User\UserService;
 
 class VerifyUserAction
 {

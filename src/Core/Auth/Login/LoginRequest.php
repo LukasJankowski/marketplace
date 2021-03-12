@@ -3,7 +3,7 @@
 namespace Marketplace\Core\Auth\Login;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Marketplace\Core\Data\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Requests\RequestHelperTrait;
 
 class LoginRequest extends FormRequest

@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Core\Auth\Check;
+namespace Marketplace\Core\Auth;
 
 use App\Models\User;
 use Illuminate\Http\Request;

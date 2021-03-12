@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Foundation\Tests;
+namespace Marketplace\Core\Tests;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Marketplace\Core\Auth\Reset\SendResetNotification;
 use Marketplace\Core\Auth\Verify\SendVerificationNotification;
-use Marketplace\Core\Data\User\Dtos\CredentialsDto;
-use Marketplace\Foundation\Services\User\UserService;
+use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\UserService;
 use Tests\TestCase;
 
 class UserServiceTest extends TestCase

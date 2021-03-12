@@ -6,10 +6,10 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Hash;
 use Marketplace\Core\Auth\Refresh\RefreshTokenAction;
-use Marketplace\Core\Data\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Logging\Logger;
-use Marketplace\Foundation\Services\TypeService;
-use Marketplace\Foundation\Services\User\UserService;
+use Marketplace\Core\Type\TypeService;
+use Marketplace\Core\User\UserService;
 
 class LoginUserAction
 {

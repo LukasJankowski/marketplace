@@ -1,8 +1,8 @@
 <?php
 
-namespace Marketplace\Foundation\Tests;
+namespace Marketplace\Core\Tests;
 
-use Marketplace\Foundation\Services\TypeService;
+use Marketplace\Core\Type\TypeService;
 use Tests\TestCase;
 
 class TypeServiceTest extends TestCase

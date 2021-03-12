@@ -4,9 +4,9 @@ namespace Marketplace\Core\Auth\Register;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Marketplace\Core\Data\User\Dtos\UserDto;
+use Marketplace\Core\User\Dtos\UserDto;
 use Marketplace\Foundation\Requests\RequestHelperTrait;
-use Marketplace\Core\Data\Account\ValueObjects\Salutation;
+use Marketplace\Core\Account\ValueObjects\Salutation;
 
 class RegisterRequest extends FormRequest
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Foundation\Services;
+namespace Marketplace\Core\Api;
 
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Config;

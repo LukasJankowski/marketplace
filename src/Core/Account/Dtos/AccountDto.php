@@ -1,9 +1,9 @@
 <?php
 
-namespace Marketplace\Core\Data\Account\Dtos;
+namespace Marketplace\Core\Account\Dtos;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Marketplace\Core\Data\Account\ValueObjects\Salutation;
+use Marketplace\Core\Account\ValueObjects\Salutation;
 
 class AccountDto implements Arrayable
 {

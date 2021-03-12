@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Marketplace\Core\Auth\AuthController;
-use Marketplace\Foundation\Services\TypeService;
+use Marketplace\Core\Type\TypeService;
 
 /*
 |--------------------------------------------------------------------------

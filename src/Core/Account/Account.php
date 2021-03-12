@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Core\Data\Account;
+namespace Marketplace\Core\Account;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Marketplace\Core\Auth\Login\UserLoggedIn;
-use Marketplace\Foundation\Services\TypeService;
+use Marketplace\Core\Type\TypeService;
 use Tests\TestCase;
 
 class LoginTest extends TestCase

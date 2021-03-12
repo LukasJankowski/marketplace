@@ -20,13 +20,23 @@ final class CoreServiceProvider extends ServiceProvider
     ];
 
     /**
+     * @const string[]
+     */
+    public const CORE_DATA = [
+        'User',
+        'Account',
+    ];
+
+    /**
      * Bootstrap any application services.
      *
      * @return void
      */
     public function boot(): void
     {
-        $this->loadMigrationsFrom(self::CORE_DIR . '/Data/migrations');
+        foreach (self::CORE_DATA as $data) {
+            $this->loadMigrationsFrom(self::CORE_DIR . '/' . $data . '/migrations');
+        }
     }
 
     /**
@@ -40,6 +50,6 @@ final class CoreServiceProvider extends ServiceProvider
         $this->app->register(CoreAuthServiceProvider::class);
         $this->app->register(CoreRouteServiceProvider::class);
 
-        $this->mergeConfigFrom(self::CORE_DIR . '/Config/marketplace.php', 'marketplace');
+        $this->mergeConfigFrom(__DIR__ . '/../Config/marketplace.php', 'marketplace');
     }
 }

@@ -3,7 +3,7 @@
 namespace Marketplace\Core\Auth;
 
 use Marketplace\Core\Auth\Register\UserRegistered;
-use Marketplace\Foundation\Services\User\UserService;
+use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Subscribers\SubscriberHelperTrait;
 
 class AuthEventSubscriber

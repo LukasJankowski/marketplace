@@ -5,7 +5,7 @@ namespace Marketplace\Foundation\Guards;
 use App\Models\User;
 use Illuminate\Auth\TokenGuard as IlluminateTokenGuard;
 use Illuminate\Contracts\Auth\Guard;
-use Marketplace\Foundation\Services\TokenService;
+use Marketplace\Core\Api\TokenService;
 
 class TokenGuard extends IlluminateTokenGuard implements Guard
 {

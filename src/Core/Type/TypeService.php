@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Foundation\Services;
+namespace Marketplace\Core\Type;
 
 class TypeService
 {

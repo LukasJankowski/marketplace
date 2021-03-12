@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\URL;
-use Marketplace\Foundation\Services\TypeService;
+use Marketplace\Core\Type\TypeService;
 
 class SendResetNotification extends Notification implements ShouldQueue
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Marketplace\Core\Data\User;
+namespace Marketplace\Core\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Marketplace\Core\Data\Account\AccountResource;
-use Marketplace\Foundation\Services\TypeService;
+use Marketplace\Core\Account\AccountResource;
+use Marketplace\Core\Type\TypeService;
 
 class UserResource extends JsonResource
 {

@@ -1,11 +1,10 @@
 <?php
 
-namespace Marketplace\Foundation\Services\Account;
+namespace Marketplace\Core\Account;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
-use Marketplace\Core\Data\Account\Account;
-use Marketplace\Core\Data\Account\Dtos\AccountDto;
+use Marketplace\Core\Account\Dtos\AccountDto;
 
 class AccountService
 {

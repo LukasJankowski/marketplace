@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Marketplace\Core\Auth\Register\UserRegistered;
 use Marketplace\Core\Auth\Verify\SendVerificationNotification;
-use Marketplace\Core\Data\Account\ValueObjects\Salutation;
+use Marketplace\Core\Account\ValueObjects\Salutation;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase

@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Marketplace\Foundation\Exceptions\AuthorizationException;
 use Marketplace\Foundation\Exceptions\ValidationException as MarketplaceValidationException;
-use Marketplace\Foundation\Services\TypeService;
+use Marketplace\Core\Type\TypeService;
 
 trait RequestHelperTrait
 {

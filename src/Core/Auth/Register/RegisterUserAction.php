@@ -3,11 +3,11 @@
 namespace Marketplace\Core\Auth\Register;
 
 use App\Models\User;
-use Marketplace\Core\Data\User\Dtos\UserDto;
+use Marketplace\Core\User\Dtos\UserDto;
 use Marketplace\Foundation\Exceptions\BusinessException;
 use Marketplace\Foundation\Logging\Logger;
-use Marketplace\Foundation\Services\Account\AccountService;
-use Marketplace\Foundation\Services\User\UserService;
+use Marketplace\Core\Account\AccountService;
+use Marketplace\Core\User\UserService;
 
 class RegisterUserAction
 {

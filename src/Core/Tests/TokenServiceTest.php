@@ -1,8 +1,8 @@
 <?php
 
-namespace Marketplace\Foundation\Tests;
+namespace Marketplace\Core\Tests;
 
-use Marketplace\Foundation\Services\TokenService;
+use Marketplace\Core\Api\TokenService;
 use Tests\TestCase;
 
 class TokenServiceTest extends TestCase

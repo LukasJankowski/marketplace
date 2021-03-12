@@ -1,11 +1,11 @@
 <?php
 
-namespace Marketplace\Foundation\Tests;
+namespace Marketplace\Core\Tests;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Marketplace\Core\Data\Account\Dtos\AccountDto;
-use Marketplace\Foundation\Services\Account\AccountService;
+use Marketplace\Core\Account\Dtos\AccountDto;
+use Marketplace\Core\Account\AccountService;
 use Tests\TestCase;
 
 class AccountServiceTest extends TestCase

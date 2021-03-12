@@ -4,11 +4,11 @@ namespace Marketplace\Core\Auth\Reset;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Marketplace\Core\Data\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Exceptions\ValidationException;
 use Marketplace\Foundation\Logging\Logger;
-use Marketplace\Foundation\Services\TypeService;
-use Marketplace\Foundation\Services\User\UserService;
+use Marketplace\Core\Type\TypeService;
+use Marketplace\Core\User\UserService;
 
 class ResetPasswordAction
 {

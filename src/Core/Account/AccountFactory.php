@@ -1,10 +1,10 @@
 <?php
 
-namespace Marketplace\Core\Data\Account;
+namespace Marketplace\Core\Account;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Marketplace\Core\Data\Account\ValueObjects\Salutation;
+use Marketplace\Core\Account\ValueObjects\Salutation;
 
 class AccountFactory extends Factory
 {

@@ -4,7 +4,6 @@ namespace Marketplace\Core\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Marketplace\Core\Auth\Check\CheckLoginAction;
 use Marketplace\Core\Auth\Login\LoginUserAction;
 use Marketplace\Core\Auth\Password\UpdatePasswordAction;
 use Marketplace\Core\Auth\Password\UpdatePasswordRequest;
@@ -17,7 +16,7 @@ use Marketplace\Core\Auth\Reset\ResetPasswordAction;
 use Marketplace\Core\Auth\Reset\ResetRequest;
 use Marketplace\Core\Auth\Reset\ResetResource;
 use Marketplace\Core\Auth\Verify\VerifyUserAction;
-use Marketplace\Core\Data\User\UserResource;
+use Marketplace\Core\User\UserResource;
 use Marketplace\Foundation\Exceptions\BusinessException;
 use Marketplace\Foundation\Exceptions\ValidationException;
 

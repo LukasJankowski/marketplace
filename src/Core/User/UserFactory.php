@@ -1,13 +1,12 @@
 <?php
 
-namespace Database\Factories;
+namespace Marketplace\Core\User;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Marketplace\Core\Data\User\ValueObjects\Salutation;
-use Marketplace\Foundation\Services\TokenService;
-use Marketplace\Foundation\Services\TypeService;
+use Marketplace\Core\Api\TokenService;
+use Marketplace\Core\Type\TypeService;
 
 class UserFactory extends Factory
 {
