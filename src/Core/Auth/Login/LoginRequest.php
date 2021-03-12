@@ -4,6 +4,7 @@ namespace Marketplace\Core\Auth\Login;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\ValueObjects\Password;
 use Marketplace\Foundation\Requests\RequestHelperTrait;
 
 class LoginRequest extends FormRequest
@@ -29,7 +30,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => 'required|email',
-            'password' => 'required|min:6',
+            'password' => 'required|min:' . Password::getMinPasswordLength(),
         ];
     }
 

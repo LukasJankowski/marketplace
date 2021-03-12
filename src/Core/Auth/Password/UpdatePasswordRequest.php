@@ -4,6 +4,7 @@ namespace Marketplace\Core\Auth\Password;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\ValueObjects\Password;
 use Marketplace\Foundation\Requests\RequestHelperTrait;
 
 class UpdatePasswordRequest extends FormRequest
@@ -28,7 +29,7 @@ class UpdatePasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => 'required|min:6',
+            'password' => 'required|min:' . Password::getMinPasswordLength(),
         ];
     }
 

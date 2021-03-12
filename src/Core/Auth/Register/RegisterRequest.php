@@ -5,6 +5,7 @@ namespace Marketplace\Core\Auth\Register;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Marketplace\Core\User\Dtos\UserDto;
+use Marketplace\Core\User\ValueObjects\Password;
 use Marketplace\Foundation\Requests\RequestHelperTrait;
 use Marketplace\Core\Account\ValueObjects\Salutation;
 
@@ -38,7 +39,7 @@ class RegisterRequest extends FormRequest
             'last_name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'nullable|string',
-            'password' => 'required|min:6',
+            'password' => 'required|min' . Password::getMinPasswordLength(),
         ];
     }
 
@@ -54,7 +55,7 @@ class RegisterRequest extends FormRequest
             'in:' . implode(',', Salutation::SALUTATIONS),
             'string',
             'email',
-            'min:6'
+            'min:' . Password::getMinPasswordLength(),
         ]);
     }
 
