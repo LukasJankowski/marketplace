@@ -5,10 +5,10 @@ namespace Marketplace\Core\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Hash;
 use Marketplace\Core\Auth\Reset\SendResetNotification;
 use Marketplace\Core\Auth\Verify\SendVerificationNotification;
 use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\ValueObjects\Password;
 
 class UserService
 {
@@ -23,7 +23,7 @@ class UserService
     {
         return User::query()
             ->where('email', $creds->getEmail())
-            ->where('type', $creds->getType())
+            ->where('type', $creds->getType()->getClass())
             ->first();
     }
 
@@ -36,10 +36,7 @@ class UserService
      */
     public function create(CredentialsDto $creds): ?User
     {
-        $data = $creds->toArray();
-        $data['password'] = $this->hashPassword($data['password']);
-
-        return User::query()->create($data);
+        return User::query()->create($creds->toArray());
     }
 
 
@@ -80,10 +77,7 @@ class UserService
      */
     public function sendVerificationEmailToUser(int|string|User $user)
     {
-        if (!is_object($user)) {
-            $user = $this->getUserById($user);
-        }
-
+        $user = $this->getUser($user);
         $user->notify(new SendVerificationNotification());
     }
 
@@ -94,10 +88,7 @@ class UserService
      */
     public function sendPasswordResetEmailToUser(int|string|User $user)
     {
-        if (!is_object($user)) {
-            $user = $this->getUserById($user);
-        }
-
+        $user = $this->getUser($user);
         $user->notify(new SendResetNotification());
     }
 
@@ -105,31 +96,28 @@ class UserService
      * Update the password of the user.
      *
      * @param int|string|User $user
-     * @param string $password
+     * @param Password $password
      *
      * @return User
      */
-    public function updatePasswordOfUser(int|string|User $user, string $password): User
+    public function updatePasswordOfUser(int|string|User $user, Password $password): User
     {
-        if (!is_object($user)) {
-            $user = $this->getUserById($user);
-        }
-
-        $user->setAttribute('password', $this->hashPassword($password));
+        $user = $this->getUser($user);
+        $user->setAttribute('password', $password->getPassword());
         $user->save();
 
         return $user->fresh();
     }
 
     /**
-     * Hash a password.
+     * Get correct user.
      *
-     * @param string $password
+     * @param $user
      *
-     * @return string
+     * @return User
      */
-    public function hashPassword(string $password): string
+    private function getUser($user): User
     {
-        return Hash::make($password);
+        return !is_object($user) ? $this->getUserById($user) : $user;
     }
 }

@@ -50,11 +50,11 @@ class AccountDto implements Arrayable
     /**
      * Getter.
      *
-     * @return null|string
+     * @return Salutation|null
      */
-    public function getSalutation(): ?string
+    public function getSalutation(): ?Salutation
     {
-        return $this->salutation->getSalutation();
+        return $this->salutation;
     }
 
     /**
@@ -95,7 +95,7 @@ class AccountDto implements Arrayable
     public function toArray(): array
     {
         return [
-            'salutation' => $this->getSalutation(),
+            'salutation' => $this->getSalutation()->getSalutation(),
             'first_name' => $this->getFirstName(),
             'last_name' => $this->getLastName(),
             'phone' => $this->getPhone()

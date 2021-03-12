@@ -6,7 +6,6 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Marketplace\Foundation\Exceptions\AuthorizationException;
 use Marketplace\Foundation\Exceptions\ValidationException as MarketplaceValidationException;
-use Marketplace\Core\Type\TypeService;
 
 trait RequestHelperTrait
 {
@@ -86,6 +85,6 @@ trait RequestHelperTrait
      */
     private function getUserType(): string
     {
-        return TypeService::getClassByKey($this->route('type'));
+        return $this->route('type');
     }
 }

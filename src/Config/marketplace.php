@@ -30,6 +30,12 @@ return [
                  * By default, marketplace does not require salutations.
                  */
                 'salutations' => false,
+                /**
+                 * Define the minimum length a password is required to have.
+                 *
+                 * By default, marketplace requires 6 characters.
+                 */
+                'password' => 6,
             ],
         ],
         /**

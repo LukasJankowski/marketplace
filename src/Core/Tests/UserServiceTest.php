@@ -11,6 +11,7 @@ use Marketplace\Core\Auth\Reset\SendResetNotification;
 use Marketplace\Core\Auth\Verify\SendVerificationNotification;
 use Marketplace\Core\User\Dtos\CredentialsDto;
 use Marketplace\Core\User\UserService;
+use Marketplace\Core\User\ValueObjects\Password;
 use Tests\TestCase;
 
 class UserServiceTest extends TestCase
@@ -23,7 +24,7 @@ class UserServiceTest extends TestCase
 
         $creds = CredentialsDto::make(
             $user->email,
-            $user->password,
+            'password',
             $user->type
         );
 
@@ -42,7 +43,7 @@ class UserServiceTest extends TestCase
 
             $creds = CredentialsDto::make(
                 $user->email,
-                $user->password,
+                'password',
                 $user->type
             );
 
@@ -141,20 +142,12 @@ class UserServiceTest extends TestCase
         Notification::assertSentTo($u, SendVerificationNotification::class);
     }
 
-    public function testCanHashPassword()
-    {
-        $service = new UserService();
-        $this->assertTrue(
-            Hash::check('password', $service->hashPassword('password'))
-        );
-    }
-
     public function testCanUpdatePasswordOfUser()
     {
         $u = User::factory()->create();
 
         $service = new UserService();
-        $service->updatePasswordOfUser($u->id, 'another');
+        $service->updatePasswordOfUser($u->id, Password::make('another'));
 
         $u->refresh();
 

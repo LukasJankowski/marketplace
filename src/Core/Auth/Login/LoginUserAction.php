@@ -4,11 +4,9 @@ namespace Marketplace\Core\Auth\Login;
 
 use Marketplace\Core\User\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Hash;
 use Marketplace\Core\Auth\RefreshTokenAction;
 use Marketplace\Core\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Logging\Logger;
-use Marketplace\Core\Type\TypeService;
 use Marketplace\Core\User\UserService;
 
 class LoginUserAction
@@ -46,7 +44,7 @@ class LoginUserAction
 
         $this->logger->info('Failed login attempt', [
             'email' => $creds->getEmail(),
-            'type' => TypeService::getKeyByClass($creds->getType())
+            'type' => $creds->getType()->getClass()
         ]);
 
         throw new LoginException();
@@ -62,7 +60,7 @@ class LoginUserAction
      */
     private function checkLogin(CredentialsDto $creds, null|User $user): bool
     {
-        if ($user && Hash::check($creds->getPassword(), $user->getAuthPassword())) {
+        if ($user && $creds->getPassword()->verify($user->getAuthPassword())) {
             $this->logger->info('Successful login attempt', [
                 'causer' => $user->getAuthIdentifier()
             ]);

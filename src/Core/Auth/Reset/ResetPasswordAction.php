@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Marketplace\Core\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Exceptions\ValidationException;
 use Marketplace\Foundation\Logging\Logger;
-use Marketplace\Core\Type\TypeService;
 use Marketplace\Core\User\UserService;
 
 class ResetPasswordAction
@@ -42,7 +41,7 @@ class ResetPasswordAction
 
         $this->logger->info('Reset password sent.', [
             'email' => $creds->getEmail(),
-            'type' => TypeService::getKeyByClass($creds->getType())
+            'type' => $creds->getType()->getClass()
         ]);
 
         return $user;
@@ -63,7 +62,7 @@ class ResetPasswordAction
         if ($user === null) {
             $this->logger->info('Reset password failed.', [
                 'email' => $creds->getEmail(),
-                'type' => TypeService::getKeyByClass($creds->getType())
+                'type' => $creds->getType()->getClass()
             ]);
 
             throw ValidationException::withMessages([

@@ -3,7 +3,8 @@
 namespace Marketplace\Core\User\Dtos;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Marketplace\Core\Type\TypeService;
+use Marketplace\Core\Type\ValueObjects\Type;
+use Marketplace\Core\User\ValueObjects\Password;
 
 class CredentialsDto implements Arrayable
 {
@@ -11,13 +12,13 @@ class CredentialsDto implements Arrayable
      * CredentialsDto constructor.
      *
      * @param string $email
-     * @param string $password
-     * @param string $type
+     * @param Password $password
+     * @param Type $type
      */
     private function __construct(
         private string $email,
-        private string $password,
-        private string $type
+        private Password $password,
+        private Type $type
     ) {}
 
     /**
@@ -33,13 +34,7 @@ class CredentialsDto implements Arrayable
      */
     public static function make(string $email, string $password, string $type): self
     {
-        if (!TypeService::classExists($type)) {
-            throw new \InvalidArgumentException(
-                sprintf('Unknown type: %s', $type)
-            );
-        }
-
-        return new self($email, $password, $type);
+        return new self($email, Password::make($password), Type::make($type));
     }
 
     /**
@@ -55,9 +50,9 @@ class CredentialsDto implements Arrayable
     /**
      * Getter.
      *
-     * @return string
+     * @return Password
      */
-    public function getPassword(): string
+    public function getPassword(): Password
     {
         return $this->password;
     }
@@ -65,9 +60,9 @@ class CredentialsDto implements Arrayable
     /**
      * Getter.
      *
-     * @return string
+     * @return Type
      */
-    public function getType(): string
+    public function getType(): Type
     {
         return $this->type;
     }
@@ -81,8 +76,8 @@ class CredentialsDto implements Arrayable
     {
         return [
             'email' => $this->getEmail(),
-            'password' => $this->getPassword(),
-            'type' => $this->getType()
+            'password' => $this->getPassword()->getPassword(),
+            'type' => $this->getType()->getClass(),
         ];
     }
 }
