@@ -51,8 +51,10 @@ class RegisterUserAction
      * @param UserDto $details
      *
      * @throws ValidationException
+     *
+     * @return void
      */
-    private function checkForDuplicateAccount(UserDto $details)
+    private function checkForDuplicateAccount(UserDto $details): void
     {
         if ($this->userService->getUserByCredentials($details->getCredentials())) {
             $this->logger->info('Duplicate account register attempt', [

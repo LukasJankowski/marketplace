@@ -90,12 +90,12 @@ class AccountDto implements Arrayable
     /**
      * Convert data to array.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {
         return [
-            'salutation' => $this->getSalutation()->getSalutation(),
+            'salutation' => optional($this->getSalutation())->getSalutation(),
             'first_name' => $this->getFirstName(),
             'last_name' => $this->getLastName(),
             'phone' => $this->getPhone()

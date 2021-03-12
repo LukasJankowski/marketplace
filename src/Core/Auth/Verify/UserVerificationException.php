@@ -15,7 +15,7 @@ class UserVerificationException extends HttpException
      * @param int $status
      * @param string|null $exceptionMessage
      * @param \Throwable|null $previous
-     * @param array $headers
+     * @param array<string, mixed> $headers
      * @param int|null $code
      */
     public function __construct(

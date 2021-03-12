@@ -25,7 +25,7 @@ trait ExceptionHelperTrait
     /**
      * Get the errors.
      *
-     * @return array
+     * @return array<mixed>
      */
     private function getErrors(): array
     {

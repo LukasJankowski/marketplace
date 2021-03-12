@@ -10,7 +10,7 @@ class MarketplaceEventServiceProvider extends ServiceProvider
     /**
      * The event listener mappings for the application.
      *
-     * @var array
+     * @var array<mixed>
      */
     protected $listen = [
         //

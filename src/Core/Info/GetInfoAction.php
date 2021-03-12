@@ -17,7 +17,7 @@ class GetInfoAction
     /**
      * Get the basic marketplace info.
      *
-     * @return array
+     * @return array<string, string>
      */
     public function run(): array
     {

@@ -2,6 +2,7 @@
 
 namespace Marketplace\Foundation\Logging;
 
+use Illuminate\Http\Request;
 use Illuminate\Log\LogManager;
 use Psr\Log\LoggerInterface;
 
@@ -11,19 +12,23 @@ class Logger implements LoggerInterface
      * Create a new Log manager instance.
      *
      * @param LogManager $logger
+     * @param Request $request
      */
-    public function __construct(private LogManager $logger) {}
+    public function __construct(
+        private LogManager $logger,
+        private Request $request,
+    ) {}
 
     /**
      * Set additional information in the context
      *
-     * @param array $context
-     * @return array
+     * @param array<string, mixed> $context
+     * @return array<string, mixed>
      */
     private function addMetaInfo(array $context = []): array
     {
         return $context + [
-            'causer' => optional($this->request->user())->getAuthIdentifier() ?? $this->request->ip(),
+            'causer' => optional($this->request->user())->getAuthIdentifier() ?: $this->request->ip(),
         ];
     }
 

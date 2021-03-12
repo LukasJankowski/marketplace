@@ -24,7 +24,7 @@ class LoginException extends Exception
      * LoginException constructor.
      *
      * @param string $message
-     * @param array $errors
+     * @param array<string, mixed> $errors
      */
     public function __construct($message = 'marketplace.core.auth.login.failed', $errors = [])
     {
@@ -36,7 +36,7 @@ class LoginException extends Exception
     /**
      * Get the errors.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function errors(): array
     {

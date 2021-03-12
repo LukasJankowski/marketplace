@@ -23,7 +23,7 @@ trait RequestHelperTrait
     /**
      * Auto fill the messages.
      *
-     * @return array
+     * @return array<string, string>
      */
     public function autoFill(): array
     {
@@ -40,9 +40,9 @@ trait RequestHelperTrait
     /**
      * Generate a message array for requests.
      *
-     * @param array $rules
+     * @param array<string> $rules
      *
-     * @return array
+     * @return array<string, string>
      */
     private function fillMessages(array $rules = []): array
     {
@@ -89,6 +89,6 @@ trait RequestHelperTrait
      */
     private function getUserType(): string
     {
-        return $this->route('type');
+        return (string) $this->route('type');
     }
 }

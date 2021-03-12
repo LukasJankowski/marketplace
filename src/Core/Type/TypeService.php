@@ -68,9 +68,9 @@ class TypeService
     /**
      * Get the keys.
      *
-     * @param array $except
+     * @param array<string> $except
      *
-     * @return array
+     * @return array<string>
      */
     public static function getKeys(array $except = []): array
     {
@@ -80,9 +80,9 @@ class TypeService
     /**
      * Get the classes.
      *
-     * @param array $except
+     * @param array<string> $except
      *
-     * @return array
+     * @return array<string>
      */
     public static function getClasses(array $except = []): array
     {
@@ -92,7 +92,7 @@ class TypeService
     /**
      * Get the route regex for where clauses.
      *
-     * @param array $except
+     * @param array<string> $except
      *
      * @return string
      */

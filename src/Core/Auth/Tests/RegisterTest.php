@@ -222,7 +222,7 @@ class RegisterTest extends TestCase
             ->assertJsonPath('data.type', 'customer');
 
         Notification::assertSentTo(
-            User::first(),
+            User::query()->first(),
             SendVerificationNotification::class
         );
     }

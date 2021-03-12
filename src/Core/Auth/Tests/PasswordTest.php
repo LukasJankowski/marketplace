@@ -73,7 +73,6 @@ class PasswordTest extends TestCase
 
         $this->postJson($url, ['password' => 'short'])
             ->assertStatus(422)
-            ->dump()
             ->assertJsonPath('data.message', 'marketplace.core.validation.invalid')
             ->assertJsonPath('data.errors.password.0', 'marketplace.core.validation.min:6');
     }

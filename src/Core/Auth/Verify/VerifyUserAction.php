@@ -47,8 +47,10 @@ class VerifyUserAction
      * Check the urls signature.
      *
      * @throws UserVerificationException
+     *
+     * @return void
      */
-    private function checkSignature()
+    private function checkSignature(): void
     {
         if (!$this->request->hasValidSignature()) {
             $this->logger->info('Failed user verification.');
@@ -64,7 +66,8 @@ class VerifyUserAction
      */
     private function verifyUser(): User
     {
-        $user = $this->userService->markUserVerified($this->request->route('id'));
+        $id = $this->request->route('id') ?? throw new ModelNotFoundException();
+        $user = $this->userService->markUserVerified($id);
 
         $this->logger->info('Verified user.', ['user' => $user->getAuthIdentifier()]);
 

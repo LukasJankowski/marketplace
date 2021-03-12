@@ -3,12 +3,12 @@
 namespace Marketplace\Core\User;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Marketplace\Core\Auth\Reset\SendResetNotification;
 use Marketplace\Core\Auth\Verify\SendVerificationNotification;
 use Marketplace\Core\User\Dtos\CredentialsDto;
 use Marketplace\Core\User\ValueObjects\Password;
+use Marketplace\Foundation\Exceptions\DatabaseException;
 
 class UserService
 {
@@ -17,7 +17,7 @@ class UserService
      *
      * @param CredentialsDto $creds
      *
-     * @return null|Model User
+     * @return null|User
      */
     public function getUserByCredentials(CredentialsDto $creds): ?User
     {
@@ -32,11 +32,17 @@ class UserService
      *
      * @param CredentialsDto $creds
      *
-     * @return null|Model User
+     * @return User
      */
-    public function create(CredentialsDto $creds): ?User
+    public function create(CredentialsDto $creds): User
     {
-        return User::query()->create($creds->toArray());
+        /** @var User|null $user */
+        $user = User::query()->create($creds->toArray());
+        if (!$user) {
+            throw new DatabaseException('marketplace.core.database.failure.insert');
+        }
+
+        return $user;
     }
 
 
@@ -74,8 +80,10 @@ class UserService
      * Send the verification email to the user.
      *
      * @param int|string|User $user
+     *
+     * @return void
      */
-    public function sendVerificationEmailToUser(int|string|User $user)
+    public function sendVerificationEmailToUser(int|string|User $user): void
     {
         $user = $this->getUser($user);
         $user->notify(new SendVerificationNotification());
@@ -85,8 +93,10 @@ class UserService
      * Send the password reset email to the user.
      *
      * @param int|string|User $user
+     *
+     * @return void
      */
-    public function sendPasswordResetEmailToUser(int|string|User $user)
+    public function sendPasswordResetEmailToUser(int|string|User $user): void
     {
         $user = $this->getUser($user);
         $user->notify(new SendResetNotification());
@@ -112,11 +122,11 @@ class UserService
     /**
      * Get correct user.
      *
-     * @param $user
+     * @param int|string|User $user
      *
      * @return User
      */
-    private function getUser($user): User
+    private function getUser(int|string|User $user): User
     {
         return !is_object($user) ? $this->getUserById($user) : $user;
     }

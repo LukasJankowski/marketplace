@@ -70,7 +70,7 @@ class CredentialsDto implements Arrayable
     /**
      * Convert data to array.
      *
-     * @return array
+     * @return array<string, string>
      */
     public function toArray(): array
     {

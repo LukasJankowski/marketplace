@@ -2,7 +2,9 @@
 
 namespace Marketplace\Foundation\Exceptions;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException as IlluminateValidationException;
+use Symfony\Component\HttpFoundation\Response;
 
 class ValidationException extends IlluminateValidationException
 {
@@ -11,13 +13,14 @@ class ValidationException extends IlluminateValidationException
     /**
      * ValidationException constructor.
      *
-     * @param $validator
-     * @param null $response
-     * @param string $errorBag
-     * @param string $message
+     * @param Validator $validator
+     * @param  Response|null  $response
+     * @param  string  $errorBag
+     *
+     * @return void
      */
     public function __construct(
-        $validator,
+        Validator $validator,
         $response = null,
         $errorBag = 'default',
         string $message = 'marketplace.core.validation.invalid'
