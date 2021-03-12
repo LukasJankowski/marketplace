@@ -4,7 +4,7 @@ namespace Marketplace\Foundation;
 
 use Illuminate\Support\ServiceProvider;
 
-final class CoreServiceProvider extends ServiceProvider
+final class MarketplaceServiceProvider extends ServiceProvider
 {
     /**
      * @const string
@@ -46,9 +46,9 @@ final class CoreServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->register(CoreEventServiceProvider::class);
-        $this->app->register(CoreAuthServiceProvider::class);
-        $this->app->register(CoreRouteServiceProvider::class);
+        $this->app->register(MarketplaceEventServiceProvider::class);
+        $this->app->register(MarketplaceAuthServiceProvider::class);
+        $this->app->register(MarketplaceRouteServiceProvider::class);
 
         $this->mergeConfigFrom(__DIR__ . '/../Config/marketplace.php', 'marketplace');
     }

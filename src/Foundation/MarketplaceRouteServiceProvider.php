@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
-class CoreRouteServiceProvider extends ServiceProvider
+class MarketplaceRouteServiceProvider extends ServiceProvider
 {
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -21,10 +21,10 @@ class CoreRouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            foreach (CoreServiceProvider::CORE_MODULES as $module) {
+            foreach (MarketplaceServiceProvider::CORE_MODULES as $module) {
                 Route::prefix('v1')
                     ->middleware('api')
-                    ->group(CoreServiceProvider::CORE_DIR . '/' . $module . '/routes.php');
+                    ->group(MarketplaceServiceProvider::CORE_DIR . '/' . $module . '/routes.php');
             }
         });
     }

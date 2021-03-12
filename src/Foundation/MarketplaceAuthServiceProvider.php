@@ -9,7 +9,7 @@ use Marketplace\Foundation\Guards\TokenGuard;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 
-class CoreAuthServiceProvider extends ServiceProvider
+class MarketplaceAuthServiceProvider extends ServiceProvider
 {
     /**
      * Register any application authentication / authorization services.

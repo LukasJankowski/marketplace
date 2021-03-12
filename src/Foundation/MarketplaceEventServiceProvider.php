@@ -5,7 +5,7 @@ namespace Marketplace\Foundation;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Marketplace\Core\Auth\AuthEventSubscriber;
 
-class CoreEventServiceProvider extends ServiceProvider
+class MarketplaceEventServiceProvider extends ServiceProvider
 {
     /**
      * The event listener mappings for the application.
