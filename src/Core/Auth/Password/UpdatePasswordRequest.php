@@ -39,7 +39,7 @@ class UpdatePasswordRequest extends FormRequest
      */
     public function messages(): array
     {
-        return $this->fillMessages(['required', 'min:6']);
+        return $this->autoFill();
     }
 
     /**

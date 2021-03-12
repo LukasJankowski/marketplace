@@ -22,6 +22,23 @@ trait RequestHelperTrait
     ];
 
     /**
+     * Auto fill the messages.
+     *
+     * @return array
+     */
+    public function autoFill(): array
+    {
+        return $this->fillMessages(
+            array_unique(
+                explode(
+                    '|',
+                    implode('|', $this->rules())
+                )
+            )
+        );
+    }
+
+    /**
      * Generate a message array for requests.
      *
      * @param array $rules
@@ -43,11 +60,7 @@ trait RequestHelperTrait
     }
 
     /**
-     * Overwrite the error message.
-     *
-     * @param Validator $validator
-     *
-     * @throws ValidationException
+     * @inheritDoc
      */
     protected function failedValidation(Validator $validator): void
     {
@@ -59,11 +72,7 @@ trait RequestHelperTrait
     }
 
     /**
-     * Handle a failed authorization attempt.
-     *
-     * @return void
-     *
-     * @throws AuthorizationException
+     * @inheritDoc
      */
     protected function failedAuthorization()
     {

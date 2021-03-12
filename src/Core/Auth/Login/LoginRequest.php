@@ -40,7 +40,7 @@ class LoginRequest extends FormRequest
      */
     public function messages(): array
     {
-        return $this->fillMessages(['required', 'email', 'min:6']);
+        return $this->autoFill();
     }
 
     /**

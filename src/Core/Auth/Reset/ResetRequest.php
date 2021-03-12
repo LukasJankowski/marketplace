@@ -39,7 +39,7 @@ class ResetRequest extends FormRequest
      */
     public function messages(): array
     {
-        return $this->fillMessages(['required', 'email']);
+        return $this->autoFill();
     }
 
     /**
