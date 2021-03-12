@@ -50,6 +50,9 @@ final class MarketplaceServiceProvider extends ServiceProvider
         $this->app->register(MarketplaceAuthServiceProvider::class);
         $this->app->register(MarketplaceRouteServiceProvider::class);
 
-        $this->mergeConfigFrom(__DIR__ . '/../Config/marketplace.php', 'marketplace');
+        $this->mergeConfigFrom(
+            __DIR__ . '/../Config/marketplace.php',
+            'marketplace'
+        );
     }
 }

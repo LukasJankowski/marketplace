@@ -24,14 +24,4 @@ class MarketplaceEventServiceProvider extends ServiceProvider
     protected $subscribe = [
         AuthEventSubscriber::class,
     ];
-
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        parent::boot();
-    }
 }

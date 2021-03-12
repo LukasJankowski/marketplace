@@ -17,10 +17,10 @@ class SendVerificationNotification extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param  User  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via(User $notifiable)
     {
         return ['mail'];
     }
@@ -33,27 +33,27 @@ class SendVerificationNotification extends Notification implements ShouldQueue
      */
     public function toMail(User $notifiable)
     {
-        return (new MailMessage)
-                    ->line('Registration.')
-                    ->action(
-                        'Confirm',
-                        URL::signedRoute(
-                            'marketplace.core.auth.verify', [
-                                'id' => $notifiable->getAuthIdentifier()
-                            ],
-                            Carbon::now()->addDays(2)
-                        )
-                    )
-                    ->line('Expiration in 48h.');
+        return (new MailMessage())
+            ->line('Registration.')
+            ->action(
+                'Confirm',
+                URL::signedRoute(
+                    'marketplace.core.auth.verify', [
+                        'id' => $notifiable->getAuthIdentifier()
+                    ],
+                    Carbon::now()->addDays(2)
+                )
+            )
+            ->line('Expiration in 48h.');
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  User  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray(User $notifiable)
     {
         return [
             'data' => [

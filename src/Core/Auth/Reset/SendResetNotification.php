@@ -18,10 +18,10 @@ class SendResetNotification extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param  User  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via(User $notifiable)
     {
         return ['mail'];
     }
@@ -34,28 +34,28 @@ class SendResetNotification extends Notification implements ShouldQueue
      */
     public function toMail(User $notifiable)
     {
-        return (new MailMessage)
-                    ->line('Password reset.')
-                    ->action(
-                        'Reset',
-                        URL::signedRoute(
-                            'marketplace.core.auth.password', [
-                                'type' => TypeService::getKeyByClass($notifiable->getAttribute('type')),
-                                'id' => $notifiable->getAuthIdentifier()
-                            ],
-                            Carbon::now()->addDays(2)
-                        )
-                    )
-                    ->line('Expiration in 48h.');
+        return (new MailMessage())
+            ->line('Password reset.')
+            ->action(
+                'Reset',
+                URL::signedRoute(
+                    'marketplace.core.auth.password', [
+                        'type' => TypeService::getKeyByClass($notifiable->getAttribute('type')),
+                        'id' => $notifiable->getAuthIdentifier()
+                    ],
+                    Carbon::now()->addDays(2)
+                )
+            )
+            ->line('Expiration in 48h.');
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  User  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray(User $notifiable)
     {
         return [
             'data' => [

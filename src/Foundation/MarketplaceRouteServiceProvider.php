@@ -16,11 +16,11 @@ class MarketplaceRouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->configureRateLimiting();
 
-        $this->routes(function () {
+        $this->routes(function (): void {
             foreach (MarketplaceServiceProvider::CORE_MODULES as $module) {
                 Route::prefix('v1')
                     ->middleware('api')
@@ -34,7 +34,7 @@ class MarketplaceRouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configureRateLimiting()
+    protected function configureRateLimiting(): void
     {
         RateLimiter::for('auth', function (Request $request) {
             return Limit::perMinute(

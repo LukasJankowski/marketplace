@@ -3,7 +3,6 @@
 namespace Marketplace\Core\Auth\Reset;
 
 use Marketplace\Core\User\User;
-use Illuminate\Http\Request;
 use Marketplace\Core\User\Dtos\CredentialsDto;
 use Marketplace\Foundation\Exceptions\ValidationException;
 use Marketplace\Foundation\Logging\Logger;
@@ -15,12 +14,10 @@ class ResetPasswordAction
      * ResetPasswordAction constructor.
      *
      * @param Logger $logger
-     * @param Request $request
      * @param UserService $userService
      */
     public function __construct(
         private Logger $logger,
-        private Request $request,
         private UserService $userService,
     ) {}
 

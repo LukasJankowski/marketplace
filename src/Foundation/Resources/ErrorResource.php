@@ -16,7 +16,7 @@ class ErrorResource extends JsonResource
     {
         return [
             'message' => $this['message'],
-            'errors' => $this->when(!empty($this['errors']), $this['errors']),
+            'errors' => $this->when($this['errors'] !== [], $this['errors']),
         ];
     }
 }

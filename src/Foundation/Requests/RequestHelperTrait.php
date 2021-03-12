@@ -65,15 +65,19 @@ trait RequestHelperTrait
     {
         try {
             parent::failedValidation($validator);
-        } catch (ValidationException $e) {
-            throw new MarketplaceValidationException($e->validator, $e->response, $e->errorBag);
+        } catch (ValidationException $exception) {
+            throw new MarketplaceValidationException(
+                $exception->validator,
+                $exception->response,
+                $exception->errorBag
+            );
         }
     }
 
     /**
      * @inheritDoc
      */
-    protected function failedAuthorization()
+    protected function failedAuthorization(): void
     {
         throw new AuthorizationException();
     }

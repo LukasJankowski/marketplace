@@ -11,7 +11,7 @@ trait SubscriberHelperTrait
      *
      * @param Dispatcher $dispatcher
      */
-    public function subscribe(Dispatcher $dispatcher)
+    public function subscribe(Dispatcher $dispatcher): void
     {
         foreach (self::SUBSCRIBER as $event => $subscribers) {
             foreach ($subscribers as $subscriber) {

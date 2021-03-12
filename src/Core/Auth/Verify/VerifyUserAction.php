@@ -30,19 +30,10 @@ class VerifyUserAction
      */
     public function run(): User
     {
-        if (!$this->request->hasValidSignature()) {
-            $this->logger->info('Failed user verification.');
-
-            throw new UserVerificationException();
-        }
+        $this->checkSignature();
 
         try {
-            $user = $this->userService->markUserVerified($this->request->route('id'));
-
-            $this->logger->info('Verified user.', ['user' => $user->getAuthIdentifier()]);
-
-            return $user;
-
+            return $this->verifyUser();
         } catch (ModelNotFoundException $e) {
             $this->logger->info('Failed to find user to verify.', [
                 'route_id' => $this->request->route('id')
@@ -50,5 +41,33 @@ class VerifyUserAction
 
             throw new UserVerificationException(previous: $e);
         }
+    }
+
+    /**
+     * Check the urls signature.
+     *
+     * @throws UserVerificationException
+     */
+    private function checkSignature()
+    {
+        if (!$this->request->hasValidSignature()) {
+            $this->logger->info('Failed user verification.');
+
+            throw new UserVerificationException();
+        }
+    }
+
+    /**
+     * Verify the users email.
+     *
+     * @return User
+     */
+    private function verifyUser(): User
+    {
+        $user = $this->userService->markUserVerified($this->request->route('id'));
+
+        $this->logger->info('Verified user.', ['user' => $user->getAuthIdentifier()]);
+
+        return $user;
     }
 }

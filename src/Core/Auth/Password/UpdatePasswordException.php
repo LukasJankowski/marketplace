@@ -21,7 +21,7 @@ class UpdatePasswordException extends HttpException
     public function __construct(
         private int $status = 403,
         private ?string $exceptionMessage = 'marketplace.core.auth.password.invalid',
-        \Throwable $previous = null,
+        ?\Throwable $previous = null,
         array $headers = [],
         ?int $code = 0
     )
