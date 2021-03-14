@@ -87,8 +87,8 @@ trait RequestHelperTrait
      *
      * @return string
      */
-    private function getUserType(): string
+    private function getUserRole(): string
     {
-        return (string) $this->route('type');
+        return (string) $this->route('role');
     }
 }

@@ -17,7 +17,7 @@ class PasswordTest extends TestCase
     {
         $u = $this->getUser();
 
-        $url = URL::signedRoute('marketplace.core.auth.password', ['type' => 'customer', 'id' => $u->id]);
+        $url = URL::signedRoute('marketplace.core.auth.password', ['role' => 'customer', 'id' => $u->id]);
 
         $this->postJson($url, [
             'password' => 'another'
@@ -36,7 +36,7 @@ class PasswordTest extends TestCase
     {
         $u = $this->getUser();
 
-        $url = URL::signedRoute('marketplace.core.auth.password', ['type' => 'customer', 'id' => $u->id]);
+        $url = URL::signedRoute('marketplace.core.auth.password', ['role' => 'customer', 'id' => $u->id]);
         $url = substr($url, 0, -6); // broken signature
 
         $this->postJson($url)
@@ -46,7 +46,7 @@ class PasswordTest extends TestCase
 
     public function testCantUpdatePasswordWithInvalidId()
     {
-        $url = URL::signedRoute('marketplace.core.auth.password', ['type' => 'customer', 'id' => 1]);
+        $url = URL::signedRoute('marketplace.core.auth.password', ['role' => 'customer', 'id' => 1]);
 
         $this->postJson($url, ['password' => 'another'])
             ->assertStatus(403)
@@ -57,7 +57,7 @@ class PasswordTest extends TestCase
     {
         $u = $this->getUser();
 
-        $url = URL::signedRoute('marketplace.core.auth.password', ['type' => 'customer', 'id' => $u->id]);
+        $url = URL::signedRoute('marketplace.core.auth.password', ['role' => 'customer', 'id' => $u->id]);
 
         $this->postJson($url)
             ->assertStatus(422)
@@ -69,7 +69,7 @@ class PasswordTest extends TestCase
     {
         $u = $this->getUser();
 
-        $url = URL::signedRoute('marketplace.core.auth.password', ['type' => 'customer', 'id' => $u->id]);
+        $url = URL::signedRoute('marketplace.core.auth.password', ['role' => 'customer', 'id' => $u->id]);
 
         $this->postJson($url, ['password' => 'short'])
             ->assertStatus(422)

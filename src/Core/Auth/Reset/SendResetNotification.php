@@ -40,7 +40,7 @@ class SendResetNotification extends Notification implements ShouldQueue
                 'Reset',
                 URL::signedRoute(
                     'marketplace.core.auth.password', [
-                        'type' => RoleService::getSlugByRole($notifiable->getAttribute('type')),
+                        'role' => RoleService::getSlugByRole($notifiable->getAttribute('role')),
                         'id' => $notifiable->getAuthIdentifier()
                     ],
                     Carbon::now()->addDays(2)

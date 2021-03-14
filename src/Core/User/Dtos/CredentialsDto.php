@@ -13,12 +13,12 @@ class CredentialsDto implements Arrayable
      *
      * @param string $email
      * @param Password $password
-     * @param Role $type
+     * @param Role $role
      */
     private function __construct(
         private string $email,
         private Password $password,
-        private Role $type
+        private Role $role
     ) {}
 
     /**
@@ -26,15 +26,13 @@ class CredentialsDto implements Arrayable
      *
      * @param string $email
      * @param string $password
-     * @param string $type
+     * @param string $role
      *
      * @return self
-     *
-     * @throws \InvalidArgumentException
      */
-    public static function make(string $email, string $password, string $type): self
+    public static function make(string $email, string $password, string $role): self
     {
-        return new self($email, Password::make($password), Role::make($type));
+        return new self($email, Password::make($password), Role::make($role));
     }
 
     /**
@@ -62,9 +60,9 @@ class CredentialsDto implements Arrayable
      *
      * @return Role
      */
-    public function getType(): Role
+    public function getRole(): Role
     {
-        return $this->type;
+        return $this->role;
     }
 
     /**
@@ -77,7 +75,7 @@ class CredentialsDto implements Arrayable
         return [
             'email' => $this->getEmail(),
             'password' => $this->getPassword()->getPassword(),
-            'type' => $this->getType()->getClass(),
+            'role' => $this->getRole()->getRole(),
         ];
     }
 }

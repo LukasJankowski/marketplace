@@ -16,31 +16,31 @@ class LoginTest extends TestCase
     /**
      * Get the route.
      *
-     * @param $type
+     * @param $role
      *
      * @return string
      */
-    private function getRoute($type)
+    private function getRoute($role): string
     {
-        return route('marketplace.core.auth.login', ['type' => $type]);
+        return route('marketplace.core.auth.login', ['role' => $role]);
     }
 
     /**
      * Test for each type given.
      *
-     * @param $type
+     * @param $role
      * @param $routeKey
      *
      * @return array
      */
-    private function loginTest($type): array
+    private function loginTest($role): array
     {
-        $model = RoleService::getRoleBySlug($type);
+        $model = RoleService::getRoleBySlug($role);
 
-        $user = $this->getUser(['type' => $model]);
+        $user = $this->getUser(['role' => $model]);
 
         $response = $this->postJson(
-            $this->getRoute($type),
+            $this->getRoute($role),
             ['email' => $user->email, 'password' => 'password']
         );
 
@@ -67,7 +67,7 @@ class LoginTest extends TestCase
 
     public function testCantLoginWithMismatchingTypes()
     {
-        $user = $this->getUser(['type' => 'admin']);
+        $user = $this->getUser(['role' => 'admin']);
 
         $this->postJson(
             $this->getRoute('customer'),
@@ -118,7 +118,7 @@ class LoginTest extends TestCase
 
     public function testCantLoginWithInvalidType()
     {
-        $user = $this->getUser(['type' => 'admin']);
+        $user = $this->getUser(['role' => 'admin']);
 
         $this->postJson(
             $this->getRoute('invalid-type'),

@@ -20,7 +20,7 @@ class UserResource extends JsonResource
         return [
             'id' => $this['id'],
             'email' => $this['email'],
-            'type' => RoleService::getSlugByRole($this['type']),
+            'role' => RoleService::getSlugByRole($this['role']),
             'verified' => (bool) $this['email_verified_at'],
             'account' => AccountResource::make($this['account']),
         ];

@@ -25,23 +25,23 @@ Route::group([
 
     Route::get('/verify/{id}', [AuthController::class, 'verify'])->name('verify');
 
-    Route::post('/reset/{type}', [AuthController::class, 'reset'])
+    Route::post('/reset/{role}', [AuthController::class, 'reset'])
         ->name('reset')
-        ->where('type', RoleService::getRouteRegexFromSlugs());
+        ->where('role', RoleService::getRouteRegexFromSlugs());
 
-    Route::post('/password/{type}/{id}', [AuthController::class, 'password'])
+    Route::post('/password/{role}/{id}', [AuthController::class, 'password'])
         ->name('password')
-        ->where('type', RoleService::getRouteRegexFromSlugs());
+        ->where('role', RoleService::getRouteRegexFromSlugs());
 
     Route::group(['middleware' => ['throttle:auth']], function () {
 
-        Route::post('/login/{type}', [AuthController::class, 'login'])
+        Route::post('/login/{role}', [AuthController::class, 'login'])
             ->name('login')
-            ->where('type', RoleService::getRouteRegexFromSlugs());
+            ->where('role', RoleService::getRouteRegexFromSlugs());
 
-        Route::post('/register/{type}', [AuthController::class, 'register'])
+        Route::post('/register/{role}', [AuthController::class, 'register'])
             ->name('register')
-            ->where('type', RoleService::getRouteRegexFromSlugs());
+            ->where('role', RoleService::getRouteRegexFromSlugs());
 
     });
 });

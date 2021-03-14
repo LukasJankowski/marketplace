@@ -54,7 +54,6 @@ class UpdatePasswordAction
     private function updatePassword(CredentialsDto $creds): User
     {
         $id = $this->request->route('id') ?? throw new ModelNotFoundException();
-
         $user = $this->userService->updatePasswordOfUser($id, $creds->getPassword());
 
         $this->logger->info('Updated password of user.', ['user' => $user->getAuthIdentifier()]);

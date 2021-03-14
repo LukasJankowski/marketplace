@@ -7,28 +7,28 @@ use Marketplace\Core\Role\RoleService;
 class Role
 {
     /**
-     * Type constructor.
+     * Role constructor.
      *
-     * @param string $type
+     * @param string $slug
      */
-    private function __construct(private string $type) {}
+    private function __construct(private string $slug) {}
 
     /**
      * Create a new instance of self.
      *
-     * @param string $type
+     * @param string $slug
      *
      * @return self
      */
-    public static function make(string $type): self
+    public static function make(string $slug): self
     {
-        if (!RoleService::slugExists($type)) {
+        if (!RoleService::slugExists($slug)) {
             throw new \InvalidArgumentException(
-                sprintf('Unknown type: %s', $type)
+                sprintf('Unknown type: %s', $slug)
             );
         }
 
-        return new self($type);
+        return new self($slug);
     }
 
     /**
@@ -36,9 +36,9 @@ class Role
      *
      * @return string
      */
-    public function getType(): string
+    public function getSlug(): string
     {
-        return $this->type;
+        return $this->slug;
     }
 
     /**
@@ -46,8 +46,8 @@ class Role
      *
      * @return string
      */
-    public function getClass(): string
+    public function getRole(): string
     {
-        return RoleService::getRoleBySlug($this->type);
+        return RoleService::getRoleBySlug($this->slug);
     }
 }

@@ -69,7 +69,7 @@ class RegisterRequest extends FormRequest
         return UserDto::make(
             $this->get('email'),
             $this->get('password'),
-            $this->getUserType(),
+            $this->getUserRole(),
             $this->get('salutation'),
             $this->get('first_name'),
             $this->get('last_name'),

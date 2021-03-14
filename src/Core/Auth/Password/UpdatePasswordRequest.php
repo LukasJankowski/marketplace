@@ -53,7 +53,7 @@ class UpdatePasswordRequest extends FormRequest
         return CredentialsDto::make(
             '__unused',
             $this->get('password'),
-            $this->getUserType()
+            $this->getUserRole()
         );
     }
 }

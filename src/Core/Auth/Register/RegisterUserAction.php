@@ -59,7 +59,7 @@ class RegisterUserAction
         if ($this->userService->getUserByCredentials($details->getCredentials())) {
             $this->logger->info('Duplicate account register attempt', [
                 'email' => $details->getCredentials()->getEmail(),
-                'type' => $details->getCredentials()->getType()->getClass()
+                'role' => $details->getCredentials()->getRole()->getRole()
             ]);
 
             throw ValidationException::withMessages(['email' => 'marketplace.core.auth.register.duplicate']);

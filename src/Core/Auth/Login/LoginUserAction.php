@@ -44,7 +44,7 @@ class LoginUserAction
 
         $this->logger->info('Failed login attempt', [
             'email' => $creds->getEmail(),
-            'type' => $creds->getType()->getClass()
+            'role' => $creds->getRole()->getRole()
         ]);
 
         throw new LoginException();

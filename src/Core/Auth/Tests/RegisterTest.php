@@ -31,7 +31,7 @@ class RegisterTest extends TestCase
      */
     private function getRoute($type)
     {
-        return route('marketplace.core.auth.register', ['type' => $type]);
+        return route('marketplace.core.auth.register', ['role' => $type]);
     }
 
     public function testCanRegisterUser()
@@ -48,7 +48,7 @@ class RegisterTest extends TestCase
             ->assertJson([
                 'data' => [
                     'email' => 'email@email.com',
-                    'type' => 'customer',
+                    'role' => 'customer',
                     'account' => [
                         'salutation' => 'marketplace.core.data.field.salutation.male',
                         'first_name' => 'John',
@@ -60,7 +60,7 @@ class RegisterTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'email' => 'email@email.com',
-            'type' => 'customer',
+            'role' => 'customer',
         ])
             ->assertDatabaseHas('accounts', [
             'salutation' => 'marketplace.core.data.field.salutation.male',
@@ -143,7 +143,7 @@ class RegisterTest extends TestCase
         ])
             ->assertStatus(201)
             ->assertJsonPath('data.email', 'email@email.com')
-            ->assertJsonPath('data.type', 'customer');
+            ->assertJsonPath('data.role', 'customer');
 
         $this->postJson($this->getRoute('customer'), [
             'first_name' => 'John',
@@ -166,7 +166,7 @@ class RegisterTest extends TestCase
         ])
             ->assertStatus(201)
             ->assertJsonPath('data.email', 'email@email.com')
-            ->assertJsonPath('data.type', 'customer');
+            ->assertJsonPath('data.role', 'customer');
 
         $this->postJson($this->getRoute('provider'), [
             'first_name' => 'John',
@@ -176,16 +176,16 @@ class RegisterTest extends TestCase
         ])
             ->assertStatus(201)
             ->assertJsonPath('data.email', 'email@email.com')
-            ->assertJsonPath('data.type', 'provider');
+            ->assertJsonPath('data.role', 'provider');
 
         $this->assertDatabaseHas('users', [
             'email' => 'email@email.com',
-            'type' => 'customer'
+            'role' => 'customer'
         ]);
 
         $this->assertDatabaseHas('users', [
             'email' => 'email@email.com',
-            'type' => 'provider'
+            'role' => 'provider'
         ]);
     }
 
@@ -201,7 +201,7 @@ class RegisterTest extends TestCase
         ])
             ->assertStatus(201)
             ->assertJsonPath('data.email', 'email@email.com')
-            ->assertJsonPath('data.type', 'customer');
+            ->assertJsonPath('data.role', 'customer');
 
         Event::assertDispatched(
             UserRegistered::class,
@@ -219,7 +219,7 @@ class RegisterTest extends TestCase
         ])
             ->assertStatus(201)
             ->assertJsonPath('data.email', 'email@email.com')
-            ->assertJsonPath('data.type', 'customer');
+            ->assertJsonPath('data.role', 'customer');
 
         Notification::assertSentTo(
             User::query()->first(),

@@ -38,7 +38,7 @@ class ResetPasswordAction
 
         $this->logger->info('Reset password sent.', [
             'email' => $creds->getEmail(),
-            'type' => $creds->getType()->getClass()
+            'role' => $creds->getRole()->getRole()
         ]);
 
         return $user;
@@ -59,7 +59,7 @@ class ResetPasswordAction
         if ($user === null) {
             $this->logger->info('Reset password failed.', [
                 'email' => $creds->getEmail(),
-                'type' => $creds->getType()->getClass()
+                'role' => $creds->getRole()->getRole()
             ]);
 
             throw ValidationException::withMessages([

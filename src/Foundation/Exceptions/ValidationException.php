@@ -14,10 +14,9 @@ class ValidationException extends IlluminateValidationException
      * ValidationException constructor.
      *
      * @param Validator $validator
-     * @param  Response|null  $response
-     * @param  string  $errorBag
-     *
-     * @return void
+     * @param null $response
+     * @param string $errorBag
+     * @param string $message
      */
     public function __construct(
         Validator $validator,

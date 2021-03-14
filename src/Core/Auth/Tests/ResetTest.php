@@ -24,7 +24,7 @@ class ResetTest extends TestCase
     {
         $u = $this->getUser();
 
-        $this->postJson(route('marketplace.core.auth.reset', ['type' => 'customer']), [
+        $this->postJson(route('marketplace.core.auth.reset', ['role' => 'customer']), [
             'email' => $u->email
         ])
             ->assertStatus(200)
@@ -36,7 +36,7 @@ class ResetTest extends TestCase
 
     public function testCantSendPasswordResetToInvalidEmail()
     {
-        $this->postJson(route('marketplace.core.auth.reset', ['type' => 'customer']), [
+        $this->postJson(route('marketplace.core.auth.reset', ['role' => 'customer']), [
             'email' => 'invalid-email'
         ])
             ->assertStatus(422)
@@ -46,7 +46,7 @@ class ResetTest extends TestCase
 
     public function testCantSendPasswordResetToUnknownUser()
     {
-        $this->postJson(route('marketplace.core.auth.reset', ['type' => 'customer']), [
+        $this->postJson(route('marketplace.core.auth.reset', ['role' => 'customer']), [
             'email' => 'non-existing@email.com',
         ])
             ->assertStatus(422)

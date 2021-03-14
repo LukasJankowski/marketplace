@@ -54,7 +54,7 @@ class LoginRequest extends FormRequest
         return CredentialsDto::make(
             $this->get('email'),
             $this->get('password'),
-            $this->getUserType()
+            $this->getUserRole()
         );
     }
 }

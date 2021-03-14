@@ -25,7 +25,7 @@ class UserServiceTest extends TestCase
         $creds = CredentialsDto::make(
             $user->email,
             'password',
-            $user->type
+            $user->role
         );
 
         $user = User::query()->first();
@@ -44,7 +44,7 @@ class UserServiceTest extends TestCase
             $creds = CredentialsDto::make(
                 $user->email,
                 'password',
-                $user->type
+                $user->role
             );
 
             $user = User::query()->where('email', $user->email)->first();
@@ -79,7 +79,7 @@ class UserServiceTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'email' => 'email@email.com',
-            'type' => 'customer',
+            'role' => 'customer',
         ]);
     }
 
@@ -92,7 +92,7 @@ class UserServiceTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'email' => $user->email,
-            'type' => $user->type,
+            'role' => $user->role,
             'email_verified_at' => $user->email_verified_at
         ]);
     }
@@ -106,7 +106,7 @@ class UserServiceTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'email' => $user->email,
-            'type' => $user->type,
+            'role' => $user->role,
             'email_verified_at' => $user->email_verified_at
         ]);
     }

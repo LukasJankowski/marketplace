@@ -13,7 +13,7 @@ trait TestsHelperTrait
      *
      * @return User
      */
-    private function getUser(array $args = ['type' => 'customer']): User
+    private function getUser(array $args = ['role' => 'customer']): User
     {
         return User::factory()->create($args);
     }

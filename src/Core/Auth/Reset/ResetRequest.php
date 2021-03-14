@@ -52,7 +52,7 @@ class ResetRequest extends FormRequest
         return CredentialsDto::make(
             $this->get('email'),
             '__unused',
-            $this->getUserType()
+            $this->getUserRole()
         );
     }
 }

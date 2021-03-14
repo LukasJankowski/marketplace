@@ -23,7 +23,7 @@ class UserService
     {
         return User::query()
             ->where('email', $creds->getEmail())
-            ->where('type', $creds->getType()->getClass())
+            ->where('role', $creds->getRole()->getRole())
             ->first();
     }
 
