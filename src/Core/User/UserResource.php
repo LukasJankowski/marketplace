@@ -4,7 +4,7 @@ namespace Marketplace\Core\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Marketplace\Core\Account\AccountResource;
-use Marketplace\Core\Type\TypeService;
+use Marketplace\Core\Role\RoleService;
 
 class UserResource extends JsonResource
 {
@@ -20,7 +20,7 @@ class UserResource extends JsonResource
         return [
             'id' => $this['id'],
             'email' => $this['email'],
-            'type' => TypeService::getKeyByClass($this['type']),
+            'type' => RoleService::getSlugByRole($this['type']),
             'verified' => (bool) $this['email_verified_at'],
             'account' => AccountResource::make($this['account']),
         ];

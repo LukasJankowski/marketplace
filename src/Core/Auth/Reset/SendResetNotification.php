@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\URL;
-use Marketplace\Core\Type\TypeService;
+use Marketplace\Core\Role\RoleService;
 
 class SendResetNotification extends Notification implements ShouldQueue
 {
@@ -40,7 +40,7 @@ class SendResetNotification extends Notification implements ShouldQueue
                 'Reset',
                 URL::signedRoute(
                     'marketplace.core.auth.password', [
-                        'type' => TypeService::getKeyByClass($notifiable->getAttribute('type')),
+                        'type' => RoleService::getSlugByRole($notifiable->getAttribute('type')),
                         'id' => $notifiable->getAuthIdentifier()
                     ],
                     Carbon::now()->addDays(2)

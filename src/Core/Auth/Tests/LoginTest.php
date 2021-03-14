@@ -5,7 +5,7 @@ namespace Marketplace\Core\Auth\Tests;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Marketplace\Core\Auth\Login\UserLoggedIn;
-use Marketplace\Core\Type\TypeService;
+use Marketplace\Core\Role\RoleService;
 use Marketplace\Foundation\Tests\TestsHelperTrait;
 use Tests\TestCase;
 
@@ -35,7 +35,7 @@ class LoginTest extends TestCase
      */
     private function loginTest($type): array
     {
-        $model = TypeService::getClassByKey($type);
+        $model = RoleService::getRoleBySlug($type);
 
         $user = $this->getUser(['type' => $model]);
 

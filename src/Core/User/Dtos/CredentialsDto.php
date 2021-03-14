@@ -3,7 +3,7 @@
 namespace Marketplace\Core\User\Dtos;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Marketplace\Core\Type\ValueObjects\Type;
+use Marketplace\Core\Role\ValueObjects\Role;
 use Marketplace\Core\User\ValueObjects\Password;
 
 class CredentialsDto implements Arrayable
@@ -13,12 +13,12 @@ class CredentialsDto implements Arrayable
      *
      * @param string $email
      * @param Password $password
-     * @param Type $type
+     * @param Role $type
      */
     private function __construct(
         private string $email,
         private Password $password,
-        private Type $type
+        private Role $type
     ) {}
 
     /**
@@ -34,7 +34,7 @@ class CredentialsDto implements Arrayable
      */
     public static function make(string $email, string $password, string $type): self
     {
-        return new self($email, Password::make($password), Type::make($type));
+        return new self($email, Password::make($password), Role::make($type));
     }
 
     /**
@@ -60,9 +60,9 @@ class CredentialsDto implements Arrayable
     /**
      * Getter.
      *
-     * @return Type
+     * @return Role
      */
-    public function getType(): Type
+    public function getType(): Role
     {
         return $this->type;
     }

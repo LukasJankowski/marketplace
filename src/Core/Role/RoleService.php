@@ -1,13 +1,13 @@
 <?php
 
-namespace Marketplace\Core\Type;
+namespace Marketplace\Core\Role;
 
-class TypeService
+class RoleService
 {
     /**
      * @const string[]
      */
-    public const TYPES = [
+    public const ROLES = [
         'customer' => 'customer',
         'provider' => 'provider',
         'admin' => 'admin',
@@ -20,9 +20,9 @@ class TypeService
      *
      * @return bool
      */
-    public static function keyExists(string $type): bool
+    public static function slugExists(string $type): bool
     {
-        return array_key_exists($type, self::TYPES);
+        return array_key_exists($type, self::ROLES);
     }
 
     /**
@@ -32,9 +32,9 @@ class TypeService
      *
      * @return bool
      */
-    public static function classExists(string $class): bool
+    public static function roleExists(string $class): bool
     {
-        return in_array($class, self::TYPES, true);
+        return in_array($class, self::ROLES, true);
     }
 
     /**
@@ -44,9 +44,9 @@ class TypeService
      *
      * @return string
      */
-    public static function getClassByKey(string $type): string
+    public static function getRoleBySlug(string $type): string
     {
-        return self::TYPES[$type] ?? throw new \InvalidArgumentException(
+        return self::ROLES[$type] ?? throw new \InvalidArgumentException(
             sprintf('Unknown type: %s', $type)
         );
     }
@@ -58,9 +58,9 @@ class TypeService
      *
      * @return string
      */
-    public static function getKeyByClass(string $class): string
+    public static function getSlugByRole(string $class): string
     {
-        return array_flip(self::TYPES)[$class] ?? throw new \InvalidArgumentException(
+        return array_flip(self::ROLES)[$class] ?? throw new \InvalidArgumentException(
             sprintf('Unknown class: %s', $class)
         );
     }
@@ -72,9 +72,9 @@ class TypeService
      *
      * @return array<string>
      */
-    public static function getKeys(array $except = []): array
+    public static function getSlugs(array $except = []): array
     {
-        return array_diff(array_keys(self::TYPES), $except);
+        return array_diff(array_keys(self::ROLES), $except);
     }
 
     /**
@@ -84,9 +84,9 @@ class TypeService
      *
      * @return array<string>
      */
-    public static function getClasses(array $except = []): array
+    public static function getRoles(array $except = []): array
     {
-        return array_diff(array_values(self::TYPES), $except);
+        return array_diff(array_values(self::ROLES), $except);
     }
 
     /**
@@ -96,8 +96,8 @@ class TypeService
      *
      * @return string
      */
-    public static function getRouteRegexFromKeys(array $except = []): string
+    public static function getRouteRegexFromSlugs(array $except = []): string
     {
-        return sprintf('^(?:%s)$', implode('|', self::getKeys($except)));
+        return sprintf('^(?:%s)$', implode('|', self::getSlugs($except)));
     }
 }

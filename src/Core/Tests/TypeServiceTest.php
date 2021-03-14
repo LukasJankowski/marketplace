@@ -2,64 +2,64 @@
 
 namespace Marketplace\Core\Tests;
 
-use Marketplace\Core\Type\TypeService;
+use Marketplace\Core\Role\RoleService;
 use Tests\TestCase;
 
 class TypeServiceTest extends TestCase
 {
     public function testReturnsTrueIfKeyExists()
     {
-        $this->assertTrue(TypeService::keyExists('customer'));
+        $this->assertTrue(RoleService::slugExists('customer'));
     }
 
     public function testReturnsFalseIfKeyDoesNotExist()
     {
-        $this->assertFalse(TypeService::keyExists('invalid-key'));
+        $this->assertFalse(RoleService::slugExists('invalid-key'));
     }
 
     public function testReturnsTrueIfClassExists()
     {
-        $this->assertTrue(TypeService::classExists('customer'));
+        $this->assertTrue(RoleService::roleExists('customer'));
     }
 
     public function testReturnsFalseIfClassDoesNotExist()
     {
-        $this->assertFalse(TypeService::classExists('invalid-class'));
+        $this->assertFalse(RoleService::roleExists('invalid-class'));
     }
 
     public function testCanGetClassByKey()
     {
         $this->assertEquals(
             'customer',
-            TypeService::getClassByKey('customer')
+            RoleService::getRoleBySlug('customer')
         );
     }
 
     public function testThrowsExceptionWhenUsingUnknownKey()
     {
         $this->expectException(\InvalidArgumentException::class);
-        TypeService::getClassByKey('invalid-key');
+        RoleService::getRoleBySlug('invalid-key');
     }
 
     public function testCanGetKeyByClass()
     {
         $this->assertEquals(
             'customer',
-            TypeService::getKeyByClass('customer')
+            RoleService::getSlugByRole('customer')
         );
     }
 
     public function testThrowsExceptionWhenUsingUnknownClass()
     {
         $this->expectException(\InvalidArgumentException::class);
-        TypeService::getKeyByClass('invalid-class');
+        RoleService::getSlugByRole('invalid-class');
     }
 
     public function testCanGetAllKeys()
     {
         $this->assertEquals(
-            array_keys(TypeService::TYPES),
-            TypeService::getKeys()
+            array_keys(RoleService::ROLES),
+            RoleService::getSlugs()
         );
     }
 
@@ -67,15 +67,15 @@ class TypeServiceTest extends TestCase
     {
         $this->assertEquals(
             ['customer', 'provider'],
-            TypeService::getKeys(['admin'])
+            RoleService::getSlugs(['admin'])
         );
     }
 
     public function testCanGetAllClasses()
     {
         $this->assertEquals(
-            array_values(TypeService::TYPES),
-            TypeService::getClasses()
+            array_values(RoleService::ROLES),
+            RoleService::getRoles()
         );
     }
 
@@ -83,7 +83,7 @@ class TypeServiceTest extends TestCase
     {
         $this->assertEquals(
             ['customer', 'provider'],
-            TypeService::getClasses(['admin'])
+            RoleService::getRoles(['admin'])
         );
     }
 
@@ -91,7 +91,7 @@ class TypeServiceTest extends TestCase
     {
         $this->assertEquals(
             '^(?:customer|provider|admin)$',
-            TypeService::getRouteRegexFromKeys()
+            RoleService::getRouteRegexFromSlugs()
         );
     }
 
@@ -99,7 +99,7 @@ class TypeServiceTest extends TestCase
     {
         $this->assertEquals(
             '^(?:customer|provider)$',
-            TypeService::getRouteRegexFromKeys(['admin'])
+            RoleService::getRouteRegexFromSlugs(['admin'])
         );
     }
 }

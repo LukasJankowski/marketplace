@@ -5,7 +5,7 @@ namespace Marketplace\Core\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Marketplace\Core\Api\TokenService;
-use Marketplace\Core\Type\TypeService;
+use Marketplace\Core\Role\RoleService;
 
 class UserFactory extends Factory
 {
@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'type' => $this->faker->randomElement(TypeService::getClasses()),
+            'type' => $this->faker->randomElement(RoleService::getRoles()),
             'api_token' => null,
             'remember_token' => Str::random(10),
         ];

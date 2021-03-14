@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Marketplace\Core\Auth\AuthController;
-use Marketplace\Core\Type\TypeService;
+use Marketplace\Core\Role\RoleService;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,21 +27,21 @@ Route::group([
 
     Route::post('/reset/{type}', [AuthController::class, 'reset'])
         ->name('reset')
-        ->where('type', TypeService::getRouteRegexFromKeys());
+        ->where('type', RoleService::getRouteRegexFromSlugs());
 
     Route::post('/password/{type}/{id}', [AuthController::class, 'password'])
         ->name('password')
-        ->where('type', TypeService::getRouteRegexFromKeys());
+        ->where('type', RoleService::getRouteRegexFromSlugs());
 
     Route::group(['middleware' => ['throttle:auth']], function () {
 
         Route::post('/login/{type}', [AuthController::class, 'login'])
             ->name('login')
-            ->where('type', TypeService::getRouteRegexFromKeys());
+            ->where('type', RoleService::getRouteRegexFromSlugs());
 
         Route::post('/register/{type}', [AuthController::class, 'register'])
             ->name('register')
-            ->where('type', TypeService::getRouteRegexFromKeys());
+            ->where('type', RoleService::getRouteRegexFromSlugs());
 
     });
 });

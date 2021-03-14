@@ -1,10 +1,10 @@
 <?php
 
-namespace Marketplace\Core\Type\ValueObjects;
+namespace Marketplace\Core\Role\ValueObjects;
 
-use Marketplace\Core\Type\TypeService;
+use Marketplace\Core\Role\RoleService;
 
-class Type
+class Role
 {
     /**
      * Type constructor.
@@ -22,7 +22,7 @@ class Type
      */
     public static function make(string $type): self
     {
-        if (!TypeService::keyExists($type)) {
+        if (!RoleService::slugExists($type)) {
             throw new \InvalidArgumentException(
                 sprintf('Unknown type: %s', $type)
             );
@@ -48,6 +48,6 @@ class Type
      */
     public function getClass(): string
     {
-        return TypeService::getClassByKey($this->type);
+        return RoleService::getRoleBySlug($this->type);
     }
 }
