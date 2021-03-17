@@ -12,6 +12,11 @@ final class MarketplaceServiceProvider extends ServiceProvider
     public const CORE_DIR = __DIR__ . '/../Core';
 
     /**
+     * @const string
+     */
+    public const CONFIG_DIR = __DIR__ . '/../Config';
+
+    /**
      * @const string[]
      */
     public const CORE_MODULES = [
@@ -50,9 +55,6 @@ final class MarketplaceServiceProvider extends ServiceProvider
         $this->app->register(MarketplaceAuthServiceProvider::class);
         $this->app->register(MarketplaceRouteServiceProvider::class);
 
-        $this->mergeConfigFrom(
-            __DIR__ . '/../Config/marketplace.php',
-            'marketplace'
-        );
+        $this->mergeConfigFrom(self::CONFIG_DIR . '/marketplace.php', 'marketplace');
     }
 }
