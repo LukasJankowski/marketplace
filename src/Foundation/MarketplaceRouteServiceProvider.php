@@ -3,6 +3,7 @@
 namespace Marketplace\Foundation;
 
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -16,6 +17,8 @@ class MarketplaceRouteServiceProvider extends ServiceProvider
      * Define your route model bindings, pattern filters, etc.
      *
      * @return void
+     *
+     * @throws BindingResolutionException
      */
     public function boot(): void
     {

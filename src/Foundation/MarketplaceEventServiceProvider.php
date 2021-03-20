@@ -19,7 +19,7 @@ class MarketplaceEventServiceProvider extends ServiceProvider
     /**
      * The event subscriber mappings for the application.
      *
-     * @var string[]
+     * @var array<string>
      */
     protected $subscribe = [
         AuthEventSubscriber::class,
