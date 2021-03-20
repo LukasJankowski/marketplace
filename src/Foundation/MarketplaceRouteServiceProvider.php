@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Marketplace\Foundation\Resolvers\ModuleResolver;
 
 class MarketplaceRouteServiceProvider extends ServiceProvider
 {
@@ -18,13 +19,16 @@ class MarketplaceRouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        /** @var ModuleResolver $resolver */
+        $resolver = $this->app->make(ModuleResolver::class);
+
         $this->configureRateLimiting();
 
-        $this->routes(function (): void {
-            foreach (MarketplaceServiceProvider::CORE_MODULES as $module) {
+        $this->routes(function () use ($resolver): void {
+            foreach ($resolver->resolveRoutes() as $file) {
                 Route::prefix('v1')
                     ->middleware('api')
-                    ->group(MarketplaceServiceProvider::CORE_DIR . '/' . $module . '/routes.php');
+                    ->group($file);
             }
         });
     }

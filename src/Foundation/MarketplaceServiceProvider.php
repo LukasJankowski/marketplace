@@ -2,7 +2,9 @@
 
 namespace Marketplace\Foundation;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
+use Marketplace\Foundation\Resolvers\ModuleResolver;
 
 final class MarketplaceServiceProvider extends ServiceProvider
 {
@@ -17,30 +19,28 @@ final class MarketplaceServiceProvider extends ServiceProvider
     public const CONFIG_DIR = __DIR__ . '/../Config';
 
     /**
-     * @const string[]
+     * @const array<string>
      */
-    public const CORE_MODULES = [
-        'Info',
-        'Auth',
-    ];
-
-    /**
-     * @const string[]
-     */
-    public const CORE_DATA = [
-        'User',
-        'Account',
+    public const SERVICE_PROVIDERS = [
+        MarketplaceEventServiceProvider::class,
+        MarketplaceAuthServiceProvider::class,
+        MarketplaceRouteServiceProvider::class,
     ];
 
     /**
      * Bootstrap any application services.
      *
      * @return void
+     *
+     * @throws BindingResolutionException
      */
     public function boot(): void
     {
-        foreach (self::CORE_DATA as $data) {
-            $this->loadMigrationsFrom(self::CORE_DIR . '/' . $data . '/migrations');
+        /** @var ModuleResolver $resolver */
+        $resolver = $this->app->make(ModuleResolver::class);
+
+        foreach ($resolver->resolveData() as $dir) {
+            $this->loadMigrationsFrom($dir);
         }
     }
 
@@ -51,9 +51,9 @@ final class MarketplaceServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->register(MarketplaceEventServiceProvider::class);
-        $this->app->register(MarketplaceAuthServiceProvider::class);
-        $this->app->register(MarketplaceRouteServiceProvider::class);
+        foreach (self::SERVICE_PROVIDERS as $provider) {
+            $this->app->register($provider);
+        }
 
         $this->mergeConfigFrom(self::CONFIG_DIR . '/marketplace.php', 'marketplace');
     }
