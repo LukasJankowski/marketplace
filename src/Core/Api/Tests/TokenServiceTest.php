@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Core\Tests;
+namespace Marketplace\Core\Api\Tests;
 
 use Marketplace\Core\Api\TokenService;
 use Tests\TestCase;

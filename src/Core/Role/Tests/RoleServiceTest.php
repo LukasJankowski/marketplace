@@ -1,11 +1,11 @@
 <?php
 
-namespace Marketplace\Core\Tests;
+namespace Marketplace\Core\Role\Tests;
 
 use Marketplace\Core\Role\RoleService;
 use Tests\TestCase;
 
-class TypeServiceTest extends TestCase
+class RoleServiceTest extends TestCase
 {
     public function testReturnsTrueIfKeyExists()
     {

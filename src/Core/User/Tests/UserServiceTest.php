@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Core\Tests;
+namespace Marketplace\Core\User\Tests;
 
 use Marketplace\Core\User\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

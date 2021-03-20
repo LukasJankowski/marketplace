@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Core\Tests;
+namespace Marketplace\Core\Account\Tests;
 
 use Marketplace\Core\User\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
