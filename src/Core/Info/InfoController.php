@@ -15,6 +15,6 @@ class InfoController extends Controller
      */
     public function dump(GetInfoAction $action): InfoResource
     {
-        return InfoResource::make($action->run());
+        return $action->run();
     }
 }

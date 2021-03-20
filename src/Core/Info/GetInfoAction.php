@@ -3,9 +3,10 @@
 namespace Marketplace\Core\Info;
 
 use Illuminate\Support\Env;
+use Marketplace\Foundation\Actions\BaseAction;
 use Marketplace\Foundation\Logging\Logger;
 
-class GetInfoAction
+class GetInfoAction extends BaseAction
 {
     /**
      * GetInfoAction constructor.
@@ -17,16 +18,16 @@ class GetInfoAction
     /**
      * Get the basic marketplace info.
      *
-     * @return array<string, string>
+     * @return InfoResource
      */
-    public function run(): array
+    public function run(): InfoResource
     {
         $this->logger->info('Info requested');
 
-        return [
+        return $this->respond(InfoResource::class, [
             'name' => Env::get('APP_NAME'),
             'version' => Env::get('APP_VERSION'),
             'base_url' => Env::get('APP_URL'),
-        ];
+        ]);
     }
 }

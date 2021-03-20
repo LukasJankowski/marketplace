@@ -32,7 +32,7 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request, LoginUserAction $action): LoginResource
     {
-        return LoginResource::make($action->run($request->getDto()));
+        return $action->run($request->getDto());
     }
 
     /**
@@ -46,7 +46,7 @@ class AuthController extends Controller
      */
     public function check(CheckLoginAction $action): LoginResource
     {
-        return LoginResource::make($action->run());
+        return $action->run();
     }
 
 
@@ -59,7 +59,7 @@ class AuthController extends Controller
      */
     public function refresh(RefreshTokenAction $action): LoginResource
     {
-        return LoginResource::make($action->run());
+        return $action->run();
     }
 
     /**
@@ -74,7 +74,7 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request, RegisterUserAction $action): JsonResponse
     {
-        return UserResource::make($action->run($request->getDto()))
+        return $action->run($request->getDto())
             ->response()
             ->setStatusCode(201);
     }
@@ -88,7 +88,7 @@ class AuthController extends Controller
      */
     public function verify(VerifyUserAction $action): UserResource
     {
-        return UserResource::make($action->run());
+        return $action->run();
     }
 
     /**
@@ -103,7 +103,7 @@ class AuthController extends Controller
      */
     public function reset(ResetRequest $request, ResetPasswordAction $action): ResetResource
     {
-        return ResetResource::make($action->run($request->getDto()));
+        return $action->run($request->getDto());
     }
 
     /**
@@ -116,6 +116,6 @@ class AuthController extends Controller
      */
     public function password(UpdatePasswordRequest $request, UpdatePasswordAction $action): UserResource
     {
-        return UserResource::make($action->run($request->getDto()));
+        return $action->run($request->getDto());
     }
 }

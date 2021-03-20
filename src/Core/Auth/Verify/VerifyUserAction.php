@@ -5,10 +5,12 @@ namespace Marketplace\Core\Auth\Verify;
 use Marketplace\Core\User\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Marketplace\Core\User\UserResource;
+use Marketplace\Foundation\Actions\BaseAction;
 use Marketplace\Foundation\Logging\Logger;
 use Marketplace\Core\User\UserService;
 
-class VerifyUserAction
+class VerifyUserAction extends BaseAction
 {
     /**
      * VerifyUserAction constructor.
@@ -26,14 +28,14 @@ class VerifyUserAction
     /**
      * Verify the users email.
      *
-     * @return User
+     * @return UserResource
      */
-    public function run(): User
+    public function run(): UserResource
     {
         $this->checkSignature();
 
         try {
-            return $this->verifyUser();
+            return $this->respond(UserResource::class, $this->verifyUser());
         } catch (ModelNotFoundException $e) {
             $this->logger->info('Failed to find user to verify.', [
                 'route_id' => $this->request->route('id')

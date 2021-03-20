@@ -4,11 +4,12 @@ namespace Marketplace\Core\Auth\Reset;
 
 use Marketplace\Core\User\User;
 use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Foundation\Actions\BaseAction;
 use Marketplace\Foundation\Exceptions\ValidationException;
 use Marketplace\Foundation\Logging\Logger;
 use Marketplace\Core\User\UserService;
 
-class ResetPasswordAction
+class ResetPasswordAction extends BaseAction
 {
     /**
      * ResetPasswordAction constructor.
@@ -26,11 +27,11 @@ class ResetPasswordAction
      *
      * @param CredentialsDto $creds
      *
-     * @return User
+     * @return ResetResource
      *
      * @throws ValidationException
      */
-    public function run(CredentialsDto $creds): User
+    public function run(CredentialsDto $creds): ResetResource
     {
         $user = $this->fetchUser($creds);
 
@@ -41,7 +42,7 @@ class ResetPasswordAction
             'role' => $creds->getRole()->getRole()
         ]);
 
-        return $user;
+        return $this->respond(ResetResource::class, $user);
     }
 
     /**

@@ -2,12 +2,14 @@
 
 namespace Marketplace\Core\Auth;
 
+use Marketplace\Core\Auth\Login\LoginResource;
 use Marketplace\Core\User\User;
 use Illuminate\Http\Request;
 use Marketplace\Core\Auth\Login\LoginException;
+use Marketplace\Foundation\Actions\BaseAction;
 use Marketplace\Foundation\Logging\Logger;
 
-class CheckLoginAction
+class CheckLoginAction extends BaseAction
 {
     /**
      * CheckLoginAction constructor.
@@ -23,11 +25,11 @@ class CheckLoginAction
     /**
      * Check for login status.
      *
-     * @return User
+     * @return LoginResource
      *
      * @throws LoginException
      */
-    public function run(): User
+    public function run(): LoginResource
     {
         /** @var User|null $user */
         $user = $this->request->user();
@@ -35,7 +37,7 @@ class CheckLoginAction
         if ($user) {
             $this->logger->info('Successful auth check', ['causer' => $user->getAuthIdentifier()]);
 
-            return $user;
+            return $this->respond(LoginResource::class, $user);
         }
 
         $this->logger->info('Failed auth check');

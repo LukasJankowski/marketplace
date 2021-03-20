@@ -2,14 +2,17 @@
 
 namespace Marketplace\Core\Auth\Password;
 
+use Illuminate\Http\JsonResponse;
 use Marketplace\Core\User\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\UserResource;
+use Marketplace\Foundation\Actions\BaseAction;
 use Marketplace\Foundation\Logging\Logger;
 use Marketplace\Core\User\UserService;
 
-class UpdatePasswordAction
+class UpdatePasswordAction extends BaseAction
 {
     /**
      * UpdatePasswordAction constructor.
@@ -29,12 +32,12 @@ class UpdatePasswordAction
      *
      * @param CredentialsDto $creds
      *
-     * @return User
+     * @return UserResource
      */
-    public function run(CredentialsDto $creds): User
+    public function run(CredentialsDto $creds): UserResource
     {
         try {
-            return $this->updatePassword($creds);
+            return $this->respond(UserResource::class, $this->updatePassword($creds));
         } catch (ModelNotFoundException $e) {
             $this->logger->info('Failed to find user to update password.', [
                 'route_id' => $this->request->route('id')

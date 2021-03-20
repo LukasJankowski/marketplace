@@ -2,14 +2,17 @@
 
 namespace Marketplace\Core\Auth\Register;
 
+use Illuminate\Http\JsonResponse;
 use Marketplace\Core\User\User;
 use Marketplace\Core\User\Dtos\UserDto;
+use Marketplace\Core\User\UserResource;
+use Marketplace\Foundation\Actions\BaseAction;
 use Marketplace\Foundation\Exceptions\ValidationException;
 use Marketplace\Foundation\Logging\Logger;
 use Marketplace\Core\Account\AccountService;
 use Marketplace\Core\User\UserService;
 
-class RegisterUserAction
+class RegisterUserAction extends BaseAction
 {
     /**
      * RegisterUserAction constructor.
@@ -29,11 +32,11 @@ class RegisterUserAction
      *
      * @param UserDto $details
      *
-     * @return User
+     * @return JsonResponse
      *
      * @throws ValidationException
      */
-    public function run(UserDto $details): User
+    public function run(UserDto $details): UserResource
     {
         $this->checkForDuplicateAccount($details);
 
@@ -41,7 +44,7 @@ class RegisterUserAction
 
         UserRegistered::dispatch($user);
 
-        return $user;
+        return $this->respond(UserResource::class, $user);
     }
 
 

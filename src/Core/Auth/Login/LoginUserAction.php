@@ -6,10 +6,11 @@ use Marketplace\Core\User\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Marketplace\Core\Auth\RefreshTokenAction;
 use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Foundation\Actions\BaseAction;
 use Marketplace\Foundation\Logging\Logger;
 use Marketplace\Core\User\UserService;
 
-class LoginUserAction
+class LoginUserAction extends BaseAction
 {
     /**
      * LoginUserAction constructor.
@@ -29,12 +30,11 @@ class LoginUserAction
      *
      * @param CredentialsDto $creds
      *
-     * @return User
+     * @return LoginResource
      *
      * @throws LoginException
-     * @throws ModelNotFoundException
      */
-    public function run(CredentialsDto $creds): User
+    public function run(CredentialsDto $creds): LoginResource
     {
         $user = $this->service->getUserByCredentials($creds);
 
