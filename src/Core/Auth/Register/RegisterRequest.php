@@ -4,10 +4,10 @@ namespace Marketplace\Core\Auth\Register;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Marketplace\Core\Account\ValueObjects\Salutation;
 use Marketplace\Core\User\Dtos\UserDto;
 use Marketplace\Core\User\ValueObjects\Password;
 use Marketplace\Foundation\Requests\RequestHelperTrait;
-use Marketplace\Core\Account\ValueObjects\Salutation;
 
 class RegisterRequest extends FormRequest
 {
@@ -33,7 +33,7 @@ class RegisterRequest extends FormRequest
         return [
             'salutation' => [
                 Salutation::isSalutationRequired() ? 'required' : 'nullable',
-                Rule::in(Salutation::SALUTATIONS)
+                Rule::in(Salutation::SALUTATIONS),
             ],
             'first_name' => 'required|string',
             'last_name' => 'required|string',
@@ -50,13 +50,15 @@ class RegisterRequest extends FormRequest
      */
     public function messages(): array
     {
-        return $this->fillMessages([
-            'required',
-            'in:' . implode(',', Salutation::SALUTATIONS),
-            'string',
-            'email',
-            'min:' . Password::getMinPasswordLength(),
-        ]);
+        return $this->fillMessages(
+            [
+                'required',
+                'in:' . implode(',', Salutation::SALUTATIONS),
+                'string',
+                'email',
+                'min:' . Password::getMinPasswordLength(),
+            ]
+        );
     }
 
     /**

@@ -36,15 +36,17 @@ class UserFactory extends Factory
     /**
      * Indicate that the model's email address should be unverified.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     public function unverified()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'email_verified_at' => null,
-            ];
-        });
+        return $this->state(
+            function (array $attributes) {
+                return [
+                    'email_verified_at' => null,
+                ];
+            }
+        );
     }
 
     /**
@@ -54,9 +56,11 @@ class UserFactory extends Factory
      */
     public function configure(): UserFactory
     {
-        return $this->afterCreating(function (User $user) {
-            $user->setAttribute('api_token', TokenService::generateApiToken($user->getAuthIdentifier()));
-            $user->save();
-        });
+        return $this->afterCreating(
+            function (User $user) {
+                $user->setAttribute('api_token', TokenService::generateApiToken($user->getAuthIdentifier()));
+                $user->save();
+            }
+        );
     }
 }

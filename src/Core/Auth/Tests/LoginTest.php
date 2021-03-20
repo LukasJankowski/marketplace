@@ -11,18 +11,22 @@ use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-    use RefreshDatabase, TestsHelperTrait;
+    use RefreshDatabase;
+    use TestsHelperTrait;
 
-    /**
-     * Get the route.
-     *
-     * @param $role
-     *
-     * @return string
-     */
-    private function getRoute($role): string
+    public function testCanLoginAllUserTypes()
     {
-        return route('marketplace.core.auth.login', ['role' => $role]);
+        [$r, $u] = $this->loginTest('customer');
+        $r->assertStatus(200);
+        $r->assertJsonPath('data.token', $u->api_token);
+
+        [$r, $u] = $this->loginTest('provider');
+        $r->assertStatus(200);
+        $r->assertJsonPath('data.token', $u->api_token);
+
+        [$r, $u] = $this->loginTest('admin');
+        $r->assertStatus(200);
+        $r->assertJsonPath('data.token', $u->api_token);
     }
 
     /**
@@ -50,19 +54,16 @@ class LoginTest extends TestCase
         return [$response, $user];
     }
 
-    public function testCanLoginAllUserTypes()
+    /**
+     * Get the route.
+     *
+     * @param $role
+     *
+     * @return string
+     */
+    private function getRoute($role): string
     {
-        [$r, $u] = $this->loginTest('customer');
-        $r->assertStatus(200);
-        $r->assertJsonPath('data.token', $u->api_token);
-
-        [$r, $u] = $this->loginTest('provider');
-        $r->assertStatus(200);
-        $r->assertJsonPath('data.token', $u->api_token);
-
-        [$r, $u] = $this->loginTest('admin');
-        $r->assertStatus(200);
-        $r->assertJsonPath('data.token', $u->api_token);
+        return route('marketplace.core.auth.login', ['role' => $role]);
     }
 
     public function testCantLoginWithMismatchingTypes()
@@ -161,7 +162,7 @@ class LoginTest extends TestCase
 
         Event::assertDispatched(
             UserLoggedIn::class,
-            fn(UserLoggedIn $e) => $e->getUser()->getAuthIdentifier() === $u->getAuthIdentifier()
+            fn (UserLoggedIn $e) => $e->getUser()->getAuthIdentifier() === $u->getAuthIdentifier()
         );
     }
 }

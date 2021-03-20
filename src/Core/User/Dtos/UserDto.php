@@ -2,9 +2,10 @@
 
 namespace Marketplace\Core\User\Dtos;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Marketplace\Core\Account\Dtos\AccountDto;
 
-class UserDto
+class UserDto implements Arrayable
 {
     /**
      * UserDto constructor.
@@ -15,7 +16,9 @@ class UserDto
     private function __construct(
         private CredentialsDto $credentials,
         private AccountDto $person,
-    ) {}
+    )
+    {
+    }
 
     /**
      * Create the User Dto.
@@ -44,6 +47,19 @@ class UserDto
             CredentialsDto::make($email, $password, $type),
             AccountDto::make($salutation, $firstName, $lastName, $phone)
         );
+    }
+
+    /**
+     * Convert data to array.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(): array
+    {
+        return [
+            'credentials' => $this->getCredentials(),
+            'account' => $this->getAccount(),
+        ];
     }
 
     /**

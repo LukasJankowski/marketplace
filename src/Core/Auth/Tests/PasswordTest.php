@@ -2,7 +2,6 @@
 
 namespace Marketplace\Core\Auth\Tests;
 
-use Marketplace\Core\User\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
@@ -11,7 +10,8 @@ use Tests\TestCase;
 
 class PasswordTest extends TestCase
 {
-    use RefreshDatabase, TestsHelperTrait;
+    use RefreshDatabase;
+    use TestsHelperTrait;
 
     public function testCanUpdatePasswordOfUser()
     {
@@ -19,9 +19,12 @@ class PasswordTest extends TestCase
 
         $url = URL::signedRoute('marketplace.core.auth.password', ['role' => 'customer', 'id' => $u->id]);
 
-        $this->postJson($url, [
-            'password' => 'another'
-        ])
+        $this->postJson(
+            $url,
+            [
+                'password' => 'another',
+            ]
+        )
             ->assertStatus(200)
             ->assertJsonPath('data.id', $u->id);
 

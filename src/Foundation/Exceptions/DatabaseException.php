@@ -2,7 +2,9 @@
 
 namespace Marketplace\Foundation\Exceptions;
 
-class DatabaseException extends \RuntimeException
+use RuntimeException;
+
+class DatabaseException extends RuntimeException
 {
     use ExceptionHelperTrait;
 

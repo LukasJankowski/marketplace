@@ -45,7 +45,6 @@ class UserService
         return $user;
     }
 
-
     /**
      * Mark the user as verified.
      *
@@ -90,6 +89,18 @@ class UserService
     }
 
     /**
+     * Get correct user.
+     *
+     * @param int|string|User $user
+     *
+     * @return User
+     */
+    private function getUser(int|string|User $user): User
+    {
+        return !is_object($user) ? $this->getUserById($user) : $user;
+    }
+
+    /**
      * Send the password reset email to the user.
      *
      * @param int|string|User $user
@@ -117,17 +128,5 @@ class UserService
         $user->save();
 
         return $user->fresh();
-    }
-
-    /**
-     * Get correct user.
-     *
-     * @param int|string|User $user
-     *
-     * @return User
-     */
-    private function getUser(int|string|User $user): User
-    {
-        return !is_object($user) ? $this->getUserById($user) : $user;
     }
 }

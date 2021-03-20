@@ -13,8 +13,11 @@ use Marketplace\Core\Info\InfoController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::group([
-    'as' => 'marketplace.core.info.',
-], function () {
-    Route::get('/info', [InfoController::class, 'dump'])->name('dump');
-});
+Route::group(
+    [
+        'as' => 'marketplace.core.info.',
+    ],
+    function () {
+        Route::get('/info', [InfoController::class, 'dump'])->name('dump');
+    }
+);

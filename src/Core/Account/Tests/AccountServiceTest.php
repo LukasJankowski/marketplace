@@ -2,10 +2,10 @@
 
 namespace Marketplace\Core\Account\Tests;
 
-use Marketplace\Core\User\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Marketplace\Core\Account\Dtos\AccountDto;
 use Marketplace\Core\Account\AccountService;
+use Marketplace\Core\Account\Dtos\AccountDto;
+use Marketplace\Core\User\User;
 use Tests\TestCase;
 
 class AccountServiceTest extends TestCase
@@ -26,13 +26,16 @@ class AccountServiceTest extends TestCase
         $service = new AccountService();
         $service->create($account, $user);
 
-        $this->assertDatabaseHas('accounts', [
-            'user_id' => $user->id,
-            'salutation' => null,
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'phone' => null
-        ]);
+        $this->assertDatabaseHas(
+            'accounts',
+            [
+                'user_id' => $user->id,
+                'salutation' => null,
+                'first_name' => 'John',
+                'last_name' => 'Doe',
+                'phone' => null,
+            ]
+        );
     }
 
     public function testCanCreateAccountWithId()
@@ -49,12 +52,15 @@ class AccountServiceTest extends TestCase
         $service = new AccountService();
         $service->create($account, $user->id);
 
-        $this->assertDatabaseHas('accounts', [
-            'user_id' => $user->id,
-            'salutation' => null,
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'phone' => null
-        ]);
+        $this->assertDatabaseHas(
+            'accounts',
+            [
+                'user_id' => $user->id,
+                'salutation' => null,
+                'first_name' => 'John',
+                'last_name' => 'Doe',
+                'phone' => null,
+            ]
+        );
     }
 }

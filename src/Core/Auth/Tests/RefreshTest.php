@@ -2,14 +2,14 @@
 
 namespace Marketplace\Core\Auth\Tests;
 
-use Marketplace\Core\User\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Marketplace\Foundation\Tests\TestsHelperTrait;
 use Tests\TestCase;
 
 class RefreshTest extends TestCase
 {
-    use RefreshDatabase, TestsHelperTrait;
+    use RefreshDatabase;
+    use TestsHelperTrait;
 
     public function testCanRefreshTokenIfAuthenticated()
     {
@@ -23,7 +23,7 @@ class RefreshTest extends TestCase
     public function testCantRefreshIfNotAuthenticated()
     {
         $this->getJson(route('marketplace.core.auth.check'))
-            ->assertStatus(403)
-            ->assertJsonPath('data.message', 'marketplace.core.auth.login.failed');
+            ->assertStatus(401)
+            ->assertJsonPath('data.message', 'marketplace.core.authorization.unauthorized');
     }
 }

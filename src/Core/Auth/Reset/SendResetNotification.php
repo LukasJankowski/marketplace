@@ -2,7 +2,6 @@
 
 namespace Marketplace\Core\Auth\Reset;
 
-use Marketplace\Core\User\User;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -10,6 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\URL;
 use Marketplace\Core\Role\RoleService;
+use Marketplace\Core\User\User;
 
 class SendResetNotification extends Notification implements ShouldQueue
 {
@@ -18,7 +18,8 @@ class SendResetNotification extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param  User  $notifiable
+     * @param User $notifiable
+     *
      * @return array<string>
      */
     public function via(User $notifiable)
@@ -29,8 +30,9 @@ class SendResetNotification extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      *
-     * @param  User  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @param User $notifiable
+     *
+     * @return MailMessage
      */
     public function toMail(User $notifiable)
     {
@@ -39,9 +41,10 @@ class SendResetNotification extends Notification implements ShouldQueue
             ->action(
                 'Reset',
                 URL::signedRoute(
-                    'marketplace.core.auth.password', [
+                    'marketplace.core.auth.password',
+                    [
                         'role' => RoleService::getSlugByRole($notifiable->getAttribute('role')),
-                        'id' => $notifiable->getAuthIdentifier()
+                        'id' => $notifiable->getAuthIdentifier(),
                     ],
                     Carbon::now()->addDays(2)
                 )
@@ -52,7 +55,8 @@ class SendResetNotification extends Notification implements ShouldQueue
     /**
      * Get the array representation of the notification.
      *
-     * @param  User  $notifiable
+     * @param User $notifiable
+     *
      * @return array<string, array>
      */
     public function toArray(User $notifiable)
@@ -61,13 +65,14 @@ class SendResetNotification extends Notification implements ShouldQueue
             'data' => [
                 'message' => 'Registration',
                 'registration_url' => URL::signedRoute(
-                    'marketplace.core.auth.verify', [
-                        'id' => $notifiable->getAuthIdentifier()
+                    'marketplace.core.auth.verify',
+                    [
+                        'id' => $notifiable->getAuthIdentifier(),
                     ],
                     Carbon::now()->addDays(2)
                 ),
                 'info' => 'Expiration in 48h',
-            ]
+            ],
         ];
     }
 }

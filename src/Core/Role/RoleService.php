@@ -2,10 +2,12 @@
 
 namespace Marketplace\Core\Role;
 
+use InvalidArgumentException;
+
 class RoleService
 {
     /**
-     * @const string[]
+     * @const array<string, string>
      */
     public const ROLES = [
         'customer' => 'customer',
@@ -46,9 +48,9 @@ class RoleService
      */
     public static function getRoleBySlug(string $type): string
     {
-        return self::ROLES[$type] ?? throw new \InvalidArgumentException(
-            sprintf('Unknown type: %s', $type)
-        );
+        return self::ROLES[$type] ?? throw new InvalidArgumentException(
+                sprintf('Unknown type: %s', $type)
+            );
     }
 
     /**
@@ -60,21 +62,9 @@ class RoleService
      */
     public static function getSlugByRole(string $class): string
     {
-        return array_flip(self::ROLES)[$class] ?? throw new \InvalidArgumentException(
-            sprintf('Unknown class: %s', $class)
-        );
-    }
-
-    /**
-     * Get the keys.
-     *
-     * @param array<string> $except
-     *
-     * @return array<string>
-     */
-    public static function getSlugs(array $except = []): array
-    {
-        return array_diff(array_keys(self::ROLES), $except);
+        return array_flip(self::ROLES)[$class] ?? throw new InvalidArgumentException(
+                sprintf('Unknown class: %s', $class)
+            );
     }
 
     /**
@@ -99,5 +89,17 @@ class RoleService
     public static function getRouteRegexFromSlugs(array $except = []): string
     {
         return sprintf('^(?:%s)$', implode('|', self::getSlugs($except)));
+    }
+
+    /**
+     * Get the keys.
+     *
+     * @param array<string> $except
+     *
+     * @return array<string>
+     */
+    public static function getSlugs(array $except = []): array
+    {
+        return array_diff(array_keys(self::ROLES), $except);
     }
 }

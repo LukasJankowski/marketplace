@@ -13,7 +13,9 @@ class GetInfoAction extends BaseAction
      *
      * @param Logger $logger
      */
-    public function __construct(private Logger $logger) {}
+    public function __construct(private Logger $logger)
+    {
+    }
 
     /**
      * Get the basic marketplace info.
@@ -24,10 +26,13 @@ class GetInfoAction extends BaseAction
     {
         $this->logger->info('Info requested');
 
-        return $this->respond(InfoResource::class, [
-            'name' => Env::get('APP_NAME'),
-            'version' => Env::get('APP_VERSION'),
-            'base_url' => Env::get('APP_URL'),
-        ]);
+        return $this->respond(
+            InfoResource::class,
+            [
+                'name' => Env::get('APP_NAME'),
+                'version' => Env::get('APP_VERSION'),
+                'base_url' => Env::get('APP_URL'),
+            ]
+        );
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Marketplace\Core\Role\ValueObjects;
 
+use InvalidArgumentException;
 use Marketplace\Core\Role\RoleService;
 
 class Role
@@ -11,7 +12,9 @@ class Role
      *
      * @param string $slug
      */
-    private function __construct(private string $slug) {}
+    private function __construct(private string $slug)
+    {
+    }
 
     /**
      * Create a new instance of self.
@@ -23,7 +26,7 @@ class Role
     public static function make(string $slug): self
     {
         if (!RoleService::slugExists($slug)) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf('Unknown type: %s', $slug)
             );
         }

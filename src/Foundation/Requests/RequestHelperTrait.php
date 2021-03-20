@@ -10,7 +10,7 @@ use Marketplace\Foundation\Exceptions\ValidationException as MarketplaceValidati
 trait RequestHelperTrait
 {
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private array $messages = [
         'required' => 'marketplace.core.validation.required',

@@ -2,6 +2,7 @@
 
 namespace Marketplace\Foundation\Logging;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Log\LogManager;
 use Psr\Log\LoggerInterface;
@@ -12,24 +13,10 @@ class Logger implements LoggerInterface
      * Create a new Log manager instance.
      *
      * @param LogManager $logger
-     * @param Request $request
+     * @param Application $application
      */
-    public function __construct(
-        private LogManager $logger,
-        private Request $request,
-    ) {}
-
-    /**
-     * Set additional information in the context
-     *
-     * @param array<string, mixed> $context
-     * @return array<string, mixed>
-     */
-    private function addMetaInfo(array $context = []): array
+    public function __construct(private LogManager $logger, private Application $application)
     {
-        return $context + [
-            'causer' => optional($this->request->user())->getAuthIdentifier() ?: $this->request->ip(),
-        ];
     }
 
     /**
@@ -38,6 +25,25 @@ class Logger implements LoggerInterface
     public function emergency($message, array $context = [])
     {
         $this->logger->emergency($message, $this->addMetaInfo($context));
+    }
+
+    /**
+     * Set additional information in the context
+     *
+     * @param array<string, mixed> $context
+     *
+     * @return array<string, mixed>
+     */
+    private function addMetaInfo(array $context = []): array
+    {
+        if ($this->application->runningInConsole()) {
+            $causer = 'console';
+        } else {
+            $request = $this->application->make(Request::class);
+            $causer = $request->user() !== null ? $request->user()->getAuthIdentifier() : $request->ip();
+        }
+
+        return $context + ['causer' => $causer];
     }
 
     /**

@@ -14,10 +14,12 @@ trait ExceptionHelperTrait
      */
     public function render(): JsonResponse
     {
-        return ErrorResource::make([
-            'message' => $this->getMessage(),
-            'errors' => $this->getErrors(),
-        ])
+        return ErrorResource::make(
+            [
+                'message' => $this->getMessage(),
+                'errors' => $this->getErrors(),
+            ]
+        )
             ->response()
             ->setStatusCode($this->getStatus());
     }

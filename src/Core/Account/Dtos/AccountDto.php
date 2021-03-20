@@ -20,7 +20,9 @@ class AccountDto implements Arrayable
         private string $firstName,
         private string $lastName,
         private ?string $phone
-    ) {}
+    )
+    {
+    }
 
     /**
      * Create the Person Dto.
@@ -45,6 +47,21 @@ class AccountDto implements Arrayable
             $lastName,
             $phone
         );
+    }
+
+    /**
+     * Convert data to array.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(): array
+    {
+        return [
+            'salutation' => optional($this->getSalutation())->getSalutation(),
+            'first_name' => $this->getFirstName(),
+            'last_name' => $this->getLastName(),
+            'phone' => $this->getPhone(),
+        ];
     }
 
     /**
@@ -85,20 +102,5 @@ class AccountDto implements Arrayable
     public function getPhone(): ?string
     {
         return $this->phone;
-    }
-
-    /**
-     * Convert data to array.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(): array
-    {
-        return [
-            'salutation' => optional($this->getSalutation())->getSalutation(),
-            'first_name' => $this->getFirstName(),
-            'last_name' => $this->getLastName(),
-            'phone' => $this->getPhone()
-        ];
     }
 }

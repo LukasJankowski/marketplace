@@ -3,10 +3,10 @@
 namespace Marketplace\Core\Account;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Marketplace\Core\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Marketplace\Core\User\User;
 
 class Account extends Model
 {
@@ -20,7 +20,7 @@ class Account extends Model
         'salutation',
         'first_name',
         'last_name',
-        'phone'
+        'phone',
     ];
 
     /**

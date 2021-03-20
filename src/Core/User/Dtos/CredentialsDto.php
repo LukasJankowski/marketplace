@@ -19,7 +19,9 @@ class CredentialsDto implements Arrayable
         private string $email,
         private Password $password,
         private Role $role
-    ) {}
+    )
+    {
+    }
 
     /**
      * Create the Credentials Dto.
@@ -33,6 +35,20 @@ class CredentialsDto implements Arrayable
     public static function make(string $email, string $password, string $role): self
     {
         return new self($email, Password::make($password), Role::make($role));
+    }
+
+    /**
+     * Convert data to array.
+     *
+     * @return array<string, string>
+     */
+    public function toArray(): array
+    {
+        return [
+            'email' => $this->getEmail(),
+            'password' => $this->getPassword()->getPassword(),
+            'role' => $this->getRole()->getRole(),
+        ];
     }
 
     /**
@@ -63,19 +79,5 @@ class CredentialsDto implements Arrayable
     public function getRole(): Role
     {
         return $this->role;
-    }
-
-    /**
-     * Convert data to array.
-     *
-     * @return array<string, string>
-     */
-    public function toArray(): array
-    {
-        return [
-            'email' => $this->getEmail(),
-            'password' => $this->getPassword()->getPassword(),
-            'role' => $this->getRole()->getRole(),
-        ];
     }
 }

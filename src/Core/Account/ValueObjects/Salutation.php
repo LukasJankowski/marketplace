@@ -3,11 +3,12 @@
 namespace Marketplace\Core\Account\ValueObjects;
 
 use Illuminate\Support\Facades\Config;
+use InvalidArgumentException;
 
 class Salutation
 {
     /**
-     * @const string[]
+     * @const array<string>
      */
     public const SALUTATIONS = [
         'marketplace.core.data.field.salutation.male',
@@ -20,8 +21,9 @@ class Salutation
      *
      * @param null|string $salutation
      */
-    private function __construct(private ?string $salutation) {}
-
+    private function __construct(private ?string $salutation)
+    {
+    }
 
     /**
      * Check if salutations are required.
@@ -40,12 +42,12 @@ class Salutation
      *
      * @return self
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public static function make(?string $salutation): self
     {
         if ($salutation !== null && !in_array($salutation, self::SALUTATIONS, true)) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf('Unknown salutation: %s', $salutation)
             );
         }

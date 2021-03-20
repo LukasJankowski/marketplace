@@ -2,8 +2,8 @@
 
 namespace Marketplace\Core\Account;
 
-use Marketplace\Core\User\User;
 use Marketplace\Core\Account\Dtos\AccountDto;
+use Marketplace\Core\User\User;
 use Marketplace\Foundation\Exceptions\DatabaseException;
 
 class AccountService

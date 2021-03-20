@@ -2,7 +2,7 @@
 
 namespace Marketplace\Foundation\Actions;
 
-use Illuminate\Http\JsonResponse;
+use LogicException;
 
 abstract class BaseAction
 {
@@ -17,7 +17,7 @@ abstract class BaseAction
     protected function respond(string $resource, mixed $data): mixed
     {
         if (!class_exists($resource)) {
-            throw new \LogicException(
+            throw new LogicException(
                 sprintf('The resource: %s does not exist.', $resource)
             );
         }

@@ -2,15 +2,14 @@
 
 namespace Marketplace\Core\Auth\Register;
 
-use Illuminate\Http\JsonResponse;
-use Marketplace\Core\User\User;
+use Marketplace\Core\Account\AccountService;
 use Marketplace\Core\User\Dtos\UserDto;
+use Marketplace\Core\User\User;
 use Marketplace\Core\User\UserResource;
+use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
 use Marketplace\Foundation\Exceptions\ValidationException;
 use Marketplace\Foundation\Logging\Logger;
-use Marketplace\Core\Account\AccountService;
-use Marketplace\Core\User\UserService;
 
 class RegisterUserAction extends BaseAction
 {
@@ -25,14 +24,16 @@ class RegisterUserAction extends BaseAction
         private Logger $logger,
         private UserService $userService,
         private AccountService $accountService
-    ) {}
+    )
+    {
+    }
 
     /**
      * Register the user.
      *
      * @param UserDto $details
      *
-     * @return JsonResponse
+     * @return UserResource
      *
      * @throws ValidationException
      */
@@ -47,23 +48,25 @@ class RegisterUserAction extends BaseAction
         return $this->respond(UserResource::class, $user);
     }
 
-
     /**
      * Check if the account is duplicated.
      *
      * @param UserDto $details
      *
+     * @return void
      * @throws ValidationException
      *
-     * @return void
      */
     private function checkForDuplicateAccount(UserDto $details): void
     {
         if ($this->userService->getUserByCredentials($details->getCredentials())) {
-            $this->logger->info('Duplicate account register attempt', [
-                'email' => $details->getCredentials()->getEmail(),
-                'role' => $details->getCredentials()->getRole()->getRole()
-            ]);
+            $this->logger->info(
+                'Duplicate account register attempt',
+                [
+                    'email' => $details->getCredentials()->getEmail(),
+                    'role' => $details->getCredentials()->getRole()->getRole(),
+                ]
+            );
 
             throw ValidationException::withMessages(['email' => 'marketplace.core.auth.register.duplicate']);
         }
@@ -82,10 +85,13 @@ class RegisterUserAction extends BaseAction
         $account = $this->accountService->create($details->getAccount(), $user);
         $user->setRelation('account', $account);
 
-        $this->logger->info('User registered', [
-            'causer' => $user->getAuthIdentifier(),
-            'email' => $user->getAttribute('email')
-        ]);
+        $this->logger->info(
+            'User registered',
+            [
+                'causer' => $user->getAuthIdentifier(),
+                'email' => $user->getAttribute('email'),
+            ]
+        );
 
         return $user;
     }

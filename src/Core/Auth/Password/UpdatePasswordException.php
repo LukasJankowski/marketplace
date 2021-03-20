@@ -4,6 +4,7 @@ namespace Marketplace\Core\Auth\Password;
 
 use Marketplace\Foundation\Exceptions\ExceptionHelperTrait;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Throwable;
 
 class UpdatePasswordException extends HttpException
 {
@@ -14,14 +15,14 @@ class UpdatePasswordException extends HttpException
      *
      * @param int $status
      * @param string|null $exceptionMessage
-     * @param \Throwable|null $previous
+     * @param Throwable|null $previous
      * @param array<string, mixed> $headers
      * @param int|null $code
      */
     public function __construct(
         private int $status = 403,
         private ?string $exceptionMessage = 'marketplace.core.auth.password.invalid',
-        ?\Throwable $previous = null,
+        ?Throwable $previous = null,
         array $headers = [],
         ?int $code = 0
     )

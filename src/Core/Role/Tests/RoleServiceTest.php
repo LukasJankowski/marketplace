@@ -2,6 +2,7 @@
 
 namespace Marketplace\Core\Role\Tests;
 
+use InvalidArgumentException;
 use Marketplace\Core\Role\RoleService;
 use Tests\TestCase;
 
@@ -37,7 +38,7 @@ class RoleServiceTest extends TestCase
 
     public function testThrowsExceptionWhenUsingUnknownKey()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         RoleService::getRoleBySlug('invalid-key');
     }
 
@@ -51,7 +52,7 @@ class RoleServiceTest extends TestCase
 
     public function testThrowsExceptionWhenUsingUnknownClass()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         RoleService::getSlugByRole('invalid-class');
     }
 

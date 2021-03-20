@@ -2,6 +2,7 @@
 
 namespace Marketplace\Core\Account;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AccountResource extends JsonResource
@@ -9,7 +10,7 @@ class AccountResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      *
      * @return array<string, string>
      */

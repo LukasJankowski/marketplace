@@ -22,7 +22,9 @@ class ModuleResolver
      *
      * @param Filesystem $filesystem
      */
-    public function __construct(private Filesystem $filesystem) {}
+    public function __construct(private Filesystem $filesystem)
+    {
+    }
 
     /**
      * Get all routes from the modules.
@@ -37,17 +39,26 @@ class ModuleResolver
     }
 
     /**
-     * Get all migrations from the modules.
+     * Get all types from all module directorie.s
      *
      * @param string $parentDir
+     * @param string $type
+     * @param bool $isDir
      *
      * @return array
      */
-    public function resolveData(string $parentDir = MarketplaceServiceProvider::CORE_DIR): array
+    private function getFilesFromModules(string $parentDir, string $type, bool $isDir = false): array
     {
-        return $this->getFilesFromModules($parentDir, self::MIGRATION_DIR_NAME, true);
-    }
+        $handles = [];
+        foreach ($this->getModuleDirs($parentDir) as $moduleDir) {
+            $file = $moduleDir . $type;
+            if ($this->exists($file, $isDir)) {
+                $handles[] = $file;
+            }
+        }
 
+        return $handles;
+    }
 
     /**
      * Get all module directories in the parent directory.
@@ -77,24 +88,14 @@ class ModuleResolver
     }
 
     /**
-     * Get all types from all module directorie.s
+     * Get all migrations from the modules.
      *
      * @param string $parentDir
-     * @param string $type
-     * @param bool $isDir
      *
      * @return array
      */
-    private function getFilesFromModules(string $parentDir, string $type, bool $isDir = false): array
+    public function resolveData(string $parentDir = MarketplaceServiceProvider::CORE_DIR): array
     {
-        $handles = [];
-        foreach ($this->getModuleDirs($parentDir) as $moduleDir) {
-            $file = $moduleDir . $type;
-            if ($this->exists($file, $isDir)) {
-                $handles[] = $file;
-            }
-        }
-
-        return $handles;
+        return $this->getFilesFromModules($parentDir, self::MIGRATION_DIR_NAME, true);
     }
 }

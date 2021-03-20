@@ -2,7 +2,6 @@
 
 namespace Marketplace\Core\User\Tests;
 
-use Marketplace\Core\User\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -10,6 +9,7 @@ use Illuminate\Support\Facades\Notification;
 use Marketplace\Core\Auth\Reset\SendResetNotification;
 use Marketplace\Core\Auth\Verify\SendVerificationNotification;
 use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\User;
 use Marketplace\Core\User\UserService;
 use Marketplace\Core\User\ValueObjects\Password;
 use Tests\TestCase;
@@ -77,10 +77,13 @@ class UserServiceTest extends TestCase
         $service = new UserService();
         $service->create($creds);
 
-        $this->assertDatabaseHas('users', [
-            'email' => 'email@email.com',
-            'role' => 'customer',
-        ]);
+        $this->assertDatabaseHas(
+            'users',
+            [
+                'email' => 'email@email.com',
+                'role' => 'customer',
+            ]
+        );
     }
 
     public function testCanMarkUserAsVerified()
@@ -90,11 +93,14 @@ class UserServiceTest extends TestCase
         $service = new UserService();
         $user = $service->markUserVerified($user->id);
 
-        $this->assertDatabaseHas('users', [
-            'email' => $user->email,
-            'role' => $user->role,
-            'email_verified_at' => $user->email_verified_at
-        ]);
+        $this->assertDatabaseHas(
+            'users',
+            [
+                'email' => $user->email,
+                'role' => $user->role,
+                'email_verified_at' => $user->email_verified_at,
+            ]
+        );
     }
 
     public function testCanVerifyAlreadyVerifiedUsers()
@@ -104,11 +110,14 @@ class UserServiceTest extends TestCase
         $service = new UserService();
         $user = $service->markUserVerified($user->id);
 
-        $this->assertDatabaseHas('users', [
-            'email' => $user->email,
-            'role' => $user->role,
-            'email_verified_at' => $user->email_verified_at
-        ]);
+        $this->assertDatabaseHas(
+            'users',
+            [
+                'email' => $user->email,
+                'role' => $user->role,
+                'email_verified_at' => $user->email_verified_at,
+            ]
+        );
     }
 
     public function testThrowsExceptionOnInvalidUserId()

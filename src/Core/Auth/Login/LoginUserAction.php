@@ -2,13 +2,12 @@
 
 namespace Marketplace\Core\Auth\Login;
 
-use Marketplace\Core\User\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Marketplace\Core\Auth\RefreshTokenAction;
+use Marketplace\Core\Auth\Refresh\RefreshTokenAction;
 use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\User;
+use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
 use Marketplace\Foundation\Logging\Logger;
-use Marketplace\Core\User\UserService;
 
 class LoginUserAction extends BaseAction
 {
@@ -23,7 +22,9 @@ class LoginUserAction extends BaseAction
         private RefreshTokenAction $refreshToken,
         private UserService $service,
         private Logger $logger
-    ) {}
+    )
+    {
+    }
 
     /**
      * Attempt to login the user.
@@ -42,10 +43,13 @@ class LoginUserAction extends BaseAction
             return $this->refreshToken->run($user);
         }
 
-        $this->logger->info('Failed login attempt', [
-            'email' => $creds->getEmail(),
-            'role' => $creds->getRole()->getRole()
-        ]);
+        $this->logger->info(
+            'Failed login attempt',
+            [
+                'email' => $creds->getEmail(),
+                'role' => $creds->getRole()->getRole(),
+            ]
+        );
 
         throw new LoginException();
     }
@@ -61,9 +65,12 @@ class LoginUserAction extends BaseAction
     private function checkLogin(CredentialsDto $creds, null|User $user): bool
     {
         if ($user && $creds->getPassword()->verify($user->getAuthPassword())) {
-            $this->logger->info('Successful login attempt', [
-                'causer' => $user->getAuthIdentifier()
-            ]);
+            $this->logger->info(
+                'Successful login attempt',
+                [
+                    'causer' => $user->getAuthIdentifier(),
+                ]
+            );
 
             UserLoggedIn::dispatch($user);
 

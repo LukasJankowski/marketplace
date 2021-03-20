@@ -4,7 +4,6 @@ namespace Marketplace\Foundation\Exceptions;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException as IlluminateValidationException;
-use Symfony\Component\HttpFoundation\Response;
 
 class ValidationException extends IlluminateValidationException
 {

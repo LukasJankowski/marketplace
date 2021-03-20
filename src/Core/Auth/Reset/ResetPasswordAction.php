@@ -2,12 +2,12 @@
 
 namespace Marketplace\Core\Auth\Reset;
 
-use Marketplace\Core\User\User;
 use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\User;
+use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
 use Marketplace\Foundation\Exceptions\ValidationException;
 use Marketplace\Foundation\Logging\Logger;
-use Marketplace\Core\User\UserService;
 
 class ResetPasswordAction extends BaseAction
 {
@@ -20,7 +20,9 @@ class ResetPasswordAction extends BaseAction
     public function __construct(
         private Logger $logger,
         private UserService $userService,
-    ) {}
+    )
+    {
+    }
 
     /**
      * Send the password reset notification.
@@ -37,10 +39,13 @@ class ResetPasswordAction extends BaseAction
 
         $this->userService->sendPasswordResetEmailToUser($user);
 
-        $this->logger->info('Reset password sent.', [
-            'email' => $creds->getEmail(),
-            'role' => $creds->getRole()->getRole()
-        ]);
+        $this->logger->info(
+            'Reset password sent.',
+            [
+                'email' => $creds->getEmail(),
+                'role' => $creds->getRole()->getRole(),
+            ]
+        );
 
         return $this->respond(ResetResource::class, $user);
     }
@@ -49,6 +54,7 @@ class ResetPasswordAction extends BaseAction
      * Fetch the associated user.
      *
      * @param CredentialsDto $creds
+     *
      * @return User
      *
      * @throws ValidationException
@@ -58,14 +64,19 @@ class ResetPasswordAction extends BaseAction
         $user = $this->userService->getUserByCredentials($creds);
 
         if ($user === null) {
-            $this->logger->info('Reset password failed.', [
-                'email' => $creds->getEmail(),
-                'role' => $creds->getRole()->getRole()
-            ]);
+            $this->logger->info(
+                'Reset password failed.',
+                [
+                    'email' => $creds->getEmail(),
+                    'role' => $creds->getRole()->getRole(),
+                ]
+            );
 
-            throw ValidationException::withMessages([
-                'email' => 'marketplace.core.auth.reset.invalid'
-            ]);
+            throw ValidationException::withMessages(
+                [
+                    'email' => 'marketplace.core.auth.reset.invalid',
+                ]
+            );
         }
 
         return $user;

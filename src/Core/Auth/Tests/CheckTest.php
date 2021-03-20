@@ -8,7 +8,8 @@ use Tests\TestCase;
 
 class CheckTest extends TestCase
 {
-    use RefreshDatabase, TestsHelperTrait;
+    use RefreshDatabase;
+    use TestsHelperTrait;
 
     public function testCanCheckStatusIfAuthenticated()
     {
@@ -32,7 +33,7 @@ class CheckTest extends TestCase
     public function testCantCheckStatusIfNotAuthenticated()
     {
         $this->getJson(route('marketplace.core.auth.check'))
-            ->assertStatus(403)
-            ->assertJsonPath('data.message', 'marketplace.core.auth.login.failed');
+            ->assertStatus(401)
+            ->assertJsonPath('data.message', 'marketplace.core.authorization.unauthorized');
     }
 }

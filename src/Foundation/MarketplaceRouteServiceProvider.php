@@ -27,13 +27,15 @@ class MarketplaceRouteServiceProvider extends ServiceProvider
 
         $this->configureRateLimiting();
 
-        $this->routes(function () use ($resolver): void {
-            foreach ($resolver->resolveRoutes() as $file) {
-                Route::prefix('v1')
-                    ->middleware('api')
-                    ->group($file);
+        $this->routes(
+            function () use ($resolver): void {
+                foreach ($resolver->resolveRoutes() as $file) {
+                    Route::prefix('v1')
+                        ->middleware('api')
+                        ->group($file);
+                }
             }
-        });
+        );
     }
 
     /**
@@ -43,11 +45,14 @@ class MarketplaceRouteServiceProvider extends ServiceProvider
      */
     protected function configureRateLimiting(): void
     {
-        RateLimiter::for('auth', function (Request $request) {
-            return Limit::perMinute(
-                Config::get('marketplace.core.auth.throttling', 5)
-            )
-                ->by(optional($request->user())->getAuthIdentifier() ?: $request->ip());
-        });
+        RateLimiter::for(
+            'auth',
+            function (Request $request) {
+                return Limit::perMinute(
+                    Config::get('marketplace.core.auth.throttling', 5)
+                )
+                    ->by(optional($request->user())->getAuthIdentifier() ?: $request->ip());
+            }
+        );
     }
 }

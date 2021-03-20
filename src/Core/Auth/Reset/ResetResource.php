@@ -2,6 +2,7 @@
 
 namespace Marketplace\Core\Auth\Reset;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ResetResource extends JsonResource
@@ -9,7 +10,7 @@ class ResetResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      *
      * @return array<string, mixed>
      */

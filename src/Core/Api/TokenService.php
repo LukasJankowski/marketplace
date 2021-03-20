@@ -5,6 +5,7 @@ namespace Marketplace\Core\Api;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
+use RuntimeException;
 
 class TokenService
 {
@@ -28,6 +29,38 @@ class TokenService
     public static function generateApiToken(int|string $userId): string
     {
         return self::makeToken(time(), $userId, self::getSecret());
+    }
+
+    /**
+     * Generate the token consistently.
+     *
+     * @param int|string $time
+     * @param int|string $userId
+     * @param string $secret
+     *
+     * @return string
+     */
+    private static function makeToken(int|string $time, int|string $userId, string $secret): string
+    {
+        return $time . self::TOKEN_DIVIDER . md5($time . $userId . $secret);
+    }
+
+    /**
+     * Get the app secret.
+     *
+     * @return string
+     */
+    private static function getSecret(): string
+    {
+        $secret = Env::get(self::SECRET_KEY, false);
+
+        if ($secret === false) {
+            throw new RuntimeException(
+                sprintf('No %s has been specified.', self::SECRET_KEY)
+            );
+        }
+
+        return $secret;
     }
 
     /**
@@ -63,37 +96,5 @@ class TokenService
         $tokenIssueTimestamp = (int) Str::before($token, self::TOKEN_DIVIDER);
 
         return time() > $tokenIssueTimestamp + ($lifespan * 60);
-    }
-
-    /**
-     * Generate the token consistently.
-     *
-     * @param int|string $time
-     * @param int|string $userId
-     * @param string $secret
-     *
-     * @return string
-     */
-    private static function makeToken(int|string $time, int|string $userId, string $secret): string
-    {
-        return $time . self::TOKEN_DIVIDER . md5($time . $userId . $secret);
-    }
-
-    /**
-     * Get the app secret.
-     *
-     * @return string
-     */
-    private static function getSecret(): string
-    {
-        $secret = Env::get(self::SECRET_KEY, false);
-
-        if ($secret === false) {
-            throw new \RuntimeException(
-                sprintf('No %s has been specified.', self::SECRET_KEY)
-            );
-        }
-
-        return $secret;
     }
 }

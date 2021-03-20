@@ -2,9 +2,9 @@
 
 namespace Marketplace\Core\Account;
 
-use Marketplace\Core\User\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Marketplace\Core\Account\ValueObjects\Salutation;
+use Marketplace\Core\User\User;
 
 class AccountFactory extends Factory
 {
