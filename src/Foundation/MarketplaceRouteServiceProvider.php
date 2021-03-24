@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Marketplace\Foundation\Middlewares\TokenMiddleware;
 use Marketplace\Foundation\Resolvers\ModuleResolver;
 
 class MarketplaceRouteServiceProvider extends ServiceProvider
@@ -22,6 +23,8 @@ class MarketplaceRouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->addMiddlewares();
+
         /** @var ModuleResolver $resolver */
         $resolver = $this->app->make(ModuleResolver::class);
 
@@ -54,5 +57,15 @@ class MarketplaceRouteServiceProvider extends ServiceProvider
                     ->by(optional($request->user())->getAuthIdentifier() ?: $request->ip());
             }
         );
+    }
+
+    /**
+     * Setup middlewares.
+     *
+     * @return void
+     */
+    private function addMiddlewares(): void
+    {
+        $this->aliasMiddleware('api_auth', TokenMiddleware::class);
     }
 }

@@ -8,6 +8,21 @@ use Marketplace\Core\Role\RoleService;
 class Role
 {
     /**
+     * @const string
+     */
+    public const ADMIN = 'admin';
+
+    /**
+     * @const string
+     */
+    public const CUSTOMER = 'customer';
+
+    /**
+     * @const string
+     */
+    public const PROVIDER = 'provider';
+
+    /**
      * Role constructor.
      *
      * @param string $slug

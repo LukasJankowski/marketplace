@@ -3,6 +3,8 @@
 namespace Marketplace\Core\Role;
 
 use InvalidArgumentException;
+use Marketplace\Core\Role\ValueObjects\Role;
+use Marketplace\Core\User\User;
 
 class RoleService
 {
@@ -10,9 +12,9 @@ class RoleService
      * @const array<string, string>
      */
     public const ROLES = [
-        'customer' => 'customer',
-        'provider' => 'provider',
-        'admin' => 'admin',
+        'customer' => Role::CUSTOMER,
+        'provider' => Role::PROVIDER,
+        'admin' => Role::ADMIN,
     ];
 
     /**
@@ -101,5 +103,17 @@ class RoleService
     public static function getSlugs(array $except = []): array
     {
         return array_diff(array_keys(self::ROLES), $except);
+    }
+
+    /**
+     * Get the users role.
+     *
+     * @param User $user
+     *
+     * @return string
+     */
+    public static function getRoleOfUser(User $user): string
+    {
+        return $user->getAttribute('role');
     }
 }
