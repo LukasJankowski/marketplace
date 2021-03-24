@@ -4,14 +4,10 @@ namespace Marketplace\Foundation\Middlewares;
 
 use Closure;
 use Illuminate\Http\Request;
-use Marketplace\Foundation\Exceptions\AuthorizationException;
+use Marketplace\Foundation\Exceptions\AuthenticationException;
 
 class TokenMiddleware
 {
-    public function __construct()
-    {
-    }
-
     /**
      * Handle an incoming request.
      *
@@ -20,12 +16,12 @@ class TokenMiddleware
      *
      * @return mixed
      *
-     * @throws AuthorizationException
+     * @throws AuthenticationException
      */
     public function handle(Request $request, Closure $next): mixed
     {
         if ($request->user() === null) {
-            throw new AuthorizationException();
+            throw new AuthenticationException();
         }
 
         return $next($request);

@@ -18,7 +18,7 @@ class ListTest extends TestCase
     {
         $this->getJson(route('marketplace.core.user.list'))
             ->assertStatus(401)
-            ->assertJsonPath('data.message', 'marketplace.core.authorization.unauthorized');
+            ->assertJsonPath('data.message', 'marketplace.core.authentication.unauthenticated');
     }
 
     public function testCantGetAllUsersWhenNotAdmin()
@@ -27,7 +27,7 @@ class ListTest extends TestCase
 
         $this->actingAs($u)
             ->getJson(route('marketplace.core.user.list'))
-            ->assertStatus(401)
+            ->assertStatus(403)
             ->assertJsonPath('data.message', 'marketplace.core.authorization.unauthorized');
     }
 

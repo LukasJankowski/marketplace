@@ -23,7 +23,7 @@ class AuthorizationException extends IlluminateAuthorizationException
      */
     public function __construct(
         string $message = 'marketplace.core.authorization.unauthorized',
-        $code = 401,
+        $code = 403,
         ?Throwable $previous = null
     )
     {

@@ -39,7 +39,7 @@ class VerifyTest extends TestCase
         $url = substr($url, 0, -6); // broken signature
 
         $this->getJson($url)
-            ->assertStatus(401)
+            ->assertStatus(403)
             ->assertJsonPath('data.message', 'marketplace.core.authorization.unauthorized');
     }
 

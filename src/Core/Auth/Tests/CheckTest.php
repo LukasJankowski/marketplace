@@ -34,6 +34,6 @@ class CheckTest extends TestCase
     {
         $this->getJson(route('marketplace.core.auth.check'))
             ->assertStatus(401)
-            ->assertJsonPath('data.message', 'marketplace.core.authorization.unauthorized');
+            ->assertJsonPath('data.message', 'marketplace.core.authentication.unauthenticated');
     }
 }

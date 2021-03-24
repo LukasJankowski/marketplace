@@ -20,9 +20,11 @@ Route::group(
         'prefix' => 'auth',
     ],
     function () {
-        Route::get('/check', [AuthController::class, 'check'])->name('check');
+        Route::group(['middleware' => ['api_auth']], function () {
+            Route::get('/check', [AuthController::class, 'check'])->name('check');
 
-        Route::get('/refresh', [AuthController::class, 'refresh'])->name('refresh');
+            Route::get('/refresh', [AuthController::class, 'refresh'])->name('refresh');
+        });
 
         Route::get('/verify/{id}', [AuthController::class, 'verify'])->name('verify');
 
