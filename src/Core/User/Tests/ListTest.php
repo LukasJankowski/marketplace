@@ -38,7 +38,6 @@ class ListTest extends TestCase
         $this->actingAs($u)
             ->getJson(route('marketplace.core.user.list'))
             ->assertStatus(200)
-            ->assertJsonPath('data.0.email', $u->getAttribute('email'))
             ->assertJsonCount(1, 'data');
     }
 }

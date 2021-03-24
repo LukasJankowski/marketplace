@@ -41,11 +41,8 @@ class UserServiceTest extends TestCase
             'password',
             $user->role
         );
-
-        $user = User::query()->first();
-
         $service = new UserService();
-        $this->assertEquals($user, $service->getUserByCredentials($creds));
+        $this->assertEquals($user->fresh(), $service->getUserByCredentials($creds));
     }
 
     public function testCanAlwaysGetExistingUsersByCredentials()

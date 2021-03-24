@@ -2,6 +2,7 @@
 
 namespace Marketplace\Core\Role\Tests;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use InvalidArgumentException;
 use Marketplace\Core\Role\RoleService;
 use Marketplace\Core\User\User;
@@ -9,6 +10,8 @@ use Tests\TestCase;
 
 class RoleServiceTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function testReturnsTrueIfKeyExists()
     {
         $this->assertTrue(RoleService::slugExists('customer'));
