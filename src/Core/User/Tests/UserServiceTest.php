@@ -18,6 +18,20 @@ class UserServiceTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function testCanGetAllUsers()
+    {
+        $users = User::factory()->count(5)->create();
+
+        $service = new UserService();
+        $this->assertEquals($users->toArray(), $service->getAllUsers()->toArray());
+    }
+
+    public function testWillReturnEmptyIfNoUsersExist()
+    {
+        $service = new UserService();
+        $this->assertEquals([], $service->getAllUsers()->toArray());
+    }
+
     public function testCanGetUserByCredentials()
     {
         $user = User::factory()->create();

@@ -11,10 +11,11 @@ abstract class BaseAction
      *
      * @param string $resource
      * @param mixed $data
+     * @param bool $isMany
      *
      * @return mixed
      */
-    protected function respond(string $resource, mixed $data): mixed
+    protected function respond(string $resource, mixed $data, bool $isMany = false): mixed
     {
         if (!class_exists($resource)) {
             throw new LogicException(
@@ -22,6 +23,6 @@ abstract class BaseAction
             );
         }
 
-        return $resource::make($data);
+        return $isMany ? $resource::collection($data) : $resource::make($data);
     }
 }

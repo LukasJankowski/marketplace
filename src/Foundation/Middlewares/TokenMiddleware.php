@@ -24,7 +24,7 @@ class TokenMiddleware
      */
     public function handle(Request $request, Closure $next): mixed
     {
-        if ($request->user() !== null) {
+        if ($request->user() === null) {
             throw new AuthorizationException();
         }
 

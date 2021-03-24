@@ -17,9 +17,17 @@ Route::group(
     [
         'as' => 'marketplace.core.user.',
         'prefix' => 'users',
-        'middleware' => ['api_auth']
+        'middleware' => ['api_auth'],
     ],
     function () {
-        Route::apiResource('/', UserController::class);
+        Route::apiResource('/', UserController::class)->names(
+            [
+                'index' => 'list',
+                'store' => 'store',
+                'show' => 'show',
+                'update' => 'update',
+                'destroy' => 'delete',
+            ]
+        );
     }
 );

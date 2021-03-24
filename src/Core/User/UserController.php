@@ -3,6 +3,7 @@
 namespace Marketplace\Core\User;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Marketplace\Core\User\List\ListUserAction;
 use Marketplace\Core\User\List\ListUserRequest;
 
@@ -14,9 +15,9 @@ class UserController extends Controller
      * @param ListUserRequest $request
      * @param ListUserAction $action
      *
-     * @return UserResource
+     * @return AnonymousResourceCollection
      */
-    public function index(ListUserRequest $request, ListUserAction $action): UserResource
+    public function index(ListUserRequest $request, ListUserAction $action): AnonymousResourceCollection
     {
         return $action->run();
     }

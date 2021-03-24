@@ -2,6 +2,7 @@
 
 namespace Marketplace\Core\User\List;
 
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Marketplace\Core\User\UserResource;
 use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
@@ -20,10 +21,10 @@ class ListUserAction extends BaseAction
     /**
      * Refresh the users API token.
      *
-     * @return UserResource
+     * @return AnonymousResourceCollection
      */
-    public function run(): UserResource
+    public function run(): AnonymousResourceCollection
     {
-        return $this->respond(UserResource::class, $this->service->getAllUsers());
+        return $this->respond(UserResource::class, $this->service->getAllUsers(), true);
     }
 }

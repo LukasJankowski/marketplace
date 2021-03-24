@@ -4,6 +4,7 @@ namespace Marketplace\Core\Role\Tests;
 
 use InvalidArgumentException;
 use Marketplace\Core\Role\RoleService;
+use Marketplace\Core\User\User;
 use Tests\TestCase;
 
 class RoleServiceTest extends TestCase
@@ -102,5 +103,12 @@ class RoleServiceTest extends TestCase
             '^(?:customer|provider)$',
             RoleService::getRouteRegexFromSlugs(['admin'])
         );
+    }
+
+    public function testCanGetRoleFromUser()
+    {
+        $u = User::factory()->create(['role' => 'customer']);
+
+        $this->assertEquals($u->getAttribute('role'), RoleService::getRoleOfUser($u));
     }
 }
