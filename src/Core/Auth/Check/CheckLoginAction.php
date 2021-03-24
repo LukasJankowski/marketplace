@@ -3,9 +3,9 @@
 namespace Marketplace\Core\Auth\Check;
 
 use Marketplace\Core\Auth\Login\LoginResource;
+use Marketplace\Core\Logging\Logger;
 use Marketplace\Core\User\User;
 use Marketplace\Foundation\Actions\BaseAction;
-use Marketplace\Foundation\Logging\Logger;
 
 class CheckLoginAction extends BaseAction
 {

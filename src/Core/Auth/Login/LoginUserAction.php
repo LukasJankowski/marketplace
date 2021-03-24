@@ -3,11 +3,11 @@
 namespace Marketplace\Core\Auth\Login;
 
 use Marketplace\Core\Auth\Refresh\RefreshTokenAction;
+use Marketplace\Core\Logging\Logger;
 use Marketplace\Core\User\Dtos\CredentialsDto;
 use Marketplace\Core\User\User;
 use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
-use Marketplace\Foundation\Logging\Logger;
 
 class LoginUserAction extends BaseAction
 {

@@ -1,7 +1,8 @@
 <?php
 
-namespace Marketplace\Foundation\Logging;
+namespace Marketplace\Core\Logging;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Log\LogManager;

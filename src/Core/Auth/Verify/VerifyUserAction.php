@@ -3,11 +3,11 @@
 namespace Marketplace\Core\Auth\Verify;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Marketplace\Core\Logging\Logger;
 use Marketplace\Core\User\User;
 use Marketplace\Core\User\UserResource;
 use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
-use Marketplace\Foundation\Logging\Logger;
 
 class VerifyUserAction extends BaseAction
 {

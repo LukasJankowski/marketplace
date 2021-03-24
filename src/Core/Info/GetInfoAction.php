@@ -3,8 +3,8 @@
 namespace Marketplace\Core\Info;
 
 use Illuminate\Support\Env;
+use Marketplace\Core\Logging\Logger;
 use Marketplace\Foundation\Actions\BaseAction;
-use Marketplace\Foundation\Logging\Logger;
 
 class GetInfoAction extends BaseAction
 {

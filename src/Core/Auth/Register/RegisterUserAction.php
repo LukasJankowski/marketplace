@@ -3,13 +3,13 @@
 namespace Marketplace\Core\Auth\Register;
 
 use Marketplace\Core\Account\AccountService;
+use Marketplace\Core\Logging\Logger;
 use Marketplace\Core\User\Dtos\UserDto;
 use Marketplace\Core\User\User;
 use Marketplace\Core\User\UserResource;
 use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
 use Marketplace\Foundation\Exceptions\ValidationException;
-use Marketplace\Foundation\Logging\Logger;
 
 class RegisterUserAction extends BaseAction
 {

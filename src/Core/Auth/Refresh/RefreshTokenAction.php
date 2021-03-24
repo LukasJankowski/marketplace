@@ -4,9 +4,9 @@ namespace Marketplace\Core\Auth\Refresh;
 
 use Marketplace\Core\Api\TokenService;
 use Marketplace\Core\Auth\Login\LoginResource;
+use Marketplace\Core\Logging\Logger;
 use Marketplace\Core\User\User;
 use Marketplace\Foundation\Actions\BaseAction;
-use Marketplace\Foundation\Logging\Logger;
 
 class RefreshTokenAction extends BaseAction
 {

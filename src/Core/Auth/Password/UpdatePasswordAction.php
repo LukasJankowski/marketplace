@@ -3,12 +3,12 @@
 namespace Marketplace\Core\Auth\Password;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Marketplace\Core\Logging\Logger;
 use Marketplace\Core\User\Dtos\CredentialsDto;
 use Marketplace\Core\User\User;
 use Marketplace\Core\User\UserResource;
 use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
-use Marketplace\Foundation\Logging\Logger;
 
 class UpdatePasswordAction extends BaseAction
 {
