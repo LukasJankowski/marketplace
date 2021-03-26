@@ -3,7 +3,7 @@
 namespace Marketplace\Core\User\Dtos;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Marketplace\Core\Role\ValueObjects\Role;
+use Marketplace\Core\Authorization\ValueObjects\Role;
 use Marketplace\Core\User\ValueObjects\Password;
 
 class CredentialsDto implements Arrayable

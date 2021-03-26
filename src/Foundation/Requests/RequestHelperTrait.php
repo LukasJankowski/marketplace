@@ -4,8 +4,8 @@ namespace Marketplace\Foundation\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
-use Marketplace\Core\Role\RoleService;
-use Marketplace\Core\Role\ValueObjects\Role;
+use Marketplace\Core\Authorization\RoleService;
+use Marketplace\Core\Authorization\ValueObjects\Role;
 use Marketplace\Foundation\Exceptions\AuthorizationException;
 use Marketplace\Foundation\Exceptions\ValidationException as MarketplaceValidationException;
 

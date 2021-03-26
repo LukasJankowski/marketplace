@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\URL;
-use Marketplace\Core\Role\RoleService;
+use Marketplace\Core\Authorization\RoleService;
 use Marketplace\Core\User\User;
 
 class SendResetNotification extends Notification implements ShouldQueue

@@ -1,10 +1,10 @@
 <?php
 
-namespace Marketplace\Core\Role\Tests;
+namespace Marketplace\Core\Authorization\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use InvalidArgumentException;
-use Marketplace\Core\Role\RoleService;
+use Marketplace\Core\Authorization\RoleService;
 use Marketplace\Core\User\User;
 use Tests\TestCase;
 

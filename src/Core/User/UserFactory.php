@@ -5,7 +5,7 @@ namespace Marketplace\Core\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Marketplace\Core\Api\TokenService;
-use Marketplace\Core\Role\RoleService;
+use Marketplace\Core\Authorization\RoleService;
 
 class UserFactory extends Factory
 {

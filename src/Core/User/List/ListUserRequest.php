@@ -3,8 +3,8 @@
 namespace Marketplace\Core\User\List;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Marketplace\Core\Role\RoleService;
-use Marketplace\Core\Role\ValueObjects\Role;
+use Marketplace\Core\Authorization\RoleService;
+use Marketplace\Core\Authorization\ValueObjects\Role;
 use Marketplace\Foundation\Requests\RequestHelperTrait;
 
 class ListUserRequest extends FormRequest

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Marketplace\Core\Authentication\AuthenticationController;
-use Marketplace\Core\Role\RoleService;
+use Marketplace\Core\Authorization\RoleService;
 
 /*
 |--------------------------------------------------------------------------

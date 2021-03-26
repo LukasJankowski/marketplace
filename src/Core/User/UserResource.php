@@ -5,7 +5,7 @@ namespace Marketplace\Core\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Marketplace\Core\Account\AccountResource;
-use Marketplace\Core\Role\RoleService;
+use Marketplace\Core\Authorization\RoleService;
 
 class UserResource extends JsonResource
 {

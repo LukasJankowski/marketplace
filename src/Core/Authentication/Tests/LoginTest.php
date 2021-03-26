@@ -5,7 +5,7 @@ namespace Marketplace\Core\Authentication\Tests;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Marketplace\Core\Authentication\Login\UserLoggedIn;
-use Marketplace\Core\Role\RoleService;
+use Marketplace\Core\Authorization\RoleService;
 use Marketplace\Foundation\Tests\TestsHelperTrait;
 use Tests\TestCase;
 

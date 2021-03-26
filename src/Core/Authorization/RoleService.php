@@ -1,9 +1,9 @@
 <?php
 
-namespace Marketplace\Core\Role;
+namespace Marketplace\Core\Authorization;
 
 use InvalidArgumentException;
-use Marketplace\Core\Role\ValueObjects\Role;
+use Marketplace\Core\Authorization\ValueObjects\Role;
 use Marketplace\Core\User\User;
 
 class RoleService
