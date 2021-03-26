@@ -5,6 +5,7 @@ namespace Marketplace\Foundation;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Marketplace\Foundation\Resolvers\ModuleResolver;
+use Marketplace\Foundation\Subscribers\ListensTo;
 
 class MarketplaceEventServiceProvider extends ServiceProvider
 {
@@ -40,9 +41,40 @@ class MarketplaceEventServiceProvider extends ServiceProvider
             $dispatcher = $this->app->make(Dispatcher::class);
 
             foreach ($resolver->resolveSubscribers() as $subscriber) {
-                $dispatcher->subscribe($subscriber);
+                foreach ($this->resolveListeners($subscriber) as [$event, $listener]) {
+                    $dispatcher->listen($event, $listener);
+                }
             }
         });
+    }
 
+    /**
+     * Resolve the listeners of the subscribers dynamically.
+     *
+     * @param string $subscriber
+     *
+     * @return array
+     *
+     * @throws \ReflectionException
+     */
+    private function resolveListeners(string $subscriber): array
+    {
+        $reflectionClass = new \ReflectionClass($subscriber);
+        $listeners = [];
+
+        foreach ($reflectionClass->getMethods() as $method) {
+            $attributes = $method->getAttributes(ListensTo::class);
+
+            foreach ($attributes as $attribute) {
+                $listeners[] = [
+                    // The event that's configured on the attribute
+                    $attribute->newInstance()->event,
+                    // The listener for this event
+                    [$subscriber, $method->getName()],
+                ];
+            }
+        }
+
+        return $listeners;
     }
 }

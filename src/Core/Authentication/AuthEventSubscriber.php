@@ -4,21 +4,10 @@ namespace Marketplace\Core\Authentication;
 
 use Marketplace\Core\Authentication\Register\UserRegistered;
 use Marketplace\Core\User\UserService;
-use Marketplace\Foundation\Subscribers\SubscriberHelperTrait;
+use Marketplace\Foundation\Subscribers\ListensTo;
 
 class AuthEventSubscriber
 {
-    use SubscriberHelperTrait;
-
-    /**
-     * @const array
-     */
-    public const SUBSCRIBER = [
-        UserRegistered::class => [
-            [self::class, 'handleUserRegistered'],
-        ],
-    ];
-
     /**
      * React on a user that registered.
      *
@@ -26,6 +15,7 @@ class AuthEventSubscriber
      *
      * @return void
      */
+    #[ListensTo(UserRegistered::class)]
     public function handleUserRegistered(UserRegistered $event): void
     {
         (new UserService())->sendVerificationEmailToUser($event->getUser());
