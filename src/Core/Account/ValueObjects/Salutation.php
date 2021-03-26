@@ -4,8 +4,9 @@ namespace Marketplace\Core\Account\ValueObjects;
 
 use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
+use Marketplace\Foundation\ValueObjects\ValueObject;
 
-class Salutation
+class Salutation implements ValueObject
 {
     /**
      * @const array<string>
@@ -56,11 +57,9 @@ class Salutation
     }
 
     /**
-     * Getter.
-     *
-     * @return null|string
+     * @inheritdoc
      */
-    public function getSalutation(): ?string
+    public function value(): ?string
     {
         return $this->salutation;
     }

@@ -3,29 +3,31 @@
 namespace Marketplace\Core\Account\Dtos;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Marketplace\Core\Account\ValueObjects\Name;
+use Marketplace\Core\Account\ValueObjects\Phone;
 use Marketplace\Core\Account\ValueObjects\Salutation;
 
 class AccountDto implements Arrayable
 {
     /**
-     * PersonDto constructor.
+     * AccountDto constructor.
      *
      * @param Salutation $salutation
-     * @param string $firstName
-     * @param string $lastName
-     * @param null|string $phone
+     * @param Name $firstName
+     * @param Name $lastName
+     * @param Phone $phone
      */
     private function __construct(
         private Salutation $salutation,
-        private string $firstName,
-        private string $lastName,
-        private ?string $phone
+        private Name $firstName,
+        private Name $lastName,
+        private Phone $phone
     )
     {
     }
 
     /**
-     * Create the Person Dto.
+     * Create a new instance of self.
      *
      * @param null|string $salutation
      * @param string $firstName
@@ -43,9 +45,9 @@ class AccountDto implements Arrayable
     {
         return new self(
             Salutation::make($salutation),
-            $firstName,
-            $lastName,
-            $phone
+            Name::make($firstName),
+            Name::make($lastName),
+            Phone::make($phone)
         );
     }
 
@@ -57,19 +59,19 @@ class AccountDto implements Arrayable
     public function toArray(): array
     {
         return [
-            'salutation' => optional($this->getSalutation())->getSalutation(),
-            'first_name' => $this->getFirstName(),
-            'last_name' => $this->getLastName(),
-            'phone' => $this->getPhone(),
+            'salutation' => $this->getSalutation()->value(),
+            'first_name' => $this->getFirstName()->value(),
+            'last_name' => $this->getLastName()->value(),
+            'phone' => $this->getPhone()->value(),
         ];
     }
 
     /**
      * Getter.
      *
-     * @return Salutation|null
+     * @return Salutation
      */
-    public function getSalutation(): ?Salutation
+    public function getSalutation(): Salutation
     {
         return $this->salutation;
     }
@@ -77,9 +79,9 @@ class AccountDto implements Arrayable
     /**
      * Getter.
      *
-     * @return string
+     * @return Name
      */
-    public function getFirstName(): string
+    public function getFirstName(): Name
     {
         return $this->firstName;
     }
@@ -87,9 +89,9 @@ class AccountDto implements Arrayable
     /**
      * Getter.
      *
-     * @return string
+     * @return Name
      */
-    public function getLastName(): string
+    public function getLastName(): Name
     {
         return $this->lastName;
     }
@@ -97,9 +99,9 @@ class AccountDto implements Arrayable
     /**
      * Getter.
      *
-     * @return null|string
+     * @return Phone
      */
-    public function getPhone(): ?string
+    public function getPhone(): Phone
     {
         return $this->phone;
     }
