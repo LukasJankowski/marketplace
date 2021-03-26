@@ -66,7 +66,7 @@ class CreateUserAction extends BaseAction
                 ]
             );
 
-            throw ValidationException::withMessages(['email' => 'marketplace.core.auth.register.duplicate']);
+            throw ValidationException::withMessages(['email' => 'marketplace.core.authentication.register.duplicate']);
         }
     }
 

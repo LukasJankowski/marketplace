@@ -39,9 +39,9 @@ return [
             ],
         ],
         /**
-         * Everything related to the core auth.
+         * Everything related to the core authentication.
          */
-        'auth' => [
+        'authentication' => [
             /**
              * The default throttling used by the core to avoid too many auth attempts.
              *

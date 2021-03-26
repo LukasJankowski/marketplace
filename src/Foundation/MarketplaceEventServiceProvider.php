@@ -2,8 +2,9 @@
 
 namespace Marketplace\Foundation;
 
+use Illuminate\Events\Dispatcher;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Marketplace\Core\Auth\AuthEventSubscriber;
+use Marketplace\Foundation\Resolvers\ModuleResolver;
 
 class MarketplaceEventServiceProvider extends ServiceProvider
 {
@@ -22,6 +23,26 @@ class MarketplaceEventServiceProvider extends ServiceProvider
      * @var array<string>
      */
     protected $subscribe = [
-        AuthEventSubscriber::class,
+        //
     ];
+
+    /**
+     * Register dynamic event subscribers.
+     *
+     * @return void
+     */
+    public function register(): void
+    {
+        $this->booting(function () {
+            /** @var ModuleResolver $resolver */
+            $resolver = $this->app->make(ModuleResolver::class);
+            /** @var Dispatcher $dispatcher */
+            $dispatcher = $this->app->make(Dispatcher::class);
+
+            foreach ($resolver->resolveSubscribers() as $subscriber) {
+                $dispatcher->subscribe($subscriber);
+            }
+        });
+
+    }
 }

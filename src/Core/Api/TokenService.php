@@ -92,7 +92,7 @@ class TokenService
      */
     private static function isTokenExpired(string $token): bool
     {
-        $lifespan = (int) Config::get('marketplace.core.auth.lifetime', 120);
+        $lifespan = (int) Config::get('marketplace.core.authentication.lifetime', 120);
         $tokenIssueTimestamp = (int) Str::before($token, self::TOKEN_DIVIDER);
 
         return time() > $tokenIssueTimestamp + ($lifespan * 60);

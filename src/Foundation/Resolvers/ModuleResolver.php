@@ -3,6 +3,7 @@
 namespace Marketplace\Foundation\Resolvers;
 
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 use Marketplace\Foundation\MarketplaceServiceProvider;
 
 class ModuleResolver
@@ -18,12 +19,46 @@ class ModuleResolver
     public const MIGRATION_DIR_NAME = '/migrations';
 
     /**
+     * @const string
+     */
+    public const EVENT_SUBSCRIBER_FILE_NAME = '/*Subscriber.php';
+
+    /**
      * ModuleResolver constructor.
      *
      * @param Filesystem $filesystem
      */
     public function __construct(private Filesystem $filesystem)
     {
+    }
+
+    /**
+     * Get all subscribers from the modules.
+     *
+     * @param string $parentDir
+     * @param string $parentNamespace
+     *
+     * @return array
+     */
+    public function resolveSubscribers(
+        string $parentDir = MarketplaceServiceProvider::CORE_DIR,
+        string $parentNamespace = MarketplaceServiceProvider::CORE_NAMESPACE
+    ): array
+    {
+        $handles = [];
+
+        foreach ($this->getModuleDirs($parentDir) as $moduleDir) {
+            $filePattern = $moduleDir . self::EVENT_SUBSCRIBER_FILE_NAME;
+
+            foreach ($this->filesystem->glob($filePattern) as $subscriber) {
+                $className = $this->filesystem->name($subscriber);
+                $module = $this->filesystem->basename($this->filesystem->dirname($subscriber));
+
+                $handles[] = $parentNamespace . '\\' . $module . '\\' . $className;
+            }
+        }
+
+        return $handles;
     }
 
     /**
@@ -39,7 +74,19 @@ class ModuleResolver
     }
 
     /**
-     * Get all types from all module directorie.s
+     * Get all migrations from the modules.
+     *
+     * @param string $parentDir
+     *
+     * @return array
+     */
+    public function resolveData(string $parentDir = MarketplaceServiceProvider::CORE_DIR): array
+    {
+        return $this->getFilesFromModules($parentDir, self::MIGRATION_DIR_NAME, true);
+    }
+
+    /**
+     * Get all types from all module directories
      *
      * @param string $parentDir
      * @param string $type
@@ -85,17 +132,5 @@ class ModuleResolver
         return $isDir
             ? $this->exists($file) && $this->filesystem->isDirectory($file)
             : $this->filesystem->exists($file);
-    }
-
-    /**
-     * Get all migrations from the modules.
-     *
-     * @param string $parentDir
-     *
-     * @return array
-     */
-    public function resolveData(string $parentDir = MarketplaceServiceProvider::CORE_DIR): array
-    {
-        return $this->getFilesFromModules($parentDir, self::MIGRATION_DIR_NAME, true);
     }
 }

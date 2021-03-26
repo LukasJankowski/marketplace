@@ -19,6 +19,16 @@ final class MarketplaceServiceProvider extends ServiceProvider
     public const CONFIG_DIR = __DIR__ . '/../Config';
 
     /**
+     * @const string
+     */
+    public const CORE_NAMESPACE = 'Marketplace\Core';
+
+    /**
+     * @const string
+     */
+    public const MODULE_NAMESPACE = 'Marketplace\Modules';
+
+    /**
      * @const array<string>
      */
     public const SERVICE_PROVIDERS = [

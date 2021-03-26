@@ -52,7 +52,7 @@ class MarketplaceRouteServiceProvider extends ServiceProvider
             'auth',
             function (Request $request) {
                 return Limit::perMinute(
-                    Config::get('marketplace.core.auth.throttling', 5)
+                    Config::get('marketplace.core.authentication.throttling', 5)
                 )
                     ->by(optional($request->user())->getAuthIdentifier() ?: $request->ip());
             }
