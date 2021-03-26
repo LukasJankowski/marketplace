@@ -1,15 +1,17 @@
 <?php
 
-namespace Marketplace\Core\Auth\Register;
+namespace Marketplace\Core\User\Create;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Marketplace\Core\Account\ValueObjects\Salutation;
+use Marketplace\Core\Role\RoleService;
+use Marketplace\Core\Role\ValueObjects\Role;
 use Marketplace\Core\User\Dtos\UserDto;
 use Marketplace\Core\User\ValueObjects\Password;
 use Marketplace\Foundation\Requests\RequestHelperTrait;
 
-class RegisterRequest extends FormRequest
+class CreateUserRequest extends FormRequest
 {
     use RequestHelperTrait;
 
@@ -20,7 +22,7 @@ class RegisterRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->isAdmin();
     }
 
     /**

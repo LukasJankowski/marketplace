@@ -13,8 +13,8 @@ use Marketplace\Core\Auth\Password\UpdatePasswordAction;
 use Marketplace\Core\Auth\Password\UpdatePasswordRequest;
 use Marketplace\Core\Auth\Refresh\RefreshTokenAction;
 use Marketplace\Core\Auth\Refresh\RefreshTokenRequest;
-use Marketplace\Core\Auth\Register\RegisterRequest;
 use Marketplace\Core\Auth\Register\RegisterUserAction;
+use Marketplace\Core\Auth\Register\RegisterUserRequest;
 use Marketplace\Core\Auth\Reset\ResetPasswordAction;
 use Marketplace\Core\Auth\Reset\ResetRequest;
 use Marketplace\Core\Auth\Reset\ResetResource;
@@ -69,14 +69,14 @@ class AuthController extends Controller
     /**
      * Register a new user.
      *
-     * @param RegisterRequest $request
+     * @param RegisterUserRequest $request
      * @param RegisterUserAction $action
      *
      * @return JsonResponse
      *
      * @throws ValidationException
      */
-    public function register(RegisterRequest $request, RegisterUserAction $action): JsonResponse
+    public function register(RegisterUserRequest $request, RegisterUserAction $action): JsonResponse
     {
         return $action->run($request->getDto())
             ->response()

@@ -20,14 +20,10 @@ Route::group(
         'middleware' => ['api_auth'],
     ],
     function () {
-        Route::apiResource('/', UserController::class)->names(
-            [
-                'index' => 'list',
-                'store' => 'store',
-                'show' => 'show',
-                'update' => 'update',
-                'destroy' => 'delete',
-            ]
-        );
+        Route::get('/', [UserController::class, 'list'])->name('list');
+        Route::post('/', [UserController::class, 'create'])->name('create');
+        Route::get('/{id}', [UserController::class, 'read'])->name('read');
+        Route::match(['put', 'patch'], '/{id}', [UserController::class, 'update'])->name('update');
+        Route::delete('/{id}', [UserController::class, 'delete'])->name('delete');
     }
 );

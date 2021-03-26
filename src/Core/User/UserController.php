@@ -3,9 +3,15 @@
 namespace Marketplace\Core\User;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Marketplace\Core\User\Create\CreateUserAction;
+use Marketplace\Core\User\Create\CreateUserRequest;
 use Marketplace\Core\User\List\ListUserAction;
 use Marketplace\Core\User\List\ListUserRequest;
+use Marketplace\Core\User\Read\ReadUserAction;
+use Marketplace\Core\User\Read\ReadUserRequest;
+use Marketplace\Foundation\Exceptions\ValidationException;
 
 class UserController extends Controller
 {
@@ -17,7 +23,7 @@ class UserController extends Controller
      *
      * @return AnonymousResourceCollection
      */
-    public function index(ListUserRequest $request, ListUserAction $action): AnonymousResourceCollection
+    public function list(ListUserRequest $request, ListUserAction $action): AnonymousResourceCollection
     {
         return $action->run();
     }
@@ -25,38 +31,45 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param CreateUserRequest $request
+     * @param CreateUserAction $action
+     *
+     * @return JsonResponse
+     *
+     * @throws ValidationException
      */
-    public function store()
+    public function create(CreateUserRequest $request, CreateUserAction $action): JsonResponse
     {
-        //
+        return $action->run($request->getDto())
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param ReadUserRequest $request
+     * @param ReadUserAction $action
+     *
+     * @return UserResource
      */
-    public function show($id)
+    public function read(ReadUserRequest $request, ReadUserAction $action): UserResource
     {
-        //
+        return $action->run($request->route('id'));
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  int  $id
      */
-    public function update($id)
+    public function update()
     {
         //
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
      */
-    public function destroy($id)
+    public function delete()
     {
         //
     }

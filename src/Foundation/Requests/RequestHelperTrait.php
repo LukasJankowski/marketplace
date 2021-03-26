@@ -4,6 +4,8 @@ namespace Marketplace\Foundation\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
+use Marketplace\Core\Role\RoleService;
+use Marketplace\Core\Role\ValueObjects\Role;
 use Marketplace\Foundation\Exceptions\AuthorizationException;
 use Marketplace\Foundation\Exceptions\ValidationException as MarketplaceValidationException;
 
@@ -90,5 +92,17 @@ trait RequestHelperTrait
     private function getUserRole(): string
     {
         return (string) $this->route('role');
+    }
+
+    /**
+     * Check if the user is an admin.
+     *
+     * @return bool
+     */
+    private function isAdmin(): bool
+    {
+        return $this->user() !== null
+            ? RoleService::getRoleOfUser($this->user()) === Role::ADMIN
+            : false;
     }
 }

@@ -61,15 +61,13 @@ class UserService
      *
      * @param int|string $userId
      *
-     * @return User
+     * @return void
      */
-    public function markUserVerified(int|string $userId): User
+    public function markUserVerified(int|string $userId): void
     {
         $user = $this->getUserById($userId);
         $user->setAttribute('email_verified_at', Carbon::now());
         $user->save();
-
-        return $user->fresh();
     }
 
     /**
@@ -130,14 +128,12 @@ class UserService
      * @param int|string|User $user
      * @param Password $password
      *
-     * @return User
+     * @return void
      */
-    public function updatePasswordOfUser(int|string|User $user, Password $password): User
+    public function updatePasswordOfUser(int|string|User $user, Password $password): void
     {
         $user = $this->getUser($user);
         $user->setAttribute('password', $password->getPassword());
         $user->save();
-
-        return $user->fresh();
     }
 }

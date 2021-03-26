@@ -2,6 +2,7 @@
 
 namespace Marketplace\Core\User\Dtos;
 
+use Exception;
 use Illuminate\Contracts\Support\Arrayable;
 use Marketplace\Core\Account\Dtos\AccountDto;
 
@@ -15,7 +16,7 @@ class UserDto implements Arrayable
      */
     private function __construct(
         private CredentialsDto $credentials,
-        private AccountDto $person,
+        private AccountDto $person
     )
     {
     }
@@ -25,26 +26,27 @@ class UserDto implements Arrayable
      *
      * @param string $email
      * @param string $password
-     * @param string $type
+     * @param string $role
      * @param null|string $salutation
      * @param string $firstName
      * @param string $lastName
      * @param null|string $phone
      *
      * @return self
+     * @throws Exception
      */
     public static function make(
         string $email,
         string $password,
-        string $type,
+        string $role,
         ?string $salutation,
         string $firstName,
         string $lastName,
-        ?string $phone,
+        ?string $phone
     ): self
     {
         return new self(
-            CredentialsDto::make($email, $password, $type),
+            CredentialsDto::make($email, $password, $role),
             AccountDto::make($salutation, $firstName, $lastName, $phone)
         );
     }
@@ -58,7 +60,7 @@ class UserDto implements Arrayable
     {
         return [
             'credentials' => $this->getCredentials(),
-            'account' => $this->getAccount(),
+            'account' => $this->getAccount()
         ];
     }
 

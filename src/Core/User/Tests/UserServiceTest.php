@@ -102,7 +102,9 @@ class UserServiceTest extends TestCase
         $user = User::factory()->unverified()->create();
 
         $service = new UserService();
-        $user = $service->markUserVerified($user->id);
+        $service->markUserVerified($user->id);
+
+        $user->refresh();
 
         $this->assertDatabaseHas(
             'users',
@@ -119,7 +121,9 @@ class UserServiceTest extends TestCase
         $user = User::factory()->create();
 
         $service = new UserService();
-        $user = $service->markUserVerified($user->id);
+        $service->markUserVerified($user->id);
+
+        $user->refresh();
 
         $this->assertDatabaseHas(
             'users',

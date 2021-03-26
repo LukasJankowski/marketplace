@@ -1,13 +1,13 @@
 <?php
 
-namespace Marketplace\Core\User\List;
+namespace Marketplace\Core\User\Read;
 
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Marketplace\Core\User\UserResource;
 use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
 
-class ListUserAction extends BaseAction
+class ReadUserAction extends BaseAction
 {
     /**
      * ListUserAction constructor.
@@ -21,10 +21,12 @@ class ListUserAction extends BaseAction
     /**
      * Refresh the users API token.
      *
-     * @return AnonymousResourceCollection
+     * @param int|string $id
+     *
+     * @return UserResource
      */
-    public function run(): AnonymousResourceCollection
+    public function run(int|string $id): UserResource
     {
-        return $this->respond(UserResource::class, $this->service->getAllUsers(), true);
+        return $this->respond(UserResource::class, $this->service->getUserById($id));
     }
 }

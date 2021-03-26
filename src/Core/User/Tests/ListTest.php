@@ -3,9 +3,6 @@
 namespace Marketplace\Core\User\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
-use Marketplace\Core\Auth\Login\UserLoggedIn;
-use Marketplace\Core\Role\RoleService;
 use Marketplace\Foundation\Tests\TestsHelperTrait;
 use Tests\TestCase;
 

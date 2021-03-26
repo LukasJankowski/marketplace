@@ -5,7 +5,7 @@ namespace Marketplace\Core\Auth\Password;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Marketplace\Core\Logging\Logger;
 use Marketplace\Core\User\Dtos\CredentialsDto;
-use Marketplace\Core\User\User;
+use Marketplace\Core\User\Read\ReadUserAction;
 use Marketplace\Core\User\UserResource;
 use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
@@ -17,8 +17,13 @@ class UpdatePasswordAction extends BaseAction
      *
      * @param Logger $logger
      * @param UserService $userService
+     * @param ReadUserAction $action
      */
-    public function __construct(private Logger $logger, private UserService $userService)
+    public function __construct(
+        private Logger $logger,
+        private UserService $userService,
+        private ReadUserAction $action,
+    )
     {
     }
 
@@ -33,7 +38,7 @@ class UpdatePasswordAction extends BaseAction
     public function run(CredentialsDto $creds, string|int $id): UserResource
     {
         try {
-            return $this->respond(UserResource::class, $this->updatePassword($creds, $id));
+            return $this->updatePassword($creds, $id);
         } catch (ModelNotFoundException $e) {
             $this->logger->info(
                 'Failed to find user to update password.',
@@ -52,14 +57,14 @@ class UpdatePasswordAction extends BaseAction
      * @param CredentialsDto $creds
      * @param string|int $id
      *
-     * @return User
+     * @return UserResource
      */
-    private function updatePassword(CredentialsDto $creds, string|int $id): User
+    private function updatePassword(CredentialsDto $creds, string|int $id): UserResource
     {
-        $user = $this->userService->updatePasswordOfUser($id, $creds->getPassword());
+        $this->userService->updatePasswordOfUser($id, $creds->getPassword());
 
-        $this->logger->info('Updated password of user.', ['user' => $user->getAuthIdentifier()]);
+        $this->logger->info('Updated password of user.', ['user' => $id]);
 
-        return $user;
+        return $this->action->run($id);
     }
 }

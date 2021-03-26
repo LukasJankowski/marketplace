@@ -4,7 +4,7 @@ namespace Marketplace\Core\Auth\Verify;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Marketplace\Core\Logging\Logger;
-use Marketplace\Core\User\User;
+use Marketplace\Core\User\Read\ReadUserAction;
 use Marketplace\Core\User\UserResource;
 use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
@@ -16,10 +16,12 @@ class VerifyUserAction extends BaseAction
      *
      * @param Logger $logger
      * @param UserService $userService
+     * @param ReadUserAction $action
      */
     public function __construct(
         private Logger $logger,
         private UserService $userService,
+        private ReadUserAction $action,
     )
     {
     }
@@ -34,7 +36,7 @@ class VerifyUserAction extends BaseAction
     public function run(string|int $id): UserResource
     {
         try {
-            return $this->respond(UserResource::class, $this->verifyUser($id));
+            return $this->verifyUser($id);
         } catch (ModelNotFoundException $e) {
             $this->logger->info(
                 'Failed to find user to verify.',
@@ -52,14 +54,14 @@ class VerifyUserAction extends BaseAction
      *
      * @param string|int $id
      *
-     * @return User
+     * @return UserResource
      */
-    private function verifyUser(string|int $id): User
+    private function verifyUser(string|int $id): UserResource
     {
-        $user = $this->userService->markUserVerified($id);
+        $this->userService->markUserVerified($id);
 
-        $this->logger->info('Verified user.', ['user' => $user->getAuthIdentifier()]);
+        $this->logger->info('Verified user.', ['user' => $id]);
 
-        return $user;
+        return $this->action->run($id);
     }
 }
