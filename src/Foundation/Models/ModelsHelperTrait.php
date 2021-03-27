@@ -27,17 +27,4 @@ trait ModelsHelperTrait
 
         return self::query()->create($attributes);
     }
-
-    /**
-     * Get attributes by fillable keys.
-     *
-     * @return array
-     */
-    public function getAttributesByFillableKeys(): array
-    {
-        return array_map(
-            fn (string $attribute): mixed => $this->getAttribute($attribute),
-            $this->getFillable()
-        );
-    }
 }

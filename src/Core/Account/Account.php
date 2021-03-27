@@ -43,7 +43,13 @@ class Account extends Model implements HasDtoFactory
      */
     public function asDto(): DataTransferObjectInterface
     {
-        return AccountDto::make(...$this->getAttributesByFillableKeys());
+        return new AccountDto(
+            userId: $this->getAttribute('user_id'),
+            salutation: $this->getAttribute('salutation'),
+            firstName: $this->getAttribute('first_name'),
+            lastName: $this->getAttribute('last_name'),
+            phone: $this->getAttribute('phone'),
+        );
     }
 
     /**
