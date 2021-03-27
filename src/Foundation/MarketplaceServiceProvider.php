@@ -52,6 +52,10 @@ final class MarketplaceServiceProvider extends ServiceProvider
         foreach ($resolver->resolveData() as $dir) {
             $this->loadMigrationsFrom($dir);
         }
+
+        if ($this->app->runningInConsole()) {
+            $this->commands($resolver->resolveCommands());
+        }
     }
 
     /**

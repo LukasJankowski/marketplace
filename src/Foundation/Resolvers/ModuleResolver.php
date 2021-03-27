@@ -23,42 +23,17 @@ class ModuleResolver
     public const EVENT_SUBSCRIBER_DIR_NAME = '/Subscribers';
 
     /**
+     * @const string
+     */
+    public const COMMAND_DIR_NAME = '/Commands';
+
+    /**
      * ModuleResolver constructor.
      *
      * @param Filesystem $filesystem
      */
     public function __construct(private Filesystem $filesystem)
     {
-    }
-
-    /**
-     * Get all subscribers from the modules.
-     *
-     * @param string $parentDir
-     * @param string $parentNamespace
-     *
-     * @return array
-     */
-    public function resolveSubscribers(
-        string $parentDir = MarketplaceServiceProvider::CORE_DIR,
-        string $parentNamespace = MarketplaceServiceProvider::CORE_NAMESPACE
-    ): array
-    {
-        $handles = [];
-        $subscriberDirs = $this->getFilesFromModules($parentDir, self::EVENT_SUBSCRIBER_DIR_NAME, true);
-
-        foreach ($subscriberDirs as $subscriberDir) {
-            $module = $this->filesystem->basename($this->filesystem->dirname($subscriberDir));
-            $componentDir = $this->filesystem->basename($subscriberDir);
-
-            foreach ($this->filesystem->files($subscriberDir) as $subscriber) {
-                $className = $this->filesystem->name($subscriber);
-
-                $handles[] = $parentNamespace . '\\' . $module . '\\' . $componentDir . '\\' . $className;
-            }
-        }
-
-        return $handles;
     }
 
     /**
@@ -111,6 +86,36 @@ class ModuleResolver
     }
 
     /**
+     * Resolve the files from the directories as classes.
+     *
+     * @param array $directories
+     * @param string $parentNamespace
+     *
+     * @return array
+     */
+    private function resolveFilesAsClasses(
+        array $directories,
+        string $parentNamespace = MarketplaceServiceProvider::CORE_NAMESPACE
+    ): array
+    {
+        $handles = [];
+
+        foreach ($directories as $directory) {
+            $module = $this->filesystem->basename($this->filesystem->dirname($directory));
+            $componentDir = $this->filesystem->basename($directory);
+
+            foreach ($this->filesystem->files($directory) as $subscriber) {
+                $className = $this->filesystem->name($subscriber);
+
+                $handles[] = $parentNamespace . '\\' . $module . '\\' . $componentDir . '\\' . $className;
+            }
+        }
+
+        return $handles;
+    }
+
+
+    /**
      * Get all routes from the modules.
      *
      * @param string $parentDir
@@ -132,5 +137,41 @@ class ModuleResolver
     public function resolveData(string $parentDir = MarketplaceServiceProvider::CORE_DIR): array
     {
         return $this->getFilesFromModules($parentDir, self::MIGRATION_DIR_NAME, true);
+    }
+
+    /**
+     * Get all subscribers from the modules.
+     *
+     * @param string $parentDir
+     * @param string $parentNamespace
+     *
+     * @return array
+     */
+    public function resolveSubscribers(
+        string $parentDir = MarketplaceServiceProvider::CORE_DIR,
+        string $parentNamespace = MarketplaceServiceProvider::CORE_NAMESPACE
+    ): array
+    {
+        $subscriberDirs = $this->getFilesFromModules($parentDir, self::EVENT_SUBSCRIBER_DIR_NAME, true);
+
+        return $this->resolveFilesAsClasses($subscriberDirs, $parentNamespace);
+    }
+
+    /**
+     * Get all commands from the modules.
+     *
+     * @param string $parentDir
+     * @param string $parentNamespace
+     *
+     * @return array
+     */
+    public function resolveCommands(
+        string $parentDir = MarketplaceServiceProvider::CORE_DIR,
+        string $parentNamespace = MarketplaceServiceProvider::CORE_NAMESPACE
+    ): array
+    {
+        $commandDirs = $this->getFilesFromModules($parentDir, self::COMMAND_DIR_NAME, true);
+
+        return $this->resolveFilesAsClasses($commandDirs, $parentNamespace);
     }
 }
