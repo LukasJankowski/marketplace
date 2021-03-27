@@ -60,7 +60,7 @@ class UserDto implements Arrayable
     {
         return [
             'credentials' => $this->getCredentials(),
-            'account' => $this->getAccount()
+            'account' => $this->getAccount(),
         ];
     }
 

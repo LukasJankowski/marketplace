@@ -2,11 +2,11 @@
 
 namespace Marketplace\Core\Logging;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Log\LogManager;
 use Psr\Log\LoggerInterface;
+use Stringable;
 
 class Logger implements LoggerInterface
 {
@@ -18,6 +18,14 @@ class Logger implements LoggerInterface
      */
     public function __construct(private LogManager $logger, private Application $application)
     {
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function emergency($message, array $context = [])
+    {
+        $this->logger->emergency($message, $this->addMetaInfo($context));
     }
 
     /**
@@ -49,21 +57,12 @@ class Logger implements LoggerInterface
     private function convertStringableContexts(array $contexts): array
     {
         foreach ($contexts as &$context) {
-            if ($context instanceof \Stringable) {
+            if ($context instanceof Stringable) {
                 $context = (string) $context;
             }
         }
 
         return $contexts;
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function emergency($message, array $context = [])
-    {
-        $this->logger->emergency($message, $this->addMetaInfo($context));
     }
 
     /**

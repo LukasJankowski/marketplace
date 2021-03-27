@@ -5,12 +5,12 @@ namespace Marketplace\Core\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Marketplace\Core\User\Create\CreateUserAction;
-use Marketplace\Core\User\Create\CreateUserRequest;
-use Marketplace\Core\User\List\ListUserAction;
-use Marketplace\Core\User\List\ListUserRequest;
-use Marketplace\Core\User\Read\ReadUserAction;
-use Marketplace\Core\User\Read\ReadUserRequest;
+use Marketplace\Core\User\Actions\CreateUserAction;
+use Marketplace\Core\User\Actions\ListUserAction;
+use Marketplace\Core\User\Actions\ReadUserAction;
+use Marketplace\Core\User\Requests\CreateUserRequest;
+use Marketplace\Core\User\Requests\ListUserRequest;
+use Marketplace\Core\User\Requests\ReadUserRequest;
 use Marketplace\Foundation\Exceptions\ValidationException;
 
 class UserController extends Controller

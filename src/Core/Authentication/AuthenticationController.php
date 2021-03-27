@@ -4,22 +4,22 @@ namespace Marketplace\Core\Authentication;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Marketplace\Core\Authentication\Check\CheckLoginAction;
-use Marketplace\Core\Authentication\Check\CheckLoginRequest;
-use Marketplace\Core\Authentication\Login\LoginRequest;
-use Marketplace\Core\Authentication\Login\LoginResource;
-use Marketplace\Core\Authentication\Login\LoginUserAction;
-use Marketplace\Core\Authentication\Password\UpdatePasswordAction;
-use Marketplace\Core\Authentication\Password\UpdatePasswordRequest;
-use Marketplace\Core\Authentication\Refresh\RefreshTokenAction;
-use Marketplace\Core\Authentication\Refresh\RefreshTokenRequest;
-use Marketplace\Core\Authentication\Register\RegisterUserAction;
-use Marketplace\Core\Authentication\Register\RegisterUserRequest;
-use Marketplace\Core\Authentication\Reset\ResetPasswordAction;
-use Marketplace\Core\Authentication\Reset\ResetRequest;
-use Marketplace\Core\Authentication\Reset\ResetResource;
-use Marketplace\Core\Authentication\Verify\VerifyUserAction;
-use Marketplace\Core\Authentication\Verify\VerifyUserRequest;
+use Marketplace\Core\Authentication\Actions\CheckLoginAction;
+use Marketplace\Core\Authentication\Actions\LoginUserAction;
+use Marketplace\Core\Authentication\Actions\RefreshTokenAction;
+use Marketplace\Core\Authentication\Actions\RegisterUserAction;
+use Marketplace\Core\Authentication\Actions\ResetPasswordAction;
+use Marketplace\Core\Authentication\Actions\UpdatePasswordAction;
+use Marketplace\Core\Authentication\Actions\VerifyUserAction;
+use Marketplace\Core\Authentication\Requests\CheckLoginRequest;
+use Marketplace\Core\Authentication\Requests\LoginRequest;
+use Marketplace\Core\Authentication\Requests\RefreshTokenRequest;
+use Marketplace\Core\Authentication\Requests\RegisterUserRequest;
+use Marketplace\Core\Authentication\Requests\ResetRequest;
+use Marketplace\Core\Authentication\Requests\UpdatePasswordRequest;
+use Marketplace\Core\Authentication\Requests\VerifyUserRequest;
+use Marketplace\Core\Authentication\Resources\LoginResource;
+use Marketplace\Core\Authentication\Resources\ResetResource;
 use Marketplace\Core\User\UserResource;
 use Marketplace\Foundation\Exceptions\ValidationException;
 
@@ -33,7 +33,7 @@ class AuthenticationController extends Controller
      *
      * @return LoginResource
      *
-     * @throws Login\LoginException
+     * @throws Exceptions\LoginException
      */
     public function login(LoginRequest $request, LoginUserAction $action): LoginResource
     {

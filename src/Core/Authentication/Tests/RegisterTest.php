@@ -6,8 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Marketplace\Core\Account\ValueObjects\Salutation;
-use Marketplace\Core\Authentication\Register\UserRegistered;
-use Marketplace\Core\Authentication\Verify\SendVerificationNotification;
+use Marketplace\Core\Authentication\Events\UserRegistered;
+use Marketplace\Core\Authentication\Notifications\SendVerificationNotification;
 use Marketplace\Core\User\User;
 use Tests\TestCase;
 

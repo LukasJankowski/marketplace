@@ -4,7 +4,7 @@ namespace Marketplace\Core\Authentication\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
-use Marketplace\Core\Authentication\Reset\SendResetNotification;
+use Marketplace\Core\Authentication\Notifications\SendResetNotification;
 use Marketplace\Foundation\Tests\TestsHelperTrait;
 use Tests\TestCase;
 

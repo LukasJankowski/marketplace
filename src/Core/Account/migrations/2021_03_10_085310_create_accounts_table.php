@@ -13,15 +13,18 @@ class CreateAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('accounts', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('salutation')->nullable();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('phone')->nullable();
-            $table->timestamps();
-        });
+        Schema::create(
+            'accounts',
+            function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id')->constrained();
+                $table->string('salutation')->nullable();
+                $table->string('first_name');
+                $table->string('last_name');
+                $table->string('phone')->nullable();
+                $table->timestamps();
+            }
+        );
     }
 
     /**

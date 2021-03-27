@@ -3,7 +3,6 @@
 namespace Marketplace\Foundation\Resolvers;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
 use Marketplace\Foundation\MarketplaceServiceProvider;
 
 class ModuleResolver
@@ -21,7 +20,7 @@ class ModuleResolver
     /**
      * @const string
      */
-    public const EVENT_SUBSCRIBER_FILE_NAME = '/*Subscriber.php';
+    public const EVENT_SUBSCRIBER_DIR_NAME = '/Subscribers';
 
     /**
      * ModuleResolver constructor.
@@ -46,43 +45,20 @@ class ModuleResolver
     ): array
     {
         $handles = [];
+        $subscriberDirs = $this->getFilesFromModules($parentDir, self::EVENT_SUBSCRIBER_DIR_NAME, true);
 
-        foreach ($this->getModuleDirs($parentDir) as $moduleDir) {
-            $filePattern = $moduleDir . self::EVENT_SUBSCRIBER_FILE_NAME;
+        foreach ($subscriberDirs as $subscriberDir) {
+            $module = $this->filesystem->basename($this->filesystem->dirname($subscriberDir));
+            $componentDir = $this->filesystem->basename($subscriberDir);
 
-            foreach ($this->filesystem->glob($filePattern) as $subscriber) {
+            foreach ($this->filesystem->files($subscriberDir) as $subscriber) {
                 $className = $this->filesystem->name($subscriber);
-                $module = $this->filesystem->basename($this->filesystem->dirname($subscriber));
 
-                $handles[] = $parentNamespace . '\\' . $module . '\\' . $className;
+                $handles[] = $parentNamespace . '\\' . $module . '\\' . $componentDir . '\\' . $className;
             }
         }
 
         return $handles;
-    }
-
-    /**
-     * Get all routes from the modules.
-     *
-     * @param string $parentDir
-     *
-     * @return array
-     */
-    public function resolveRoutes(string $parentDir = MarketplaceServiceProvider::CORE_DIR): array
-    {
-        return $this->getFilesFromModules($parentDir, self::ROUTE_FILE_NAME);
-    }
-
-    /**
-     * Get all migrations from the modules.
-     *
-     * @param string $parentDir
-     *
-     * @return array
-     */
-    public function resolveData(string $parentDir = MarketplaceServiceProvider::CORE_DIR): array
-    {
-        return $this->getFilesFromModules($parentDir, self::MIGRATION_DIR_NAME, true);
     }
 
     /**
@@ -132,5 +108,29 @@ class ModuleResolver
         return $isDir
             ? $this->exists($file) && $this->filesystem->isDirectory($file)
             : $this->filesystem->exists($file);
+    }
+
+    /**
+     * Get all routes from the modules.
+     *
+     * @param string $parentDir
+     *
+     * @return array
+     */
+    public function resolveRoutes(string $parentDir = MarketplaceServiceProvider::CORE_DIR): array
+    {
+        return $this->getFilesFromModules($parentDir, self::ROUTE_FILE_NAME);
+    }
+
+    /**
+     * Get all migrations from the modules.
+     *
+     * @param string $parentDir
+     *
+     * @return array
+     */
+    public function resolveData(string $parentDir = MarketplaceServiceProvider::CORE_DIR): array
+    {
+        return $this->getFilesFromModules($parentDir, self::MIGRATION_DIR_NAME, true);
     }
 }
