@@ -55,9 +55,9 @@ class LoginRequest extends FormRequest implements HasDtoFactory
     public function asDto(): UserDto
     {
         return new UserDto(
-            email: Email::make($this->get('email')),
-            password: Password::make($this->get('password')),
-            role: Role::make($this->getUserRole())
+            email: $this->get('email'),
+            password: $this->get('password'),
+            role: $this->getUserRole(),
         );
     }
 }

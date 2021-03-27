@@ -57,16 +57,12 @@ class CreateUserCommand extends Command
         $phone = $this->ask('Phone');
 
         $personDto = new PersonDto(
-            user: new UserDto(
-                email: Email::make($email),
-                password: Password::make($password),
-                role: Role::make($role),
-            ),
+            user: new UserDto(email: $email, password: $password, role: $role),
             account: new AccountDto(
-                salutation: Salutation::make($salutation),
-                firstName: Name::make($firstName),
-                lastName: Name::make($lastName),
-                phone: Phone::make($phone)
+                salutation: $salutation,
+                firstName: $firstName,
+                lastName: $lastName,
+                phone: $phone,
             )
         );
 

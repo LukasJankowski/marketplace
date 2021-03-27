@@ -35,7 +35,7 @@ class DataTransferObjectClass
     {
         $publicProperties = array_filter(
             $this->reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC),
-            fn (ReflectionProperty $property) => ! $property->isStatic()
+            fn (ReflectionProperty $property) => !$property->isStatic()
         );
 
         return array_map(

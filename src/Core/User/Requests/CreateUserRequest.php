@@ -77,15 +77,15 @@ class CreateUserRequest extends FormRequest implements HasDtoFactory
     {
         return new PersonDto(
             user: new UserDto(
-                email: Email::make($this->get('email')),
-                password: Password::make($this->get('password')),
-                role: Role::make($this->getUserRole()),
+                email: $this->get('email'),
+                password: $this->get('password'),
+                role: $this->getUserRole(),
             ),
             account: new AccountDto(
-                salutation: Salutation::make($this->get('salutation')),
-                firstName: Name::make($this->get('first_name')),
-                lastName: Name::make($this->get('last_name')),
-                phone: Phone::make($this->get('phone'))
+                salutation: $this->get('salutation'),
+                firstName: $this->get('first_name'),
+                lastName: $this->get('last_name'),
+                phone: $this->get('phone'),
             )
         );
     }

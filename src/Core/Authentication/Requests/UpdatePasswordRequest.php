@@ -3,7 +3,6 @@
 namespace Marketplace\Core\Authentication\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Marketplace\Core\Authorization\ValueObjects\Role;
 use Marketplace\Core\User\Dtos\UserDto;
 use Marketplace\Core\User\ValueObjects\Password;
 use Marketplace\Foundation\DataTransferObjects\HasDtoFactory;
@@ -53,8 +52,8 @@ class UpdatePasswordRequest extends FormRequest implements HasDtoFactory
     public function asDto(): UserDto
     {
         return new UserDto(
-            password: Password::make($this->get('password')),
-            role: Role::make($this->getUserRole())
+            password: $this->get('password'),
+            role: $this->getUserRole()
         );
     }
 }

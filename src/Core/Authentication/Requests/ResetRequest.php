@@ -53,8 +53,8 @@ class ResetRequest extends FormRequest implements HasDtoFactory
     public function asDto(): UserDto
     {
         return new UserDto(
-            email: Email::make($this->get('email')),
-            role: Role::make($this->getUserRole())
+            email: $this->get('email'),
+            role: $this->getUserRole()
         );
     }
 }

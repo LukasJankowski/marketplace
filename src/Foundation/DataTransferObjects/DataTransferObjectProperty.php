@@ -25,12 +25,33 @@ class DataTransferObjectProperty
     }
 
     /**
+     * Check if the attribute can be created by us.
+     *
+     * @return bool
+     */
+    private function isMakeable(): bool
+    {
+        return !empty($this->reflectionProperty->getAttributes(Automake::class));
+    }
+
+    /**
      * Setter.
      *
      * @param mixed $value
      */
     public function setValue(mixed $value): void
     {
+        /** @var \ReflectionNamedType $type */
+        $type = $this->reflectionProperty->getType();
+        $typeClass = $type->getName();
+        if (!$type->isBuiltin()
+            && $this->isMakeable()
+            && !$value instanceof $typeClass
+            && !($value === null && $type->allowsNull())
+        ) {
+            $value = $typeClass::make($value);
+        }
+
         $this->reflectionProperty->setValue($this->dataTransferObject, $value);
     }
 

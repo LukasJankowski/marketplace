@@ -40,9 +40,9 @@ class UserServiceTest extends TestCase
 
         $userDto = new UserDto(
             userId: null,
-            email: Email::make($user->email),
-            password: Password::make('password'),
-            role: Role::make($user->role),
+            email: $user->email,
+            password: 'password',
+            role: $user->role,
             apiToken: null
         );
         $service = new UserService();
@@ -58,9 +58,9 @@ class UserServiceTest extends TestCase
 
             $userDto = new UserDto(
                 userId: null,
-                email: Email::make($user->email),
-                password: Password::make('password'),
-                role: Role::make($user->role),
+                email: $user->email,
+                password: 'password',
+                role: $user->role,
                 apiToken: null
             );
 
@@ -75,9 +75,9 @@ class UserServiceTest extends TestCase
     {
         $userDto = new UserDto(
             userId: null,
-            email: Email::make('email@email.com'),
-            password: Password::make('password'),
-            role: Role::make('customer'),
+            email: 'email@email.com',
+            password: 'password',
+            role: 'customer',
             apiToken: null
         );
 
@@ -89,9 +89,9 @@ class UserServiceTest extends TestCase
     {
         $userDto = new UserDto(
             userId: null,
-            email: Email::make('email@email.com'),
-            password: Password::make('password'),
-            role: Role::make('customer'),
+            email: 'email@email.com',
+            password: 'password',
+            role: 'customer',
             apiToken: null
         );
 

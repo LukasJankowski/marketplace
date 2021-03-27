@@ -8,10 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Marketplace\Core\Account\Account;
-use Marketplace\Core\Authorization\ValueObjects\Role;
 use Marketplace\Core\User\Dtos\UserDto;
-use Marketplace\Core\User\ValueObjects\Email;
-use Marketplace\Core\User\ValueObjects\Password;
 use Marketplace\Foundation\DataTransferObjects\DataTransferObjectInterface;
 use Marketplace\Foundation\DataTransferObjects\HasDtoFactory;
 use Marketplace\Foundation\Models\ModelsHelperTrait;
@@ -63,9 +60,9 @@ class User extends Authenticatable implements HasDtoFactory
     {
         return new UserDto(
             userId: $this->getAttribute('user_id'),
-            email: Email::make($this->getAttribute('salutation')),
-            password: Password::make($this->getAttribute('first_name')),
-            role: Role::make($this->getAttribute('last_name')),
+            email: $this->getAttribute('email'),
+            password: $this->getAttribute('password'),
+            role: $this->getAttribute('role'),
             apiToken: $this->getAttribute('api_token'),
         );
     }
