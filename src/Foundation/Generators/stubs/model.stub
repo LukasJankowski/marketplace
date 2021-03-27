@@ -1,0 +1,60 @@
+<?php
+
+namespace {{namespace}};
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Marketplace\Foundation\DataTransferObjects\DataTransferObjectInterface;
+use Marketplace\Foundation\DataTransferObjects\HasDtoFactory;
+use Marketplace\Foundation\Models\ModelsHelperTrait;
+
+class {{class}} implements HasDtoFactory
+{
+    use HasFactory;
+    use ModelsHelperTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<string>
+     */
+    protected $fillable = [
+        //
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array<string>
+     */
+    protected $hidden = [
+        //
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        //'email' => BaseCast::class . ':' . Email::class,
+    ];
+
+    /**
+     * @inheritdoc
+     */
+    public function asDto(): DataTransferObjectInterface
+    {
+        //
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return Factory
+     */
+    protected static function newFactory(): Factory
+    {
+        //
+    }
+}

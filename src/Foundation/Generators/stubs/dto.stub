@@ -1,0 +1,15 @@
+<?php
+
+namespace {{namespace}};
+
+use Marketplace\Foundation\DataTransferObjects\DataTransferObject;
+use Marketplace\Foundation\DataTransferObjects\Automake;
+
+class {{class}} extends DataTransferObject
+{
+    /**
+     * @var int|null
+     */
+    //#[Automake] // on VOs only
+    public ?int $id;
+}

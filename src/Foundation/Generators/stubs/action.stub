@@ -1,0 +1,23 @@
+<?php
+
+namespace {{namespace}};
+
+use Marketplace\Foundation\Actions\BaseAction;
+
+class {{class}} extends BaseAction
+{
+    /**
+     * {{class}} constructor.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * Run the action.
+     */
+    public function run()
+    {
+        //
+    }
+}

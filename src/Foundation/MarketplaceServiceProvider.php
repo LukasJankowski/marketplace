@@ -3,6 +3,7 @@
 namespace Marketplace\Foundation;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Marketplace\Foundation\Resolvers\ModuleResolver;
 
@@ -12,6 +13,11 @@ final class MarketplaceServiceProvider extends ServiceProvider
      * @const string
      */
     public const CORE_DIR = __DIR__ . '/../Core';
+
+    /**
+     * @const string
+     */
+    public const MODULE_DIR = __DIR__ . '/../Modules';
 
     /**
      * @const string
@@ -55,6 +61,7 @@ final class MarketplaceServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands($resolver->resolveCommands());
+            $this->commands(Config::get('marketplace.foundation.generators'));
         }
     }
 

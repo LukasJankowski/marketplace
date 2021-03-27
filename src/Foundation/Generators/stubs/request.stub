@@ -1,0 +1,42 @@
+<?php
+
+namespace {{namespace}};
+
+use Illuminate\Foundation\Http\FormRequest;
+use Marketplace\Foundation\DataTransferObjects\HasDtoFactory;
+use Marketplace\Foundation\Requests\RequestHelperTrait;
+
+class {{class}} extends FormRequest
+{
+    use RequestHelperTrait;
+
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, mixed>
+     */
+    public function rules(): array
+    {
+        return [];
+    }
+
+    /**
+     * Get the validation messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return $this->autoFill();
+    }
+}

@@ -1,0 +1,33 @@
+<?php
+
+namespace {{namespace}};
+
+use Marketplace\Foundation\ValueObjects\ValueObject;
+
+class {{class}} extends ValueObject
+{
+    /**
+     * {{class}} constructor.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * Create a new instance of self.
+     *
+     * @return self
+     */
+    public static function make(): self
+    {
+        return new self();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function value()
+    {
+        //
+    }
+}

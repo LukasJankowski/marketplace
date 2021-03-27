@@ -1,6 +1,6 @@
 <?php
 
-namespace Marketplace\Core\Info;
+namespace Marketplace\Core\Info\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
