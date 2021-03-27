@@ -42,8 +42,8 @@ class ResetPasswordAction extends BaseAction
         $this->logger->info(
             'Reset password sent.',
             [
-                'email' => $creds->getEmail()->value(),
-                'role' => $creds->getRole()->value(),
+                'email' => $creds->getEmail(),
+                'role' => $creds->getRole(),
             ]
         );
 
@@ -67,8 +67,8 @@ class ResetPasswordAction extends BaseAction
             $this->logger->info(
                 'Reset password failed.',
                 [
-                    'email' => $creds->getEmail()->value(),
-                    'role' => $creds->getRole()->value(),
+                    'email' => $creds->getEmail(),
+                    'role' => $creds->getRole(),
                 ]
             );
 

@@ -7,7 +7,7 @@ use Exception;
 use InvalidArgumentException;
 use Marketplace\Foundation\ValueObjects\ValueObject;
 
-class EmailVerifiedAt implements ValueObject
+class EmailVerifiedAt extends ValueObject
 {
     /**
      * Email constructor.

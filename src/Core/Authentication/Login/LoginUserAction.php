@@ -46,8 +46,8 @@ class LoginUserAction extends BaseAction
         $this->logger->info(
             'Failed login attempt',
             [
-                'email' => $creds->getEmail()->value(),
-                'role' => $creds->getRole()->value(),
+                'email' => $creds->getEmail(),
+                'role' => $creds->getRole(),
             ]
         );
 

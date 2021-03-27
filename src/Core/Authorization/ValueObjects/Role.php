@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use Marketplace\Core\Authorization\RoleService;
 use Marketplace\Foundation\ValueObjects\ValueObject;
 
-class Role implements ValueObject
+class Role extends ValueObject
 {
     /**
      * @const string

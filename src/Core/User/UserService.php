@@ -33,8 +33,8 @@ class UserService
     public function getUserByCredentials(CredentialsDto $creds): ?User
     {
         return User::query()
-            ->where('email', $creds->getEmail()->value())
-            ->where('role', $creds->getRole()->value())
+            ->where('email', $creds->getEmail())
+            ->where('role', $creds->getRole())
             ->first();
     }
 
@@ -133,7 +133,7 @@ class UserService
     public function updatePasswordOfUser(int|string|User $user, Password $password): void
     {
         $user = $this->getUser($user);
-        $user->setAttribute('password', $password->value());
+        $user->setAttribute('password', $password);
         $user->save();
     }
 }

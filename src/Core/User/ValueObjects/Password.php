@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use InvalidArgumentException;
 use Marketplace\Foundation\ValueObjects\ValueObject;
 
-class Password implements ValueObject
+class Password extends ValueObject
 {
     /**
      * Password constructor.

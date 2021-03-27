@@ -4,7 +4,7 @@ namespace Marketplace\Core\User\ValueObjects;
 
 use Marketplace\Foundation\ValueObjects\ValueObject;
 
-class Email implements ValueObject
+class Email extends ValueObject
 {
     /**
      * Email constructor.
@@ -36,7 +36,7 @@ class Email implements ValueObject
     /**
      * @inheritDoc
      */
-    public function value()
+    public function value(): string
     {
         return $this->email;
     }

@@ -2,12 +2,24 @@
 
 namespace Marketplace\Foundation\ValueObjects;
 
-interface ValueObject
+use Stringable;
+
+abstract class ValueObject implements Stringable
 {
     /**
      * Getter.
      *
      * @return mixed
      */
-    public function value();
+    abstract public function value();
+
+    /**
+     * Get value as string.
+     *
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->value();
+    }
 }

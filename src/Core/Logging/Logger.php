@@ -21,14 +21,6 @@ class Logger implements LoggerInterface
     }
 
     /**
-     * @inheritDoc
-     */
-    public function emergency($message, array $context = [])
-    {
-        $this->logger->emergency($message, $this->addMetaInfo($context));
-    }
-
-    /**
      * Set additional information in the context
      *
      * @param array<string, mixed> $context
@@ -44,7 +36,34 @@ class Logger implements LoggerInterface
             $causer = $request->user() !== null ? $request->user()->getAuthIdentifier() : $request->ip();
         }
 
-        return $context + ['causer' => $causer];
+        return $this->convertStringableContexts($context) + ['causer' => $causer];
+    }
+
+    /**
+     * Convert all stringable objects to string.
+     *
+     * @param array $contexts
+     *
+     * @return array
+     */
+    private function convertStringableContexts(array $contexts): array
+    {
+        foreach ($contexts as &$context) {
+            if ($context instanceof \Stringable) {
+                $context = (string) $context;
+            }
+        }
+
+        return $contexts;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function emergency($message, array $context = [])
+    {
+        $this->logger->emergency($message, $this->addMetaInfo($context));
     }
 
     /**

@@ -41,6 +41,7 @@ class RegisterTest extends TestCase
                     'data' => [
                         'email' => 'email@email.com',
                         'role' => 'customer',
+                        'verified' => false,
                         'account' => [
                             'salutation' => 'marketplace.core.data.field.salutation.male',
                             'first_name' => 'John',

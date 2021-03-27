@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
 use Marketplace\Foundation\ValueObjects\ValueObject;
 
-class Salutation implements ValueObject
+class Salutation extends ValueObject
 {
     /**
      * @const array<string>

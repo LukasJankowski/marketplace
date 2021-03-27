@@ -4,7 +4,7 @@ namespace Marketplace\Core\Account\ValueObjects;
 
 use Marketplace\Foundation\ValueObjects\ValueObject;
 
-class Phone implements ValueObject
+class Phone extends ValueObject
 {
     /**
      * Phone constructor.
