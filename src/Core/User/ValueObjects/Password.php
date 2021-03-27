@@ -5,8 +5,9 @@ namespace Marketplace\Core\User\ValueObjects;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use InvalidArgumentException;
+use Marketplace\Foundation\ValueObjects\ValueObject;
 
-class Password
+class Password implements ValueObject
 {
     /**
      * Password constructor.
@@ -76,7 +77,7 @@ class Password
      *
      * @return string
      */
-    public function getPassword(): string
+    public function value(): string
     {
         return $this->password;
     }

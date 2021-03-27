@@ -61,8 +61,8 @@ class CreateUserAction extends BaseAction
             $this->logger->info(
                 'Duplicate account register attempt',
                 [
-                    'email' => $details->getCredentials()->getEmail(),
-                    'role' => $details->getCredentials()->getRole()->getRole(),
+                    'email' => $details->getCredentials()->getEmail()->value(),
+                    'role' => $details->getCredentials()->getRole()->value(),
                 ]
             );
 

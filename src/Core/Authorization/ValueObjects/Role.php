@@ -4,8 +4,9 @@ namespace Marketplace\Core\Authorization\ValueObjects;
 
 use InvalidArgumentException;
 use Marketplace\Core\Authorization\RoleService;
+use Marketplace\Foundation\ValueObjects\ValueObject;
 
-class Role
+class Role implements ValueObject
 {
     /**
      * @const string
@@ -64,7 +65,7 @@ class Role
      *
      * @return string
      */
-    public function getRole(): string
+    public function value(): string
     {
         return RoleService::getRoleBySlug($this->slug);
     }
