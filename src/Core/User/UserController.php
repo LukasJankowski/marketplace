@@ -11,6 +11,7 @@ use Marketplace\Core\User\Actions\ReadUserAction;
 use Marketplace\Core\User\Requests\CreateUserRequest;
 use Marketplace\Core\User\Requests\ListUserRequest;
 use Marketplace\Core\User\Requests\ReadUserRequest;
+use Marketplace\Core\User\Resources\UserResource;
 use Marketplace\Foundation\Exceptions\ValidationException;
 
 class UserController extends Controller

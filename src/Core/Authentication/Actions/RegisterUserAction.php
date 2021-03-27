@@ -5,7 +5,7 @@ namespace Marketplace\Core\Authentication\Actions;
 use Marketplace\Core\Authentication\Events\UserRegistered;
 use Marketplace\Core\User\Actions\CreateUserAction;
 use Marketplace\Core\User\Dtos\UserDto;
-use Marketplace\Core\User\UserResource;
+use Marketplace\Core\User\Resources\UserResource;
 use Marketplace\Foundation\Actions\BaseAction;
 use Marketplace\Foundation\Exceptions\ValidationException;
 

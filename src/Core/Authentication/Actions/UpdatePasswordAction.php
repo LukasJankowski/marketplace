@@ -7,7 +7,7 @@ use Marketplace\Core\Authentication\Exceptions\UpdatePasswordException;
 use Marketplace\Core\Logging\Logger;
 use Marketplace\Core\User\Actions\ReadUserAction;
 use Marketplace\Core\User\Dtos\CredentialsDto;
-use Marketplace\Core\User\UserResource;
+use Marketplace\Core\User\Resources\UserResource;
 use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
 

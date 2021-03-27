@@ -3,7 +3,7 @@
 namespace Marketplace\Core\User\Actions;
 
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Marketplace\Core\User\UserResource;
+use Marketplace\Core\User\Resources\UserResource;
 use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
 

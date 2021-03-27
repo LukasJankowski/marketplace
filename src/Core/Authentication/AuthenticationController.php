@@ -20,7 +20,7 @@ use Marketplace\Core\Authentication\Requests\UpdatePasswordRequest;
 use Marketplace\Core\Authentication\Requests\VerifyUserRequest;
 use Marketplace\Core\Authentication\Resources\LoginResource;
 use Marketplace\Core\Authentication\Resources\ResetResource;
-use Marketplace\Core\User\UserResource;
+use Marketplace\Core\User\Resources\UserResource;
 use Marketplace\Foundation\Exceptions\ValidationException;
 
 class AuthenticationController extends Controller
