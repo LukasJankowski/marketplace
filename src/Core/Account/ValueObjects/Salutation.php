@@ -39,7 +39,7 @@ class Salutation extends ValueObject
      */
     public static function make(?string $salutation): self
     {
-        if ($salutation !== null && !in_array($salutation, self::SALUTATIONS, true)) {
+        if ($salutation !== null && ! in_array($salutation, self::SALUTATIONS, true)) {
             throw new InvalidArgumentException(
                 sprintf('Unknown salutation: %s', $salutation)
             );

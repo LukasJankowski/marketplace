@@ -18,8 +18,7 @@ class ResetPasswordAction extends BaseAction
     public function __construct(
         private Logger $logger,
         private UserService $userService,
-    )
-    {
+    ) {
     }
 
     /**

@@ -20,8 +20,7 @@ class CreateUserAction extends BaseAction
         private Logger $logger,
         private UserService $userService,
         private AccountService $accountService
-    )
-    {
+    ) {
     }
 
     /**

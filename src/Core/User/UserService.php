@@ -39,7 +39,7 @@ class UserService
     {
         /** @var User|null $user */
         $user = User::create($user->toArray());
-        if (!$user) {
+        if (! $user) {
             throw new DatabaseException('marketplace.core.database.failure.insert');
         }
 
@@ -80,7 +80,7 @@ class UserService
      */
     private function getUser(int|string|User $user): User
     {
-        return !is_object($user) ? $this->getUserById($user) : $user;
+        return ! is_object($user) ? $this->getUserById($user) : $user;
     }
 
     /**

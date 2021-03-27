@@ -21,8 +21,7 @@ class UserVerificationException extends HttpException
         ?Throwable $previous = null,
         array $headers = [],
         ?int $code = 0
-    )
-    {
+    ) {
         parent::__construct($this->status, $this->exceptionMessage, $previous, $headers, $code);
     }
 }

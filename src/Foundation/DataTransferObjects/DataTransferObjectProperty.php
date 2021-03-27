@@ -23,7 +23,7 @@ class DataTransferObjectProperty
      */
     private function isMakeable(): bool
     {
-        return !empty($this->reflectionProperty->getAttributes(Automake::class));
+        return ! empty($this->reflectionProperty->getAttributes(Automake::class));
     }
 
     /**
@@ -34,10 +34,10 @@ class DataTransferObjectProperty
         /** @var \ReflectionNamedType $type */
         $type = $this->reflectionProperty->getType();
         $typeClass = $type->getName();
-        if (!$type->isBuiltin()
+        if (! $type->isBuiltin()
             && $this->isMakeable()
-            && !$value instanceof $typeClass
-            && !($value === null && $type->allowsNull())
+            && ! $value instanceof $typeClass
+            && ! ($value === null && $type->allowsNull())
         ) {
             $value = $typeClass::make($value);
         }

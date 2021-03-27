@@ -26,7 +26,7 @@ class Role extends ValueObject
      */
     public static function make(string $slug): self
     {
-        if (!RoleService::slugExists($slug)) {
+        if (! RoleService::slugExists($slug)) {
             throw new InvalidArgumentException(
                 sprintf('Unknown type: %s', $slug)
             );

@@ -68,8 +68,7 @@ class ModuleResolver
     private function resolveFilesAsClasses(
         array $directories,
         string $parentNamespace = MarketplaceServiceProvider::CORE_NAMESPACE
-    ): array
-    {
+    ): array {
         $handles = [];
 
         foreach ($directories as $directory) {
@@ -85,7 +84,6 @@ class ModuleResolver
 
         return $handles;
     }
-
 
     /**
      * Get all routes from the modules.
@@ -115,8 +113,7 @@ class ModuleResolver
     public function resolveSubscribers(
         string $parentDir = MarketplaceServiceProvider::CORE_DIR,
         string $parentNamespace = MarketplaceServiceProvider::CORE_NAMESPACE
-    ): array
-    {
+    ): array {
         $subscriberDirs = $this->getFilesFromModules($parentDir, self::EVENT_SUBSCRIBER_DIR_NAME, true);
 
         return $this->resolveFilesAsClasses($subscriberDirs, $parentNamespace);
@@ -130,8 +127,7 @@ class ModuleResolver
     public function resolveCommands(
         string $parentDir = MarketplaceServiceProvider::CORE_DIR,
         string $parentNamespace = MarketplaceServiceProvider::CORE_NAMESPACE
-    ): array
-    {
+    ): array {
         $commandDirs = $this->getFilesFromModules($parentDir, self::COMMAND_DIR_NAME, true);
 
         return $this->resolveFilesAsClasses($commandDirs, $parentNamespace);

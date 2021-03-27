@@ -57,7 +57,7 @@ class TokenService
         );
 
         return hash_equals($token, $replicatedToken)
-            && !self::isTokenExpired($token);
+            && ! self::isTokenExpired($token);
     }
 
     /**

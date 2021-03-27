@@ -39,8 +39,8 @@ class RoleService
     public static function getRoleBySlug(string $slug): string
     {
         return self::ROLES[$slug] ?? throw new InvalidArgumentException(
-                sprintf('Unknown type: %s', $slug)
-            );
+            sprintf('Unknown type: %s', $slug)
+        );
     }
 
     /**
@@ -49,8 +49,8 @@ class RoleService
     public static function getSlugByRole(string $role): string
     {
         return array_flip(self::ROLES)[$role] ?? throw new InvalidArgumentException(
-                sprintf('Unknown class: %s', $role)
-            );
+            sprintf('Unknown class: %s', $role)
+        );
     }
 
     /**

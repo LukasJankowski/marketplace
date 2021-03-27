@@ -20,8 +20,7 @@ class LoginUserAction extends BaseAction
         private RefreshTokenAction $refreshToken,
         private UserService $service,
         private Logger $logger
-    )
-    {
+    ) {
     }
 
     /**

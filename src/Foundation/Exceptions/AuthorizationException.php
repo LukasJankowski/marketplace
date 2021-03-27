@@ -18,8 +18,7 @@ class AuthorizationException extends IlluminateAuthorizationException
         string $message = 'marketplace.core.authorization.unauthorized',
         int $code = 403,
         ?Throwable $previous = null
-    )
-    {
+    ) {
         parent::__construct($message, $code, $previous);
         $this->status = $code;
     }

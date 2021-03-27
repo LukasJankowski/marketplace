@@ -19,7 +19,7 @@ class AccountService
 
         /** @var Account|null $account */
         $account = Account::create($account->toArray());
-        if (!$account) {
+        if (! $account) {
             throw new DatabaseException('marketplace.core.database.failure.insert');
         }
 

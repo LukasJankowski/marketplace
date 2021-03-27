@@ -11,7 +11,7 @@ abstract class BaseAction
      */
     protected function respond(string $resource, mixed $data, bool $isMany = false): mixed
     {
-        if (!class_exists($resource)) {
+        if (! class_exists($resource)) {
             throw new LogicException(
                 sprintf('The resource: %s does not exist.', $resource)
             );

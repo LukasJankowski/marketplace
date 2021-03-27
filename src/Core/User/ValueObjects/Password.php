@@ -15,8 +15,7 @@ class Password extends ValueObject
     private function __construct(
         private string $plainPassword,
         private string $password
-    )
-    {
+    ) {
     }
 
     /**

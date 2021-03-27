@@ -14,8 +14,7 @@ class DatabaseException extends RuntimeException
     public function __construct(
         $message = 'marketplace.core.database.failed',
         private int $status = 500
-    )
-    {
+    ) {
         parent::__construct($message, $this->status);
     }
 }

@@ -18,7 +18,7 @@ class BaseCast implements CastsAttributes
      */
     public function checkValidInstance(string $class, mixed $value): void
     {
-        if (!$value instanceof $class) {
+        if (! $value instanceof $class) {
             throw new \InvalidArgumentException(
                 sprintf('The given value is not a valid instance of %s.', $class)
             );
@@ -30,7 +30,7 @@ class BaseCast implements CastsAttributes
      */
     private function checkValueObject(): void
     {
-        if (!class_exists($this->valueObject)) {
+        if (! class_exists($this->valueObject)) {
             throw new \RuntimeException(
                 'Default cast requires protected property $valueObject'
             );

@@ -19,8 +19,7 @@ class VerifyUserAction extends BaseAction
         private Logger $logger,
         private UserService $userService,
         private ReadUserAction $action,
-    )
-    {
+    ) {
     }
 
     /**

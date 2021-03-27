@@ -21,8 +21,7 @@ class ValidationException extends IlluminateValidationException
         $response = null,
         $errorBag = 'default',
         string $message = 'marketplace.core.validation.invalid'
-    )
-    {
+    ) {
         parent::__construct($validator, $response, $errorBag);
 
         $this->message = $message;
