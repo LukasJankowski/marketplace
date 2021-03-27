@@ -19,7 +19,9 @@ return PhpCsFixer\Config::create()
         'trailing_comma_in_multiline_array' => false,
         'phpdoc_scalar' => true,
         'unary_operator_spaces' => true,
-        'binary_operator_spaces' => true,
+        'binary_operator_spaces' => [
+            'operators' => ['|' => 'no_space']
+        ],
         'logical_operators' => false,
         'blank_line_before_statement' => [
             'statements' => ['break', 'continue', 'declare', 'return', 'throw', 'try'],
@@ -27,9 +29,7 @@ return PhpCsFixer\Config::create()
         'phpdoc_single_line_var_spacing' => true,
         'phpdoc_var_without_name' => true,
         'class_attributes_separation' => [
-            'elements' => [
-                'method',
-            ],
+            'elements' => ['property', 'const'/*, 'method'*/], // disable 'method' -> incompatible with attributes
         ],
         'method_argument_space' => [
             'on_multiline' => 'ensure_fully_multiline',
