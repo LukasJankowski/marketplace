@@ -29,6 +29,16 @@ class Account extends Model implements HasDtoFactory
     ];
 
     /**
+     * @var string[]
+     */
+    protected $casts = [
+        //'salutation' => BaseCast::class . ':' . Salutation::class,
+        //'first_name' => BaseCast::class . ':' . Name::class,
+        //'last_name' => BaseCast::class . ':' . Name::class,
+        //'phone' => BaseCast::class . ':' . Phone::class,
+    ];
+
+    /**
      * @inheritdoc
      */
     public function asDto(): DataTransferObjectInterface

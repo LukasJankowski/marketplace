@@ -9,7 +9,7 @@ trait TestsHelperTrait
     /**
      * Create a user.
      *
-     * @param array|string[] $args
+     * @param string[] $args
      *
      * @return User
      */

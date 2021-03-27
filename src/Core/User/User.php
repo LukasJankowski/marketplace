@@ -47,6 +47,9 @@ class User extends Authenticatable implements HasDtoFactory
      * @var array<string, string>
      */
     protected $casts = [
+        //'email' => BaseCast::class . ':' . Email::class,
+        //'password' => BaseCast::class . ':' . Password::class,
+        //'role' => BaseCast::class . ':' . Role::class,
         'email_verified_at' => 'datetime',
     ];
 
