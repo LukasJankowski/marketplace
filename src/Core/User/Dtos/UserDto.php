@@ -33,28 +33,4 @@ class UserDto extends DataTransferObject
      * @var string|null
      */
     public ?string $apiToken;
-
-    /**
-     * Create the Credentials Dto.
-     *
-     * @param int|null $userId
-     * @param string $email
-     * @param string $password
-     * @param string $role
-     * @param string|null $apiToken
-     *
-     * @return self
-     */
-    public static function make(?int $userId, string $email, string $password, string $role, ?string $apiToken): self
-    {
-        return new static(
-            [
-                'userId' => $userId,
-                'email' => Email::make($email),
-                'password' => Password::make($password),
-                'role' => Role::make($role),
-                'apiToken' => $apiToken
-            ]
-        );
-    }
 }

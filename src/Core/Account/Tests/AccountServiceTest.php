@@ -5,6 +5,8 @@ namespace Marketplace\Core\Account\Tests;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Marketplace\Core\Account\AccountService;
 use Marketplace\Core\Account\Dtos\AccountDto;
+use Marketplace\Core\Account\ValueObjects\Name;
+use Marketplace\Core\Account\ValueObjects\Salutation;
 use Marketplace\Core\User\User;
 use Tests\TestCase;
 
@@ -16,12 +18,12 @@ class AccountServiceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $account = AccountDto::make(
-            null,
-            null,
-            'John',
-            'Doe',
-            null,
+        $account = new AccountDto(
+            userId: null,
+            salutation: Salutation::make(null),
+            firstName: Name::make('John'),
+            lastName: Name::make('Doe'),
+            phone: null
         );
 
         $service = new AccountService();
@@ -43,12 +45,12 @@ class AccountServiceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $account = AccountDto::make(
-            null,
-            null,
-            'John',
-            'Doe',
-            null,
+        $account = new AccountDto(
+            userId: null,
+            salutation: Salutation::make(null),
+            firstName: Name::make('John'),
+            lastName: Name::make('Doe'),
+            phone: null
         );
 
         $service = new AccountService();

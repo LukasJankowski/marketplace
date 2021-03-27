@@ -33,34 +33,4 @@ class AccountDto extends DataTransferObject
      * @var Phone|null
      */
     public ?Phone $phone;
-
-    /**
-     * Create a new instance of self.
-     *
-     * @param null|int $userId
-     * @param null|string $salutation
-     * @param string $firstName
-     * @param string $lastName
-     * @param null|string $phone
-     *
-     * @return self
-     */
-    public static function make(
-        ?int $userId,
-        ?string $salutation,
-        string $firstName,
-        string $lastName,
-        ?string $phone
-    ): self
-    {
-        return new static(
-            [
-                'id' => $userId,
-                'salutation' => Salutation::make($salutation),
-                'firstName' => Name::make($firstName),
-                'lastName' => Name::make($lastName),
-                'phone' => Phone::make($phone),
-            ]
-        );
-    }
 }

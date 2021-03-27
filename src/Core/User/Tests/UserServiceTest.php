@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Marketplace\Core\Authentication\Notifications\SendResetNotification;
 use Marketplace\Core\Authentication\Notifications\SendVerificationNotification;
+use Marketplace\Core\Authorization\ValueObjects\Role;
 use Marketplace\Core\User\Dtos\UserDto;
 use Marketplace\Core\User\User;
 use Marketplace\Core\User\UserService;
+use Marketplace\Core\User\ValueObjects\Email;
 use Marketplace\Core\User\ValueObjects\Password;
 use Tests\TestCase;
 
@@ -36,12 +38,12 @@ class UserServiceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $userDto = UserDto::make(
-            null,
-            $user->email,
-            'password',
-            $user->role,
-            null
+        $userDto = new UserDto(
+            userId: null,
+            email: Email::make($user->email),
+            password: Password::make('password'),
+            role: Role::make($user->role),
+            apiToken: null
         );
         $service = new UserService();
         $this->assertEquals($user->fresh(), $service->getUserByCredentials($userDto));
@@ -54,12 +56,12 @@ class UserServiceTest extends TestCase
         for ($i = 0; $i < 25; $i++) {
             $user = User::factory()->create();
 
-            $userDto = UserDto::make(
-                null,
-                $user->email,
-                'password',
-                $user->role,
-                null,
+            $userDto = new UserDto(
+                userId: null,
+                email: Email::make($user->email),
+                password: Password::make('password'),
+                role: Role::make($user->role),
+                apiToken: null
             );
 
             $user = User::query()->where('email', $user->email)->first();
@@ -71,12 +73,12 @@ class UserServiceTest extends TestCase
 
     public function testReturnsNullIfNoMatchingUserExists()
     {
-        $userDto = UserDto::make(
-            null,
-            'email@email.com',
-            'password',
-            'customer',
-            null,
+        $userDto = new UserDto(
+            userId: null,
+            email: Email::make('email@email.com'),
+            password: Password::make('password'),
+            role: Role::make('customer'),
+            apiToken: null
         );
 
         $service = new UserService();
@@ -85,12 +87,12 @@ class UserServiceTest extends TestCase
 
     public function testCanCreateNewUser()
     {
-        $userDto = UserDto::make(
-            null,
-            'email@email.com',
-            'password',
-            'customer',
-            null
+        $userDto = new UserDto(
+            userId: null,
+            email: Email::make('email@email.com'),
+            password: Password::make('password'),
+            role: Role::make('customer'),
+            apiToken: null
         );
 
         $service = new UserService();
