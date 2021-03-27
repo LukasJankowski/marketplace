@@ -23,6 +23,6 @@ class TokenGuard extends IlluminateTokenGuard implements Guard
             $user->getAuthIdentifier()
         )
             ? $user
-            : $this->user = null;
+            : null;
     }
 }

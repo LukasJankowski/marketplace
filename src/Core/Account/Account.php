@@ -12,6 +12,13 @@ use Marketplace\Foundation\DataTransferObjects\DataTransferObjectInterface;
 use Marketplace\Foundation\DataTransferObjects\HasDtoFactory;
 use Marketplace\Foundation\Models\ModelsHelperTrait;
 
+/**
+ * @property int $user_id
+ * @property string $salutation
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $phone
+ */
 class Account extends Model implements HasDtoFactory
 {
     use HasFactory;

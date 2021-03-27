@@ -12,7 +12,7 @@ abstract class DataTransferObject implements Stringable, Arrayable, DataTransfer
     /**
      * DataTransferObject constructor.
      *
-     * @param array <string, mixed>
+     * @param ...array
      */
     public function __construct(...$args)
     {

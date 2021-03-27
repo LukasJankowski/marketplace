@@ -13,6 +13,13 @@ use Marketplace\Foundation\DataTransferObjects\DataTransferObjectInterface;
 use Marketplace\Foundation\DataTransferObjects\HasDtoFactory;
 use Marketplace\Foundation\Models\ModelsHelperTrait;
 
+/**
+ * @property int $id
+ * @property string $email
+ * @property string $password
+ * @property string $role
+ * @property string $api_token
+ */
 class User extends Authenticatable implements HasDtoFactory
 {
     use HasFactory;
@@ -70,7 +77,7 @@ class User extends Authenticatable implements HasDtoFactory
     /**
      * Create a new factory instance for the model.
      */
-    protected static function newFactory(): Factory
+    protected static function newFactory(): UserFactory
     {
         return UserFactory::new();
     }

@@ -37,7 +37,7 @@ class EmailVerifiedAt extends ValueObject
     /**
      * @inheritDoc
      */
-    public function value()
+    public function value(): DateTime
     {
         return $this->emailVerifiedAt;
     }

@@ -49,7 +49,7 @@ class MarketplaceEventServiceProvider extends ServiceProvider
     /**
      * Resolve the listeners of the subscribers dynamically.
      *
-     * @return array<string, array>
+     * @return array<int, array<int, mixed>>
      *
      * @throws \ReflectionException
      */
