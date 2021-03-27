@@ -4,7 +4,7 @@ namespace Marketplace\Core\Authentication\Actions;
 
 use Marketplace\Core\Authentication\Resources\ResetResource;
 use Marketplace\Core\Logging\Logger;
-use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\Dtos\UserDto;
 use Marketplace\Core\User\User;
 use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
@@ -28,23 +28,23 @@ class ResetPasswordAction extends BaseAction
     /**
      * Send the password reset notification.
      *
-     * @param CredentialsDto $creds
+     * @param UserDto $userDto
      *
      * @return ResetResource
      *
      * @throws ValidationException
      */
-    public function run(CredentialsDto $creds): ResetResource
+    public function run(UserDto $userDto): ResetResource
     {
-        $user = $this->fetchUser($creds);
+        $user = $this->fetchUser($userDto);
 
         $this->userService->sendPasswordResetEmailToUser($user);
 
         $this->logger->info(
             'Reset password sent.',
             [
-                'email' => $creds->getEmail(),
-                'role' => $creds->getRole(),
+                'email' => $userDto->email,
+                'role' => $userDto->role,
             ]
         );
 
@@ -54,22 +54,22 @@ class ResetPasswordAction extends BaseAction
     /**
      * Fetch the associated user.
      *
-     * @param CredentialsDto $creds
+     * @param UserDto $userDto
      *
      * @return User
      *
      * @throws ValidationException
      */
-    private function fetchUser(CredentialsDto $creds): User
+    private function fetchUser(UserDto $userDto): User
     {
-        $user = $this->userService->getUserByCredentials($creds);
+        $user = $this->userService->getUserByCredentials($userDto);
 
         if ($user === null) {
             $this->logger->info(
                 'Reset password failed.',
                 [
-                    'email' => $creds->getEmail(),
-                    'role' => $creds->getRole(),
+                    'email' => $userDto->email,
+                    'role' => $userDto->role,
                 ]
             );
 

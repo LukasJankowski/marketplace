@@ -3,10 +3,13 @@
 namespace Marketplace\Core\Authentication\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Core\Authorization\ValueObjects\Role;
+use Marketplace\Core\User\Dtos\UserDto;
+use Marketplace\Core\User\ValueObjects\Email;
+use Marketplace\Foundation\DataTransferObjects\HasDtoFactory;
 use Marketplace\Foundation\Requests\RequestHelperTrait;
 
-class ResetRequest extends FormRequest
+class ResetRequest extends FormRequest implements HasDtoFactory
 {
     use RequestHelperTrait;
 
@@ -45,14 +48,15 @@ class ResetRequest extends FormRequest
     /**
      * Create the DTO.
      *
-     * @return CredentialsDto
+     * @return UserDto
      */
-    public function getDto(): CredentialsDto
+    public function asDto(): UserDto
     {
-        return CredentialsDto::make(
-            $this->get('email'),
-            '__unused',
-            $this->getUserRole()
+        return new UserDto(
+            [
+                'email' => Email::make($this->get('email')),
+                'role' => Role::make($this->getUserRole())
+            ]
         );
     }
 }

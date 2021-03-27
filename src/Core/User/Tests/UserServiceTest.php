@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Marketplace\Core\Authentication\Notifications\SendResetNotification;
 use Marketplace\Core\Authentication\Notifications\SendVerificationNotification;
-use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\Dtos\UserDto;
 use Marketplace\Core\User\User;
 use Marketplace\Core\User\UserService;
 use Marketplace\Core\User\ValueObjects\Password;
@@ -36,13 +36,15 @@ class UserServiceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $creds = CredentialsDto::make(
+        $userDto = UserDto::make(
+            null,
             $user->email,
             'password',
-            $user->role
+            $user->role,
+            null
         );
         $service = new UserService();
-        $this->assertEquals($user->fresh(), $service->getUserByCredentials($creds));
+        $this->assertEquals($user->fresh(), $service->getUserByCredentials($userDto));
     }
 
     public function testCanAlwaysGetExistingUsersByCredentials()
@@ -52,41 +54,47 @@ class UserServiceTest extends TestCase
         for ($i = 0; $i < 25; $i++) {
             $user = User::factory()->create();
 
-            $creds = CredentialsDto::make(
+            $userDto = UserDto::make(
+                null,
                 $user->email,
                 'password',
-                $user->role
+                $user->role,
+                null,
             );
 
             $user = User::query()->where('email', $user->email)->first();
 
             $service = new UserService();
-            $this->assertEquals($user, $service->getUserByCredentials($creds));
+            $this->assertEquals($user, $service->getUserByCredentials($userDto));
         }
     }
 
     public function testReturnsNullIfNoMatchingUserExists()
     {
-        $creds = CredentialsDto::make(
+        $userDto = UserDto::make(
+            null,
             'email@email.com',
             'password',
-            'customer'
+            'customer',
+            null,
         );
 
         $service = new UserService();
-        $this->assertNull($service->getUserByCredentials($creds));
+        $this->assertNull($service->getUserByCredentials($userDto));
     }
 
     public function testCanCreateNewUser()
     {
-        $creds = CredentialsDto::make(
+        $userDto = UserDto::make(
+            null,
             'email@email.com',
             'password',
-            'customer'
+            'customer',
+            null
         );
 
         $service = new UserService();
-        $service->create($creds);
+        $service->create($userDto);
 
         $this->assertDatabaseHas(
             'users',

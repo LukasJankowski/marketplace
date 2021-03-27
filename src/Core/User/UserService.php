@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Marketplace\Core\Authentication\Notifications\SendResetNotification;
 use Marketplace\Core\Authentication\Notifications\SendVerificationNotification;
-use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\Dtos\UserDto;
 use Marketplace\Core\User\ValueObjects\Password;
 use Marketplace\Foundation\Exceptions\DatabaseException;
 
@@ -26,29 +26,29 @@ class UserService
     /**
      * Get the user by his credentials.
      *
-     * @param CredentialsDto $creds
+     * @param UserDto $user
      *
      * @return null|User
      */
-    public function getUserByCredentials(CredentialsDto $creds): ?User
+    public function getUserByCredentials(UserDto $user): ?User
     {
         return User::query()
-            ->where('email', $creds->getEmail())
-            ->where('role', $creds->getRole())
+            ->where('email', $user->email)
+            ->where('role', $user->role)
             ->first();
     }
 
     /**
      * Create a new user.
      *
-     * @param CredentialsDto $creds
+     * @param UserDto $user
      *
      * @return User
      */
-    public function create(CredentialsDto $creds): User
+    public function create(UserDto $user): User
     {
         /** @var User|null $user */
-        $user = User::query()->create($creds->toArray());
+        $user = User::create($user->toArray());
         if (!$user) {
             throw new DatabaseException('marketplace.core.database.failure.insert');
         }

@@ -8,11 +8,16 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Marketplace\Core\Account\Account;
+use Marketplace\Core\User\Dtos\UserDto;
+use Marketplace\Foundation\DataTransferObjects\DataTransferObjectInterface;
+use Marketplace\Foundation\DataTransferObjects\HasDtoFactory;
+use Marketplace\Foundation\Models\ModelsHelperTrait;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasDtoFactory
 {
     use HasFactory;
     use Notifiable;
+    use ModelsHelperTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -44,6 +49,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @inheritdoc
+     */
+    public function asDto(): DataTransferObjectInterface
+    {
+        return UserDto::make($this->getAuthIdentifier(), ...$this->getAttributesByFillableKeys());
+    }
 
     /**
      * Create a new factory instance for the model.

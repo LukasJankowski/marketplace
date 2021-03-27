@@ -41,7 +41,7 @@ class UserController extends Controller
      */
     public function create(CreateUserRequest $request, CreateUserAction $action): JsonResponse
     {
-        return $action->run($request->getDto())
+        return $action->run($request->asDto())
             ->response()
             ->setStatusCode(201);
     }

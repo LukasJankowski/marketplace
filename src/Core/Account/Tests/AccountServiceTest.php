@@ -18,6 +18,7 @@ class AccountServiceTest extends TestCase
 
         $account = AccountDto::make(
             null,
+            null,
             'John',
             'Doe',
             null,
@@ -43,6 +44,7 @@ class AccountServiceTest extends TestCase
         $user = User::factory()->create();
 
         $account = AccountDto::make(
+            null,
             null,
             'John',
             'Doe',

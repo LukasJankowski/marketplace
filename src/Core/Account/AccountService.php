@@ -18,13 +18,12 @@ class AccountService
      */
     public function create(AccountDto $account, int|User $user): Account
     {
-        $data = $account->toArray();
-        $data['user_id'] = $user instanceof User
+        $account->userId = $user instanceof User
             ? $user->getAuthIdentifier()
             : $user;
 
         /** @var Account|null $account */
-        $account = Account::query()->create($data);
+        $account = Account::create($account->toArray());
         if (!$account) {
             throw new DatabaseException('marketplace.core.database.failure.insert');
         }

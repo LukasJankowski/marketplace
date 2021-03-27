@@ -2,85 +2,59 @@
 
 namespace Marketplace\Core\User\Dtos;
 
-use Exception;
-use Illuminate\Contracts\Support\Arrayable;
-use Marketplace\Core\Account\Dtos\AccountDto;
+use Marketplace\Core\Authorization\ValueObjects\Role;
+use Marketplace\Core\User\ValueObjects\Email;
+use Marketplace\Core\User\ValueObjects\Password;
+use Marketplace\Foundation\DataTransferObjects\DataTransferObject;
 
-class UserDto implements Arrayable
+class UserDto extends DataTransferObject
 {
     /**
-     * UserDto constructor.
-     *
-     * @param CredentialsDto $credentials
-     * @param AccountDto $person
+     * @var int|null
      */
-    private function __construct(
-        private CredentialsDto $credentials,
-        private AccountDto $person
-    )
-    {
-    }
+    public ?int $userId;
 
     /**
-     * Create the User Dto.
+     * @var Email|null
+     */
+    public ?Email $email;
+
+    /**
+     * @var Password|null
+     */
+    public ?Password $password;
+
+    /**
+     * @var Role|null
+     */
+    public ?Role $role;
+
+    /**
+     * @var string|null
+     */
+    public ?string $apiToken;
+
+    /**
+     * Create the Credentials Dto.
      *
+     * @param int|null $userId
      * @param string $email
      * @param string $password
      * @param string $role
-     * @param null|string $salutation
-     * @param string $firstName
-     * @param string $lastName
-     * @param null|string $phone
+     * @param string|null $apiToken
      *
      * @return self
-     * @throws Exception
      */
-    public static function make(
-        string $email,
-        string $password,
-        string $role,
-        ?string $salutation,
-        string $firstName,
-        string $lastName,
-        ?string $phone
-    ): self
+    public static function make(?int $userId, string $email, string $password, string $role, ?string $apiToken): self
     {
-        return new self(
-            CredentialsDto::make($email, $password, $role),
-            AccountDto::make($salutation, $firstName, $lastName, $phone)
+        return new static(
+            [
+                'userId' => $userId,
+                'email' => Email::make($email),
+                'password' => Password::make($password),
+                'role' => Role::make($role),
+                'apiToken' => $apiToken
+            ]
         );
-    }
-
-    /**
-     * Convert data to array.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(): array
-    {
-        return [
-            'credentials' => $this->getCredentials(),
-            'account' => $this->getAccount(),
-        ];
-    }
-
-    /**
-     * Getter.
-     *
-     * @return CredentialsDto
-     */
-    public function getCredentials(): CredentialsDto
-    {
-        return $this->credentials;
-    }
-
-    /**
-     * Getter.
-     *
-     * @return AccountDto
-     */
-    public function getAccount(): AccountDto
-    {
-        return $this->person;
     }
 }

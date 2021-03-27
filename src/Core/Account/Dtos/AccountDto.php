@@ -2,33 +2,42 @@
 
 namespace Marketplace\Core\Account\Dtos;
 
-use Illuminate\Contracts\Support\Arrayable;
 use Marketplace\Core\Account\ValueObjects\Name;
 use Marketplace\Core\Account\ValueObjects\Phone;
 use Marketplace\Core\Account\ValueObjects\Salutation;
+use Marketplace\Foundation\DataTransferObjects\DataTransferObject;
 
-class AccountDto implements Arrayable
+class AccountDto extends DataTransferObject
 {
     /**
-     * AccountDto constructor.
-     *
-     * @param Salutation $salutation
-     * @param Name $firstName
-     * @param Name $lastName
-     * @param Phone $phone
+     * @var int|null
      */
-    private function __construct(
-        private Salutation $salutation,
-        private Name $firstName,
-        private Name $lastName,
-        private Phone $phone
-    )
-    {
-    }
+    public ?int $userId;
+
+    /**
+     * @var Salutation|null
+     */
+    public ?Salutation $salutation;
+
+    /**
+     * @var Name|null
+     */
+    public ?Name $firstName;
+
+    /**
+     * @var Name|null
+     */
+    public ?Name $lastName;
+
+    /**
+     * @var Phone|null
+     */
+    public ?Phone $phone;
 
     /**
      * Create a new instance of self.
      *
+     * @param null|int $userId
      * @param null|string $salutation
      * @param string $firstName
      * @param string $lastName
@@ -37,72 +46,21 @@ class AccountDto implements Arrayable
      * @return self
      */
     public static function make(
+        ?int $userId,
         ?string $salutation,
         string $firstName,
         string $lastName,
         ?string $phone
     ): self
     {
-        return new self(
-            Salutation::make($salutation),
-            Name::make($firstName),
-            Name::make($lastName),
-            Phone::make($phone)
+        return new static(
+            [
+                'id' => $userId,
+                'salutation' => Salutation::make($salutation),
+                'firstName' => Name::make($firstName),
+                'lastName' => Name::make($lastName),
+                'phone' => Phone::make($phone),
+            ]
         );
-    }
-
-    /**
-     * Convert data to array.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(): array
-    {
-        return [
-            'salutation' => $this->getSalutation()->value(),
-            'first_name' => $this->getFirstName()->value(),
-            'last_name' => $this->getLastName()->value(),
-            'phone' => $this->getPhone()->value(),
-        ];
-    }
-
-    /**
-     * Getter.
-     *
-     * @return Salutation
-     */
-    public function getSalutation(): Salutation
-    {
-        return $this->salutation;
-    }
-
-    /**
-     * Getter.
-     *
-     * @return Name
-     */
-    public function getFirstName(): Name
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * Getter.
-     *
-     * @return Name
-     */
-    public function getLastName(): Name
-    {
-        return $this->lastName;
-    }
-
-    /**
-     * Getter.
-     *
-     * @return Phone
-     */
-    public function getPhone(): Phone
-    {
-        return $this->phone;
     }
 }

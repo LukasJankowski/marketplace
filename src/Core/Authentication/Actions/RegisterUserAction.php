@@ -4,6 +4,7 @@ namespace Marketplace\Core\Authentication\Actions;
 
 use Marketplace\Core\Authentication\Events\UserRegistered;
 use Marketplace\Core\User\Actions\CreateUserAction;
+use Marketplace\Core\User\Dtos\PersonDto;
 use Marketplace\Core\User\Dtos\UserDto;
 use Marketplace\Core\User\Resources\UserResource;
 use Marketplace\Foundation\Actions\BaseAction;
@@ -23,13 +24,13 @@ class RegisterUserAction extends BaseAction
     /**
      * Register the user.
      *
-     * @param UserDto $details
+     * @param PersonDto $details
      *
      * @return UserResource
      *
      * @throws ValidationException
      */
-    public function run(UserDto $details): UserResource
+    public function run(PersonDto $details): UserResource
     {
         $response = $this->action->run($details);
 

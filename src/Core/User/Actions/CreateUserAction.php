@@ -4,7 +4,7 @@ namespace Marketplace\Core\User\Actions;
 
 use Marketplace\Core\Account\AccountService;
 use Marketplace\Core\Logging\Logger;
-use Marketplace\Core\User\Dtos\UserDto;
+use Marketplace\Core\User\Dtos\PersonDto;
 use Marketplace\Core\User\Resources\UserResource;
 use Marketplace\Core\User\User;
 use Marketplace\Core\User\UserService;
@@ -31,13 +31,13 @@ class CreateUserAction extends BaseAction
     /**
      * Register the user.
      *
-     * @param UserDto $details
+     * @param PersonDto $details
      *
      * @return UserResource
      *
      * @throws ValidationException
      */
-    public function run(UserDto $details): UserResource
+    public function run(PersonDto $details): UserResource
     {
         $this->checkForDuplicateAccount($details);
 
@@ -49,20 +49,20 @@ class CreateUserAction extends BaseAction
     /**
      * Check if the account is duplicated.
      *
-     * @param UserDto $details
+     * @param PersonDto $details
      *
      * @return void
      *
      * @throws ValidationException
      */
-    private function checkForDuplicateAccount(UserDto $details): void
+    private function checkForDuplicateAccount(PersonDto $details): void
     {
-        if ($this->userService->getUserByCredentials($details->getCredentials())) {
+        if ($this->userService->getUserByCredentials($details->user)) {
             $this->logger->info(
                 'Duplicate account register attempt',
                 [
-                    'email' => $details->getCredentials()->getEmail(),
-                    'role' => $details->getCredentials()->getRole(),
+                    'email' => $details->user->email,
+                    'role' => $details->user->role,
                 ]
             );
 
@@ -73,14 +73,14 @@ class CreateUserAction extends BaseAction
     /**
      * Create the user.
      *
-     * @param UserDto $details
+     * @param PersonDto $details
      *
      * @return User
      */
-    private function createUser(UserDto $details): User
+    private function createUser(PersonDto $details): User
     {
-        $user = $this->userService->create($details->getCredentials());
-        $account = $this->accountService->create($details->getAccount(), $user);
+        $user = $this->userService->create($details->user);
+        $account = $this->accountService->create($details->account, $user);
         $user->setRelation('account', $account);
 
         $this->logger->info(

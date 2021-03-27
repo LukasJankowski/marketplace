@@ -37,7 +37,7 @@ class AuthenticationController extends Controller
      */
     public function login(LoginRequest $request, LoginUserAction $action): LoginResource
     {
-        return $action->run($request->getDto());
+        return $action->run($request->asDto());
     }
 
     /**
@@ -78,7 +78,7 @@ class AuthenticationController extends Controller
      */
     public function register(RegisterUserRequest $request, RegisterUserAction $action): JsonResponse
     {
-        return $action->run($request->getDto())
+        return $action->run($request->asDto())
             ->response()
             ->setStatusCode(201);
     }
@@ -108,7 +108,7 @@ class AuthenticationController extends Controller
      */
     public function reset(ResetRequest $request, ResetPasswordAction $action): ResetResource
     {
-        return $action->run($request->getDto());
+        return $action->run($request->asDto());
     }
 
     /**
@@ -121,6 +121,6 @@ class AuthenticationController extends Controller
      */
     public function password(UpdatePasswordRequest $request, UpdatePasswordAction $action): UserResource
     {
-        return $action->run($request->getDto(), $request->route('id'));
+        return $action->run($request->asDto(), $request->route('id'));
     }
 }

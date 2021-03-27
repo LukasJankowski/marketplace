@@ -4,12 +4,19 @@ namespace Marketplace\Core\User\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Marketplace\Core\Account\Dtos\AccountDto;
+use Marketplace\Core\Account\ValueObjects\Name;
+use Marketplace\Core\Account\ValueObjects\Phone;
 use Marketplace\Core\Account\ValueObjects\Salutation;
+use Marketplace\Core\Authorization\ValueObjects\Role;
+use Marketplace\Core\User\Dtos\PersonDto;
 use Marketplace\Core\User\Dtos\UserDto;
+use Marketplace\Core\User\ValueObjects\Email;
 use Marketplace\Core\User\ValueObjects\Password;
+use Marketplace\Foundation\DataTransferObjects\HasDtoFactory;
 use Marketplace\Foundation\Requests\RequestHelperTrait;
 
-class CreateUserRequest extends FormRequest
+class CreateUserRequest extends FormRequest implements HasDtoFactory
 {
     use RequestHelperTrait;
 
@@ -64,18 +71,28 @@ class CreateUserRequest extends FormRequest
     /**
      * Create the DTO.
      *
-     * @return UserDto
+     * @return PersonDto
      */
-    public function getDto(): UserDto
+    public function asDto(): PersonDto
     {
-        return UserDto::make(
-            $this->get('email'),
-            $this->get('password'),
-            $this->getUserRole(),
-            $this->get('salutation'),
-            $this->get('first_name'),
-            $this->get('last_name'),
-            $this->get('phone')
+        return new PersonDto(
+            [
+                'user' => new UserDto(
+                    [
+                        'email' => Email::make($this->get('email')),
+                        'password' => Password::make($this->get('password')),
+                        'role' => Role::make($this->getUserRole()),
+                    ]
+                ),
+                'account' => new AccountDto(
+                    [
+                        'salutation' => Salutation::make($this->get('salutation')),
+                        'firstName' => Name::make($this->get('first_name')),
+                        'lastName' => Name::make($this->get('last_name')),
+                        'phone' => Phone::make($this->get('phone'))
+                    ]
+                ),
+            ]
         );
     }
 }

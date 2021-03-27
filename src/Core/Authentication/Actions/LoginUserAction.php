@@ -6,7 +6,7 @@ use Marketplace\Core\Authentication\Events\UserLoggedIn;
 use Marketplace\Core\Authentication\Exceptions\LoginException;
 use Marketplace\Core\Authentication\Resources\LoginResource;
 use Marketplace\Core\Logging\Logger;
-use Marketplace\Core\User\Dtos\CredentialsDto;
+use Marketplace\Core\User\Dtos\UserDto;
 use Marketplace\Core\User\User;
 use Marketplace\Core\User\UserService;
 use Marketplace\Foundation\Actions\BaseAction;
@@ -31,25 +31,25 @@ class LoginUserAction extends BaseAction
     /**
      * Attempt to login the user.
      *
-     * @param CredentialsDto $creds
+     * @param UserDto $userDto
      *
      * @return LoginResource
      *
      * @throws LoginException
      */
-    public function run(CredentialsDto $creds): LoginResource
+    public function run(UserDto $userDto): LoginResource
     {
-        $user = $this->service->getUserByCredentials($creds);
+        $user = $this->service->getUserByCredentials($userDto);
 
-        if ($this->checkLogin($creds, $user)) {
+        if ($this->checkLogin($userDto, $user)) {
             return $this->refreshToken->run($user);
         }
 
         $this->logger->info(
             'Failed login attempt',
             [
-                'email' => $creds->getEmail(),
-                'role' => $creds->getRole(),
+                'email' => $userDto->email,
+                'role' => $userDto->role,
             ]
         );
 
@@ -59,14 +59,14 @@ class LoginUserAction extends BaseAction
     /**
      * Check if the credentials are valid.
      *
-     * @param CredentialsDto $creds
+     * @param UserDto $userDto
      * @param User|null $user
      *
      * @return bool
      */
-    private function checkLogin(CredentialsDto $creds, null|User $user): bool
+    private function checkLogin(UserDto $userDto, null|User $user): bool
     {
-        if ($user && $creds->getPassword()->verify($user->getAuthPassword())) {
+        if ($user && $userDto->password->verify($user->getAuthPassword())) {
             $this->logger->info(
                 'Successful login attempt',
                 [
