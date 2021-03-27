@@ -8,25 +8,14 @@ use Marketplace\Foundation\ValueObjects\ValueObject;
 
 class Role extends ValueObject
 {
-    /**
-     * @const string
-     */
     public const ADMIN = 'admin';
 
-    /**
-     * @const string
-     */
     public const CUSTOMER = 'customer';
 
-    /**
-     * @const string
-     */
     public const PROVIDER = 'provider';
 
     /**
      * Role constructor.
-     *
-     * @param string $slug
      */
     private function __construct(private string $slug)
     {
@@ -34,10 +23,6 @@ class Role extends ValueObject
 
     /**
      * Create a new instance of self.
-     *
-     * @param string $slug
-     *
-     * @return self
      */
     public static function make(string $slug): self
     {
@@ -52,8 +37,6 @@ class Role extends ValueObject
 
     /**
      * Get the type.
-     *
-     * @return string
      */
     public function getSlug(): string
     {
@@ -62,8 +45,6 @@ class Role extends ValueObject
 
     /**
      * Get the class of type.
-     *
-     * @return string
      */
     public function value(): string
     {

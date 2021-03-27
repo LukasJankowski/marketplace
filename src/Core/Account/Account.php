@@ -18,7 +18,7 @@ class Account extends Model implements HasDtoFactory
     use ModelsHelperTrait;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $fillable = [
         'user_id',
@@ -29,7 +29,7 @@ class Account extends Model implements HasDtoFactory
     ];
 
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     protected $casts = [
         //'salutation' => BaseCast::class . ':' . Salutation::class,
@@ -54,8 +54,6 @@ class Account extends Model implements HasDtoFactory
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return Factory
      */
     protected static function newFactory(): Factory
     {
@@ -64,8 +62,6 @@ class Account extends Model implements HasDtoFactory
 
     /**
      * Account belongs to user.
-     *
-     * @return BelongsTo
      */
     public function user(): BelongsTo
     {

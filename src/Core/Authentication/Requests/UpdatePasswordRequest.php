@@ -14,8 +14,6 @@ class UpdatePasswordRequest extends FormRequest implements HasDtoFactory
 
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
     public function authorize(): bool
     {
@@ -37,7 +35,7 @@ class UpdatePasswordRequest extends FormRequest implements HasDtoFactory
     /**
      * Get the validation messages.
      *
-     * @return string[]
+     * @return array<string, string>
      */
     public function messages(): array
     {
@@ -46,8 +44,6 @@ class UpdatePasswordRequest extends FormRequest implements HasDtoFactory
 
     /**
      * Create the DTO.
-     *
-     * @return UserDto
      */
     public function asDto(): UserDto
     {

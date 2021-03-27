@@ -15,8 +15,6 @@ class UserService
 {
     /**
      * Get all users.
-     *
-     * @return Collection
      */
     public function getAllUsers(): Collection
     {
@@ -25,10 +23,6 @@ class UserService
 
     /**
      * Get the user by his credentials.
-     *
-     * @param UserDto $user
-     *
-     * @return null|User
      */
     public function getUserByCredentials(UserDto $user): ?User
     {
@@ -40,10 +34,6 @@ class UserService
 
     /**
      * Create a new user.
-     *
-     * @param UserDto $user
-     *
-     * @return User
      */
     public function create(UserDto $user): User
     {
@@ -58,10 +48,6 @@ class UserService
 
     /**
      * Mark the user as verified.
-     *
-     * @param int|string $userId
-     *
-     * @return void
      */
     public function markUserVerified(int|string $userId): void
     {
@@ -73,10 +59,6 @@ class UserService
     /**
      * Get the user by id.
      *
-     * @param int|string $userId
-     *
-     * @return User
-     *
      * @throws ModelNotFoundException
      */
     public function getUserById(int|string $userId): User
@@ -86,10 +68,6 @@ class UserService
 
     /**
      * Send the verification email to the user.
-     *
-     * @param int|string|User $user
-     *
-     * @return void
      */
     public function sendVerificationEmailToUser(int|string|User $user): void
     {
@@ -99,10 +77,6 @@ class UserService
 
     /**
      * Get correct user.
-     *
-     * @param int|string|User $user
-     *
-     * @return User
      */
     private function getUser(int|string|User $user): User
     {
@@ -111,10 +85,6 @@ class UserService
 
     /**
      * Send the password reset email to the user.
-     *
-     * @param int|string|User $user
-     *
-     * @return void
      */
     public function sendPasswordResetEmailToUser(int|string|User $user): void
     {
@@ -124,11 +94,6 @@ class UserService
 
     /**
      * Update the password of the user.
-     *
-     * @param int|string|User $user
-     * @param Password $password
-     *
-     * @return void
      */
     public function updatePasswordOfUser(int|string|User $user, Password $password): void
     {

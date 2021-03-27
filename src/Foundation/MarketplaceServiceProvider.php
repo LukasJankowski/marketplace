@@ -9,29 +9,14 @@ use Marketplace\Foundation\Resolvers\ModuleResolver;
 
 final class MarketplaceServiceProvider extends ServiceProvider
 {
-    /**
-     * @const string
-     */
     public const CORE_DIR = __DIR__ . '/../Core';
 
-    /**
-     * @const string
-     */
     public const MODULE_DIR = __DIR__ . '/../Modules';
 
-    /**
-     * @const string
-     */
     public const CONFIG_DIR = __DIR__ . '/../Config';
 
-    /**
-     * @const string
-     */
     public const CORE_NAMESPACE = 'Marketplace\Core';
 
-    /**
-     * @const string
-     */
     public const MODULE_NAMESPACE = 'Marketplace\Modules';
 
     /**
@@ -45,8 +30,6 @@ final class MarketplaceServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      *
      * @throws BindingResolutionException
      */
@@ -67,8 +50,6 @@ final class MarketplaceServiceProvider extends ServiceProvider
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register(): void
     {

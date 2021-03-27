@@ -8,11 +8,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Marketplace\Core\Authentication\Notifications\SendResetNotification;
 use Marketplace\Core\Authentication\Notifications\SendVerificationNotification;
-use Marketplace\Core\Authorization\ValueObjects\Role;
 use Marketplace\Core\User\Dtos\UserDto;
 use Marketplace\Core\User\User;
 use Marketplace\Core\User\UserService;
-use Marketplace\Core\User\ValueObjects\Email;
 use Marketplace\Core\User\ValueObjects\Password;
 use Tests\TestCase;
 

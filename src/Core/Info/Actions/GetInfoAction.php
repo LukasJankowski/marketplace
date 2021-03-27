@@ -11,8 +11,6 @@ class GetInfoAction extends BaseAction
 {
     /**
      * GetInfoAction constructor.
-     *
-     * @param Logger $logger
      */
     public function __construct(private Logger $logger)
     {
@@ -20,8 +18,6 @@ class GetInfoAction extends BaseAction
 
     /**
      * Get the basic marketplace info.
-     *
-     * @return InfoResource
      */
     public function run(): InfoResource
     {

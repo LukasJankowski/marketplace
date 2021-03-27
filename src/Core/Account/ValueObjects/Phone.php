@@ -8,8 +8,6 @@ class Phone extends ValueObject
 {
     /**
      * Phone constructor.
-     *
-     * @param string|null $phone
      */
     public function __construct(private ?string $phone)
     {

@@ -13,11 +13,7 @@ class UserVerificationException extends HttpException
     /**
      * UserVerificationException constructor.
      *
-     * @param int $status
-     * @param string|null $exceptionMessage
-     * @param Throwable|null $previous
      * @param array<string, mixed> $headers
-     * @param int|null $code
      */
     public function __construct(
         private int $status = 403,

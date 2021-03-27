@@ -14,30 +14,10 @@ class LoginTest extends TestCase
     use RefreshDatabase;
     use TestsHelperTrait;
 
-    public function testCanLoginAllUserTypes()
-    {
-        [$r, $u] = $this->loginTest('customer');
-        $r->assertStatus(200);
-        $r->assertJsonPath('data.token', $u->api_token);
-
-        [$r, $u] = $this->loginTest('provider');
-        $r->assertStatus(200);
-        $r->assertJsonPath('data.token', $u->api_token);
-
-        [$r, $u] = $this->loginTest('admin');
-        $r->assertStatus(200);
-        $r->assertJsonPath('data.token', $u->api_token);
-    }
-
     /**
      * Test for each type given.
-     *
-     * @param $role
-     * @param $routeKey
-     *
-     * @return array
      */
-    private function loginTest($role): array
+    private function loginTest(string $role): array
     {
         $model = RoleService::getRoleBySlug($role);
 
@@ -56,14 +36,25 @@ class LoginTest extends TestCase
 
     /**
      * Get the route.
-     *
-     * @param $role
-     *
-     * @return string
      */
-    private function getRoute($role): string
+    private function getRoute(string $role): string
     {
         return route('marketplace.core.authentication.login', ['role' => $role]);
+    }
+
+    public function testCanLoginAllUserTypes()
+    {
+        [$r, $u] = $this->loginTest('customer');
+        $r->assertStatus(200);
+        $r->assertJsonPath('data.token', $u->api_token);
+
+        [$r, $u] = $this->loginTest('provider');
+        $r->assertStatus(200);
+        $r->assertJsonPath('data.token', $u->api_token);
+
+        [$r, $u] = $this->loginTest('admin');
+        $r->assertStatus(200);
+        $r->assertJsonPath('data.token', $u->api_token);
     }
 
     public function testCantLoginWithMismatchingTypes()

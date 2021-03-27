@@ -69,8 +69,6 @@ class User extends Authenticatable implements HasDtoFactory
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return Factory
      */
     protected static function newFactory(): Factory
     {
@@ -79,8 +77,6 @@ class User extends Authenticatable implements HasDtoFactory
 
     /**
      * User has account.
-     *
-     * @return HasOne
      */
     public function account(): HasOne
     {

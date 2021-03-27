@@ -9,11 +9,7 @@ use Marketplace\Core\Info\Resources\InfoResource;
 class InfoController extends Controller
 {
     /**
-     * Handle the incoming request.
-     *
-     * @param GetInfoAction $action
-     *
-     * @return InfoResource
+     * Dump the marketplace info.
      */
     public function dump(GetInfoAction $action): InfoResource
     {

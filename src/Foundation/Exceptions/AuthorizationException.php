@@ -9,21 +9,14 @@ class AuthorizationException extends IlluminateAuthorizationException
 {
     use ExceptionHelperTrait;
 
-    /**
-     * @var int
-     */
     private int $status;
 
     /**
      * AuthorizationException constructor.
-     *
-     * @param string $message
-     * @param int $code
-     * @param Throwable|null $previous
      */
     public function __construct(
         string $message = 'marketplace.core.authorization.unauthorized',
-        $code = 403,
+        int $code = 403,
         ?Throwable $previous = null
     )
     {

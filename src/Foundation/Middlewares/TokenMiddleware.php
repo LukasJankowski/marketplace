@@ -11,11 +11,6 @@ class TokenMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure $next
-     *
-     * @return mixed
-     *
      * @throws AuthenticationException
      */
     public function handle(Request $request, Closure $next): mixed

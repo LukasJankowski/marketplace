@@ -8,8 +8,6 @@ class Email extends ValueObject
 {
     /**
      * Email constructor.
-     *
-     * @param string $email
      */
     public function __construct(private string $email)
     {
@@ -17,10 +15,6 @@ class Email extends ValueObject
 
     /**
      * Create a new instance of self.
-     *
-     * @param string $email
-     *
-     * @return $this
      */
     public static function make(string $email): self
     {

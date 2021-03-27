@@ -3,9 +3,7 @@
 namespace Marketplace\Core\Authentication\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Marketplace\Core\Authorization\ValueObjects\Role;
 use Marketplace\Core\User\Dtos\UserDto;
-use Marketplace\Core\User\ValueObjects\Email;
 use Marketplace\Foundation\DataTransferObjects\HasDtoFactory;
 use Marketplace\Foundation\Requests\RequestHelperTrait;
 
@@ -15,8 +13,6 @@ class ResetRequest extends FormRequest implements HasDtoFactory
 
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
     public function authorize(): bool
     {
@@ -38,7 +34,7 @@ class ResetRequest extends FormRequest implements HasDtoFactory
     /**
      * Get the validation messages.
      *
-     * @return string[]
+     * @return array<string, string>
      */
     public function messages(): array
     {
@@ -47,8 +43,6 @@ class ResetRequest extends FormRequest implements HasDtoFactory
 
     /**
      * Create the DTO.
-     *
-     * @return UserDto
      */
     public function asDto(): UserDto
     {

@@ -17,8 +17,6 @@ class MarketplaceRouteServiceProvider extends ServiceProvider
     /**
      * Define your route model bindings, pattern filters, etc.
      *
-     * @return void
-     *
      * @throws BindingResolutionException
      */
     public function boot(): void
@@ -43,8 +41,6 @@ class MarketplaceRouteServiceProvider extends ServiceProvider
 
     /**
      * Configure the rate limiters for the application.
-     *
-     * @return void
      */
     protected function configureRateLimiting(): void
     {
@@ -61,8 +57,6 @@ class MarketplaceRouteServiceProvider extends ServiceProvider
 
     /**
      * Setup middlewares.
-     *
-     * @return void
      */
     private function addMiddlewares(): void
     {

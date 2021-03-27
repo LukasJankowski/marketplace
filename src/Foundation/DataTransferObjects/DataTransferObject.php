@@ -7,9 +7,6 @@ use Stringable;
 
 abstract class DataTransferObject implements Stringable, Arrayable, DataTransferObjectInterface
 {
-    /**
-     * @var DataTransferObjectClass
-     */
     private DataTransferObjectClass $class;
 
     /**
@@ -32,8 +29,6 @@ abstract class DataTransferObject implements Stringable, Arrayable, DataTransfer
 
     /**
      * Convert DTO to string.
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -48,7 +43,7 @@ abstract class DataTransferObject implements Stringable, Arrayable, DataTransfer
     /**
      * Convert DTO to array.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

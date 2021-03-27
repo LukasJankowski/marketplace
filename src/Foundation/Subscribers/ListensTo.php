@@ -9,8 +9,6 @@ class ListensTo
 {
     /**
      * ListensTo constructor.
-     *
-     * @param string $event
      */
     public function __construct(public string $event)
     {

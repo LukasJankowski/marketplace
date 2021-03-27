@@ -18,54 +18,38 @@ class RoleService
     ];
 
     /**
-     * Check if a given key exists.
-     *
-     * @param string $type
-     *
-     * @return bool
+     * Check if a given slug exists.
      */
-    public static function slugExists(string $type): bool
+    public static function slugExists(string $slug): bool
     {
-        return array_key_exists($type, self::ROLES);
+        return array_key_exists($slug, self::ROLES);
     }
 
     /**
-     * Check if a given class exists.
-     *
-     * @param string $class
-     *
-     * @return bool
+     * Check if a given role exists.
      */
-    public static function roleExists(string $class): bool
+    public static function roleExists(string $role): bool
     {
-        return in_array($class, self::ROLES, true);
+        return in_array($role, self::ROLES, true);
     }
 
     /**
-     * Get the class by key.
-     *
-     * @param string $type
-     *
-     * @return string
+     * Get the class by slug.
      */
-    public static function getRoleBySlug(string $type): string
+    public static function getRoleBySlug(string $slug): string
     {
-        return self::ROLES[$type] ?? throw new InvalidArgumentException(
-                sprintf('Unknown type: %s', $type)
+        return self::ROLES[$slug] ?? throw new InvalidArgumentException(
+                sprintf('Unknown type: %s', $slug)
             );
     }
 
     /**
-     * Get the key by class
-     *
-     * @param string $class
-     *
-     * @return string
+     * Get the slug by class.
      */
-    public static function getSlugByRole(string $class): string
+    public static function getSlugByRole(string $role): string
     {
-        return array_flip(self::ROLES)[$class] ?? throw new InvalidArgumentException(
-                sprintf('Unknown class: %s', $class)
+        return array_flip(self::ROLES)[$role] ?? throw new InvalidArgumentException(
+                sprintf('Unknown class: %s', $role)
             );
     }
 
@@ -94,7 +78,7 @@ class RoleService
     }
 
     /**
-     * Get the keys.
+     * Get the slugs.
      *
      * @param array<string> $except
      *
@@ -107,10 +91,6 @@ class RoleService
 
     /**
      * Get the users role.
-     *
-     * @param User $user
-     *
-     * @return string
      */
     public static function getRoleOfUser(User $user): string
     {

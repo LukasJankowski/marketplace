@@ -9,8 +9,6 @@ trait ExceptionHelperTrait
 {
     /**
      * Render response of the exception
-     *
-     * @return JsonResponse
      */
     public function render(): JsonResponse
     {
@@ -40,8 +38,6 @@ trait ExceptionHelperTrait
 
     /**
      * Get the status.
-     *
-     * @return int
      */
     private function getStatus(): int
     {

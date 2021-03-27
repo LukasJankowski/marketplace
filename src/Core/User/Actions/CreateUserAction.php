@@ -15,10 +15,6 @@ class CreateUserAction extends BaseAction
 {
     /**
      * CreateUserAction constructor.
-     *
-     * @param Logger $logger
-     * @param UserService $userService
-     * @param AccountService $accountService
      */
     public function __construct(
         private Logger $logger,
@@ -30,10 +26,6 @@ class CreateUserAction extends BaseAction
 
     /**
      * Register the user.
-     *
-     * @param PersonDto $details
-     *
-     * @return UserResource
      *
      * @throws ValidationException
      */
@@ -48,10 +40,6 @@ class CreateUserAction extends BaseAction
 
     /**
      * Check if the account is duplicated.
-     *
-     * @param PersonDto $details
-     *
-     * @return void
      *
      * @throws ValidationException
      */
@@ -72,10 +60,6 @@ class CreateUserAction extends BaseAction
 
     /**
      * Create the user.
-     *
-     * @param PersonDto $details
-     *
-     * @return User
      */
     private function createUser(PersonDto $details): User
     {

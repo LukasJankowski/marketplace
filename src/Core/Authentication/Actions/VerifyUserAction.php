@@ -14,10 +14,6 @@ class VerifyUserAction extends BaseAction
 {
     /**
      * VerifyUserAction constructor.
-     *
-     * @param Logger $logger
-     * @param UserService $userService
-     * @param ReadUserAction $action
      */
     public function __construct(
         private Logger $logger,
@@ -29,10 +25,6 @@ class VerifyUserAction extends BaseAction
 
     /**
      * Verify the users email.
-     *
-     * @param string|int $id
-     *
-     * @return UserResource
      */
     public function run(string|int $id): UserResource
     {
@@ -52,10 +44,6 @@ class VerifyUserAction extends BaseAction
 
     /**
      * Verify the users email.
-     *
-     * @param string|int $id
-     *
-     * @return UserResource
      */
     private function verifyUser(string|int $id): UserResource
     {

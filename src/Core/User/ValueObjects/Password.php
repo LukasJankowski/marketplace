@@ -11,9 +11,6 @@ class Password extends ValueObject
 {
     /**
      * Password constructor.
-     *
-     * @param string $plainPassword
-     * @param string $password
      */
     private function __construct(
         private string $plainPassword,
@@ -24,10 +21,6 @@ class Password extends ValueObject
 
     /**
      * Create a new instance of self.
-     *
-     * @param string $password
-     *
-     * @return self
      *
      * @throws InvalidArgumentException
      */
@@ -42,8 +35,6 @@ class Password extends ValueObject
 
     /**
      * Get min required password length.
-     *
-     * @return int
      */
     public static function getMinPasswordLength(): int
     {
@@ -52,10 +43,6 @@ class Password extends ValueObject
 
     /**
      * Verify that the hash matches the password.
-     *
-     * @param string $passwordHash
-     *
-     * @return bool
      */
     public function verify(string $passwordHash): bool
     {
@@ -64,8 +51,6 @@ class Password extends ValueObject
 
     /**
      * Getter.
-     *
-     * @return string
      */
     public function getPlainPassword(): string
     {
@@ -74,8 +59,6 @@ class Password extends ValueObject
 
     /**
      * Getter.
-     *
-     * @return string
      */
     public function value(): string
     {

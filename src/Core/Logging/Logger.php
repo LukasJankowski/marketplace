@@ -11,10 +11,7 @@ use Stringable;
 class Logger implements LoggerInterface
 {
     /**
-     * Create a new Log manager instance.
-     *
-     * @param LogManager $logger
-     * @param Application $application
+     * Logger constructor.
      */
     public function __construct(private LogManager $logger, private Application $application)
     {
@@ -50,7 +47,7 @@ class Logger implements LoggerInterface
     /**
      * Convert all stringable objects to string.
      *
-     * @param array $contexts
+     * @param array<string, mixed> $contexts
      *
      * @return array
      */

@@ -11,9 +11,7 @@ trait ModelsHelperTrait
     /**
      * Create helper.
      *
-     * @param array $attributes
-     *
-     * @return Model
+     * @param array<string, mixed> $attributes
      */
     public static function create(array $attributes): Model
     {

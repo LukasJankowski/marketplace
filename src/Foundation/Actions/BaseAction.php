@@ -8,12 +8,6 @@ abstract class BaseAction
 {
     /**
      * Make a response.
-     *
-     * @param string $resource
-     * @param mixed $data
-     * @param bool $isMany
-     *
-     * @return mixed
      */
     protected function respond(string $resource, mixed $data, bool $isMany = false): mixed
     {

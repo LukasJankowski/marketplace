@@ -14,9 +14,6 @@ class ResetPasswordAction extends BaseAction
 {
     /**
      * ResetPasswordAction constructor.
-     *
-     * @param Logger $logger
-     * @param UserService $userService
      */
     public function __construct(
         private Logger $logger,
@@ -27,10 +24,6 @@ class ResetPasswordAction extends BaseAction
 
     /**
      * Send the password reset notification.
-     *
-     * @param UserDto $userDto
-     *
-     * @return ResetResource
      *
      * @throws ValidationException
      */
@@ -53,10 +46,6 @@ class ResetPasswordAction extends BaseAction
 
     /**
      * Fetch the associated user.
-     *
-     * @param UserDto $userDto
-     *
-     * @return User
      *
      * @throws ValidationException
      */

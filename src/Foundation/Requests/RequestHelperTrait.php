@@ -86,8 +86,6 @@ trait RequestHelperTrait
 
     /**
      * Get the user type.
-     *
-     * @return string
      */
     private function getUserRole(): string
     {
@@ -96,8 +94,6 @@ trait RequestHelperTrait
 
     /**
      * Check if the user is an admin.
-     *
-     * @return bool
      */
     private function isAdmin(): bool
     {

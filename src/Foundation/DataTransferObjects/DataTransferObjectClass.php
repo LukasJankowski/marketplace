@@ -7,20 +7,12 @@ use ReflectionProperty;
 
 class DataTransferObjectClass
 {
-    /**
-     * @var ReflectionClass
-     */
     private ReflectionClass $reflectionClass;
 
-    /**
-     * @var DataTransferObject
-     */
     private DataTransferObject $dataTransferObject;
 
     /**
      * DataTransferObjectClass constructor.
-     *
-     * @param DataTransferObject $dataTransferObject
      */
     public function __construct(DataTransferObject $dataTransferObject)
     {
@@ -29,7 +21,7 @@ class DataTransferObjectClass
     }
 
     /**
-     * @return DataTransferObjectProperty[]
+     * @return array<DataTransferObjectProperty>
      */
     public function getProperties(): array
     {

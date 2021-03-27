@@ -19,8 +19,6 @@ class Salutation extends ValueObject
 
     /**
      * Salutation constructor.
-     *
-     * @param null|string $salutation
      */
     private function __construct(private ?string $salutation)
     {
@@ -28,8 +26,6 @@ class Salutation extends ValueObject
 
     /**
      * Check if salutations are required.
-     *
-     * @return bool
      */
     public static function isSalutationRequired(): bool
     {
@@ -38,10 +34,6 @@ class Salutation extends ValueObject
 
     /**
      * Create a new instance of self.
-     *
-     * @param null|string $salutation
-     *
-     * @return self
      *
      * @throws InvalidArgumentException
      */

@@ -3,9 +3,7 @@
 namespace Marketplace\Core\Authentication\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Marketplace\Core\Authorization\ValueObjects\Role;
 use Marketplace\Core\User\Dtos\UserDto;
-use Marketplace\Core\User\ValueObjects\Email;
 use Marketplace\Core\User\ValueObjects\Password;
 use Marketplace\Foundation\DataTransferObjects\HasDtoFactory;
 use Marketplace\Foundation\Requests\RequestHelperTrait;
@@ -16,8 +14,6 @@ class LoginRequest extends FormRequest implements HasDtoFactory
 
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
     public function authorize(): bool
     {
@@ -40,7 +36,7 @@ class LoginRequest extends FormRequest implements HasDtoFactory
     /**
      * Get the validation messages.
      *
-     * @return string[]
+     * @return array<string, string>
      */
     public function messages(): array
     {
@@ -49,8 +45,6 @@ class LoginRequest extends FormRequest implements HasDtoFactory
 
     /**
      * Create the DTO.
-     *
-     * @return UserDto
      */
     public function asDto(): UserDto
     {

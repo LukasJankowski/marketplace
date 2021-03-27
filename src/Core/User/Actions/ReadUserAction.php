@@ -10,8 +10,6 @@ class ReadUserAction extends BaseAction
 {
     /**
      * ListUserAction constructor.
-     *
-     * @param UserService $service
      */
     public function __construct(private UserService $service)
     {
@@ -19,10 +17,6 @@ class ReadUserAction extends BaseAction
 
     /**
      * Refresh the users API token.
-     *
-     * @param int|string $id
-     *
-     * @return UserResource
      */
     public function run(int|string $id): UserResource
     {

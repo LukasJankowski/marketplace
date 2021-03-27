@@ -11,8 +11,6 @@ class CheckLoginAction extends BaseAction
 {
     /**
      * CheckLoginAction constructor.
-     *
-     * @param Logger $logger
      */
     public function __construct(private Logger $logger)
     {
@@ -20,10 +18,6 @@ class CheckLoginAction extends BaseAction
 
     /**
      * Check for login status.
-     *
-     * @param User $user
-     *
-     * @return LoginResource
      */
     public function run(User $user): LoginResource
     {

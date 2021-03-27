@@ -7,43 +7,25 @@ use Marketplace\Foundation\MarketplaceServiceProvider;
 
 class ModuleResolver
 {
-    /**
-     * @const string
-     */
     public const ROUTE_FILE_NAME = '/routes.php';
 
-    /**
-     * @const string
-     */
     public const MIGRATION_DIR_NAME = '/migrations';
 
-    /**
-     * @const string
-     */
     public const EVENT_SUBSCRIBER_DIR_NAME = '/Subscribers';
 
-    /**
-     * @const string
-     */
     public const COMMAND_DIR_NAME = '/Commands';
 
     /**
      * ModuleResolver constructor.
-     *
-     * @param Filesystem $filesystem
      */
     public function __construct(private Filesystem $filesystem)
     {
     }
 
     /**
-     * Get all types from all module directories
+     * Get all types from all module directories.
      *
-     * @param string $parentDir
-     * @param string $type
-     * @param bool $isDir
-     *
-     * @return array
+     * @return array<string>
      */
     private function getFilesFromModules(string $parentDir, string $type, bool $isDir = false): array
     {
@@ -61,9 +43,7 @@ class ModuleResolver
     /**
      * Get all module directories in the parent directory.
      *
-     * @param string $parentDir
-     *
-     * @return array
+     * @return array<string>
      */
     private function getModuleDirs(string $parentDir = MarketplaceServiceProvider::CORE_DIR): array
     {
@@ -72,11 +52,6 @@ class ModuleResolver
 
     /**
      * Check if the file in question exists / is a valid directory.
-     *
-     * @param string $file
-     * @param bool $isDir
-     *
-     * @return bool
      */
     private function exists(string $file, bool $isDir = false): bool
     {
@@ -88,10 +63,7 @@ class ModuleResolver
     /**
      * Resolve the files from the directories as classes.
      *
-     * @param array $directories
-     * @param string $parentNamespace
-     *
-     * @return array
+     * @param array<string> $directories
      */
     private function resolveFilesAsClasses(
         array $directories,
@@ -118,9 +90,7 @@ class ModuleResolver
     /**
      * Get all routes from the modules.
      *
-     * @param string $parentDir
-     *
-     * @return array
+     * @return array<string>
      */
     public function resolveRoutes(string $parentDir = MarketplaceServiceProvider::CORE_DIR): array
     {
@@ -130,9 +100,7 @@ class ModuleResolver
     /**
      * Get all migrations from the modules.
      *
-     * @param string $parentDir
-     *
-     * @return array
+     * @return array<string>
      */
     public function resolveData(string $parentDir = MarketplaceServiceProvider::CORE_DIR): array
     {
@@ -142,10 +110,7 @@ class ModuleResolver
     /**
      * Get all subscribers from the modules.
      *
-     * @param string $parentDir
-     * @param string $parentNamespace
-     *
-     * @return array
+     * @return array<string>
      */
     public function resolveSubscribers(
         string $parentDir = MarketplaceServiceProvider::CORE_DIR,
@@ -160,10 +125,7 @@ class ModuleResolver
     /**
      * Get all commands from the modules.
      *
-     * @param string $parentDir
-     * @param string $parentNamespace
-     *
-     * @return array
+     * @return array<string>
      */
     public function resolveCommands(
         string $parentDir = MarketplaceServiceProvider::CORE_DIR,

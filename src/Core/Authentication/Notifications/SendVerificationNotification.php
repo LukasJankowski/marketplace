@@ -17,8 +17,6 @@ class SendVerificationNotification extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param User $notifiable
-     *
      * @return array<string>
      */
     public function via(User $notifiable)
@@ -28,8 +26,6 @@ class SendVerificationNotification extends Notification implements ShouldQueue
 
     /**
      * Get the mail representation of the notification.
-     *
-     * @param User $notifiable
      *
      * @return MailMessage
      */
@@ -52,8 +48,6 @@ class SendVerificationNotification extends Notification implements ShouldQueue
 
     /**
      * Get the array representation of the notification.
-     *
-     * @param User $notifiable
      *
      * @return array<string, array>
      */

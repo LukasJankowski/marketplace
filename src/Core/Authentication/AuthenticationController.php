@@ -26,12 +26,7 @@ use Marketplace\Foundation\Exceptions\ValidationException;
 class AuthenticationController extends Controller
 {
     /**
-     * Handle the incoming request.
-     *
-     * @param LoginRequest $request
-     * @param LoginUserAction $action
-     *
-     * @return LoginResource
+     * Log the user in.
      *
      * @throws Exceptions\LoginException
      */
@@ -42,11 +37,6 @@ class AuthenticationController extends Controller
 
     /**
      * Check the auth status.
-     *
-     * @param CheckLoginRequest $request
-     * @param CheckLoginAction $action
-     *
-     * @return LoginResource
      */
     public function check(CheckLoginRequest $request, CheckLoginAction $action): LoginResource
     {
@@ -55,11 +45,6 @@ class AuthenticationController extends Controller
 
     /**
      * Refresh the users token.
-     *
-     * @param RefreshTokenRequest $request
-     * @param RefreshTokenAction $action
-     *
-     * @return LoginResource
      */
     public function refresh(RefreshTokenRequest $request, RefreshTokenAction $action): LoginResource
     {
@@ -68,11 +53,6 @@ class AuthenticationController extends Controller
 
     /**
      * Register a new user.
-     *
-     * @param RegisterUserRequest $request
-     * @param RegisterUserAction $action
-     *
-     * @return JsonResponse
      *
      * @throws ValidationException
      */
@@ -86,9 +66,6 @@ class AuthenticationController extends Controller
     /**
      * Verify a user by email.
      *
-     * @param VerifyUserRequest $request
-     * @param VerifyUserAction $action
-     *
      * @return UserResource
      */
     public function verify(VerifyUserRequest $request, VerifyUserAction $action): UserResource
@@ -99,11 +76,6 @@ class AuthenticationController extends Controller
     /**
      * Reset a users password.
      *
-     * @param ResetRequest $request
-     * @param ResetPasswordAction $action
-     *
-     * @return ResetResource
-     *
      * @throws ValidationException
      */
     public function reset(ResetRequest $request, ResetPasswordAction $action): ResetResource
@@ -113,9 +85,6 @@ class AuthenticationController extends Controller
 
     /**
      * Update a users password.
-     *
-     * @param UpdatePasswordRequest $request
-     * @param UpdatePasswordAction $action
      *
      * @return UserResource
      */

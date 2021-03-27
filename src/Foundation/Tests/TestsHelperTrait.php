@@ -9,9 +9,7 @@ trait TestsHelperTrait
     /**
      * Create a user.
      *
-     * @param string[] $args
-     *
-     * @return User
+     * @param array<string, string> $args
      */
     private function getUser(array $args = ['role' => 'customer']): User
     {

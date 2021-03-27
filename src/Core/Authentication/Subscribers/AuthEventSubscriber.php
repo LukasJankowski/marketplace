@@ -10,15 +10,9 @@ class AuthEventSubscriber
 {
     /**
      * React on a user that registered.
-     *
-     * @param UserRegistered $event
-     *
-     * @return void
      */
     #[ListensTo(UserRegistered::class)]
-    public function handleUserRegistered(
-        UserRegistered $event
-    ): void
+    public function handleUserRegistered(UserRegistered $event): void
     {
         (new UserService())->sendVerificationEmailToUser($event->getUser());
     }

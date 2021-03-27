@@ -10,9 +10,6 @@ class DatabaseException extends RuntimeException
 
     /**
      * DatabaseException constructor.
-     *
-     * @param string $message
-     * @param int $status
      */
     public function __construct(
         $message = 'marketplace.core.database.failed',

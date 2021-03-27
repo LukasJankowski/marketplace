@@ -20,7 +20,7 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'email' => $this->faker->unique()->safeEmail,
@@ -33,10 +33,8 @@ class UserFactory extends Factory
 
     /**
      * Indicate that the model's email address should be unverified.
-     *
-     * @return Factory
      */
-    public function unverified()
+    public function unverified(): UserFactory
     {
         return $this->state(
             function (array $attributes) {
@@ -49,8 +47,6 @@ class UserFactory extends Factory
 
     /**
      * Set the token after getting the id from creating.
-     *
-     * @return UserFactory
      */
     public function configure(): UserFactory
     {

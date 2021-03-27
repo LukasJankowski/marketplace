@@ -15,10 +15,6 @@ class LoginUserAction extends BaseAction
 {
     /**
      * LoginUserAction constructor.
-     *
-     * @param RefreshTokenAction $refreshToken
-     * @param UserService $service
-     * @param Logger $logger
      */
     public function __construct(
         private RefreshTokenAction $refreshToken,
@@ -30,10 +26,6 @@ class LoginUserAction extends BaseAction
 
     /**
      * Attempt to login the user.
-     *
-     * @param UserDto $userDto
-     *
-     * @return LoginResource
      *
      * @throws LoginException
      */
@@ -58,11 +50,6 @@ class LoginUserAction extends BaseAction
 
     /**
      * Check if the credentials are valid.
-     *
-     * @param UserDto $userDto
-     * @param User|null $user
-     *
-     * @return bool
      */
     private function checkLogin(UserDto $userDto, null|User $user): bool
     {

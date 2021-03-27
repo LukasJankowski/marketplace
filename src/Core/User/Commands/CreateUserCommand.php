@@ -4,16 +4,12 @@ namespace Marketplace\Core\User\Commands;
 
 use Illuminate\Console\Command;
 use Marketplace\Core\Account\Dtos\AccountDto;
-use Marketplace\Core\Account\ValueObjects\Name;
-use Marketplace\Core\Account\ValueObjects\Phone;
 use Marketplace\Core\Account\ValueObjects\Salutation;
 use Marketplace\Core\Authorization\RoleService;
-use Marketplace\Core\Authorization\ValueObjects\Role;
 use Marketplace\Core\User\Actions\CreateUserAction;
 use Marketplace\Core\User\Dtos\PersonDto;
 use Marketplace\Core\User\Dtos\UserDto;
-use Marketplace\Core\User\ValueObjects\Email;
-use Marketplace\Core\User\ValueObjects\Password;
+use Marketplace\Foundation\Exceptions\ValidationException;
 
 class CreateUserCommand extends Command
 {
@@ -33,8 +29,6 @@ class CreateUserCommand extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @param CreateUserAction $action
      */
     public function __construct(private CreateUserAction $action)
     {
@@ -44,9 +38,9 @@ class CreateUserCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return int
+     * @throws ValidationException
      */
-    public function handle()
+    public function handle(): int
     {
         $email = $this->ask('Email');
         $password = $this->secret('Password');

@@ -13,8 +13,6 @@ class UserRegistered
 
     /**
      * Create a new event instance.
-     *
-     * @param User $user
      */
     public function __construct(private User $user)
     {
@@ -22,8 +20,6 @@ class UserRegistered
 
     /**
      * Getter.
-     *
-     * @return User
      */
     public function getUser(): User
     {

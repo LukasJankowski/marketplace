@@ -9,22 +9,12 @@ use RuntimeException;
 
 class TokenService
 {
-    /**
-     * @const string
-     */
     public const SECRET_KEY = 'APP_SECRET';
 
-    /**
-     * @const string
-     */
     public const TOKEN_DIVIDER = '.';
 
     /**
      * Generate a token.
-     *
-     * @param int|string $userId
-     *
-     * @return string
      */
     public static function generateApiToken(int|string $userId): string
     {
@@ -33,12 +23,6 @@ class TokenService
 
     /**
      * Generate the token consistently.
-     *
-     * @param int|string $time
-     * @param int|string $userId
-     * @param string $secret
-     *
-     * @return string
      */
     private static function makeToken(int|string $time, int|string $userId, string $secret): string
     {
@@ -47,8 +31,6 @@ class TokenService
 
     /**
      * Get the app secret.
-     *
-     * @return string
      */
     private static function getSecret(): string
     {
@@ -65,11 +47,6 @@ class TokenService
 
     /**
      * Check if its a valid token.
-     *
-     * @param string $token
-     * @param int|string $userId
-     *
-     * @return bool
      */
     public static function isValidToken(string $token, int|string $userId): bool
     {
@@ -85,10 +62,6 @@ class TokenService
 
     /**
      * Check if the token is expired.
-     *
-     * @param string $token
-     *
-     * @return bool
      */
     private static function isTokenExpired(string $token): bool
     {

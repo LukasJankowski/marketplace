@@ -10,11 +10,6 @@ class AccountService
 {
     /**
      * Create a new account.
-     *
-     * @param AccountDto $account
-     * @param int|User $user
-     *
-     * @return Account
      */
     public function create(AccountDto $account, int|User $user): Account
     {

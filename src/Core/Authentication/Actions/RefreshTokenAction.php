@@ -12,8 +12,6 @@ class RefreshTokenAction extends BaseAction
 {
     /**
      * RefreshTokenAction constructor.
-     *
-     * @param Logger $logger
      */
     public function __construct(private Logger $logger)
     {
@@ -21,10 +19,6 @@ class RefreshTokenAction extends BaseAction
 
     /**
      * Refresh the users API token.
-     *
-     * @param User $user
-     *
-     * @return LoginResource
      */
     public function run(User $user): LoginResource
     {

@@ -11,8 +11,6 @@ class EmailVerifiedAt extends ValueObject
 {
     /**
      * Email constructor.
-     *
-     * @param DateTime $emailVerifiedAt
      */
     public function __construct(private DateTime $emailVerifiedAt)
     {
@@ -20,10 +18,6 @@ class EmailVerifiedAt extends ValueObject
 
     /**
      * Create a new instance of self.
-     *
-     * @param string|DateTime $emailVerifiedAt
-     *
-     * @return self
      *
      * @throws Exception
      */

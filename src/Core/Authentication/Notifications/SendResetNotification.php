@@ -18,8 +18,6 @@ class SendResetNotification extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param User $notifiable
-     *
      * @return array<string>
      */
     public function via(User $notifiable)
@@ -29,10 +27,6 @@ class SendResetNotification extends Notification implements ShouldQueue
 
     /**
      * Get the mail representation of the notification.
-     *
-     * @param User $notifiable
-     *
-     * @return MailMessage
      */
     public function toMail(User $notifiable)
     {
@@ -54,8 +48,6 @@ class SendResetNotification extends Notification implements ShouldQueue
 
     /**
      * Get the array representation of the notification.
-     *
-     * @param User $notifiable
      *
      * @return array<string, array>
      */

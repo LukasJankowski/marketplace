@@ -15,8 +15,6 @@ class {{class}} extends ValueObject
 
     /**
      * Create a new instance of self.
-     *
-     * @return self
      */
     public static function make(): self
     {

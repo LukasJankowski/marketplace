@@ -18,11 +18,6 @@ class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param ListUserRequest $request
-     * @param ListUserAction $action
-     *
-     * @return AnonymousResourceCollection
      */
     public function list(ListUserRequest $request, ListUserAction $action): AnonymousResourceCollection
     {
@@ -31,11 +26,6 @@ class UserController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param CreateUserRequest $request
-     * @param CreateUserAction $action
-     *
-     * @return JsonResponse
      *
      * @throws ValidationException
      */
@@ -48,11 +38,6 @@ class UserController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param ReadUserRequest $request
-     * @param ReadUserAction $action
-     *
-     * @return UserResource
      */
     public function read(ReadUserRequest $request, ReadUserAction $action): UserResource
     {

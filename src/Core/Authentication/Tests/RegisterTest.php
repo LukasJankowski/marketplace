@@ -22,6 +22,14 @@ class RegisterTest extends TestCase
         Notification::fake();
     }
 
+    /**
+     * Get the route.
+     */
+    private function getRoute(string $role): string
+    {
+        return route('marketplace.core.authentication.register', ['role' => $role]);
+    }
+
     public function testCanRegisterUser()
     {
         $this->postJson(
@@ -68,18 +76,6 @@ class RegisterTest extends TestCase
                     'phone' => '+4912345678901',
                 ]
             );
-    }
-
-    /**
-     * Get the route.
-     *
-     * @param $type
-     *
-     * @return string
-     */
-    private function getRoute($type)
-    {
-        return route('marketplace.core.authentication.register', ['role' => $type]);
     }
 
     public function testCanRegisterUserWithoutSalutation()

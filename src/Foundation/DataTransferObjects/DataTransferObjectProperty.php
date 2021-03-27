@@ -6,16 +6,10 @@ use ReflectionProperty;
 
 class DataTransferObjectProperty
 {
-    /**
-     * @var string
-     */
     public string $name;
 
     /**
      * DataTransferObjectProperty constructor.
-     *
-     * @param DataTransferObject $dataTransferObject
-     * @param ReflectionProperty $reflectionProperty
      */
     public function __construct(
         private DataTransferObject $dataTransferObject,
@@ -26,8 +20,6 @@ class DataTransferObjectProperty
 
     /**
      * Check if the attribute can be created by us.
-     *
-     * @return bool
      */
     private function isMakeable(): bool
     {
@@ -36,8 +28,6 @@ class DataTransferObjectProperty
 
     /**
      * Setter.
-     *
-     * @param mixed $value
      */
     public function setValue(mixed $value): void
     {
@@ -57,8 +47,6 @@ class DataTransferObjectProperty
 
     /**
      * Getter.
-     *
-     * @return mixed
      */
     public function getValue(): mixed
     {

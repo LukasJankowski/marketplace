@@ -13,10 +13,8 @@ class MarketplaceAuthServiceProvider extends ServiceProvider
 {
     /**
      * Register any application authentication / authorization services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerPolicies();
 

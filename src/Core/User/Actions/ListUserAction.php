@@ -11,8 +11,6 @@ class ListUserAction extends BaseAction
 {
     /**
      * ListUserAction constructor.
-     *
-     * @param UserService $service
      */
     public function __construct(private UserService $service)
     {
@@ -20,8 +18,6 @@ class ListUserAction extends BaseAction
 
     /**
      * Refresh the users API token.
-     *
-     * @return AnonymousResourceCollection
      */
     public function run(): AnonymousResourceCollection
     {

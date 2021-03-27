@@ -15,10 +15,6 @@ class UpdatePasswordAction extends BaseAction
 {
     /**
      * UpdatePasswordAction constructor.
-     *
-     * @param Logger $logger
-     * @param UserService $userService
-     * @param ReadUserAction $action
      */
     public function __construct(
         private Logger $logger,
@@ -30,11 +26,6 @@ class UpdatePasswordAction extends BaseAction
 
     /**
      * Update the password.
-     *
-     * @param UserDto $userDto
-     * @param string|int $id
-     *
-     * @return UserResource
      */
     public function run(UserDto $userDto, string|int $id): UserResource
     {
@@ -54,11 +45,6 @@ class UpdatePasswordAction extends BaseAction
 
     /**
      * Update the users password.
-     *
-     * @param UserDto $userDto
-     * @param string|int $id
-     *
-     * @return UserResource
      */
     private function updatePassword(UserDto $userDto, string|int $id): UserResource
     {

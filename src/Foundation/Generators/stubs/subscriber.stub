@@ -7,9 +7,7 @@ use Marketplace\Foundation\Subscribers\ListensTo;
 class {{class}}
 {
     /**
-     * React on...
-     *
-     * @return void
+     * React on event.
      */
     #[ListensTo(/*Event::class*/)]
     public function handleEvent(/*Event $event*/): void

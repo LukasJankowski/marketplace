@@ -8,8 +8,6 @@ class BaseCast implements CastsAttributes
 {
     /**
      * BaseCast constructor.
-     *
-     * @param string $valueObject
      */
     public function __construct(protected string $valueObject)
     {
@@ -17,11 +15,8 @@ class BaseCast implements CastsAttributes
 
     /**
      * Check if valid instance.
-     *
-     * @param string $class
-     * @param mixed $value
      */
-    public function checkValidInstance(string $class, mixed $value)
+    public function checkValidInstance(string $class, mixed $value): void
     {
         if (!$value instanceof $class) {
             throw new \InvalidArgumentException(
@@ -33,7 +28,7 @@ class BaseCast implements CastsAttributes
     /**
      * Check for the existence of the valueObject.
      */
-    private function checkValueObject()
+    private function checkValueObject(): void
     {
         if (!class_exists($this->valueObject)) {
             throw new \RuntimeException(
@@ -45,7 +40,7 @@ class BaseCast implements CastsAttributes
     /**
      * @inheritDoc
      */
-    public function get($model, string $key, $value, array $attributes)
+    public function get($model, string $key, $value, array $attributes): mixed
     {
         $this->checkValueObject();
 
@@ -55,7 +50,7 @@ class BaseCast implements CastsAttributes
     /**
      * @inheritDoc
      */
-    public function set($model, string $key, $value, array $attributes)
+    public function set($model, string $key, $value, array $attributes): array
     {
         $this->checkValueObject();
         $this->checkValidInstance($this->valueObject, $value);

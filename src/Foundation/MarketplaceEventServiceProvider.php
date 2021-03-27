@@ -29,8 +29,6 @@ class MarketplaceEventServiceProvider extends ServiceProvider
 
     /**
      * Register dynamic event subscribers.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -51,9 +49,7 @@ class MarketplaceEventServiceProvider extends ServiceProvider
     /**
      * Resolve the listeners of the subscribers dynamically.
      *
-     * @param string $subscriber
-     *
-     * @return array
+     * @return array<string, array>
      *
      * @throws \ReflectionException
      */
