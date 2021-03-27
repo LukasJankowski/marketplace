@@ -53,10 +53,8 @@ class UpdatePasswordRequest extends FormRequest implements HasDtoFactory
     public function asDto(): UserDto
     {
         return new UserDto(
-            [
-                'password' => Password::make($this->get('password')),
-                'role' => Role::make($this->getUserRole())
-            ]
+            password: Password::make($this->get('password')),
+            role: Role::make($this->getUserRole())
         );
     }
 }

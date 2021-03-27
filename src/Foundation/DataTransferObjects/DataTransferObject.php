@@ -17,8 +17,12 @@ abstract class DataTransferObject implements Stringable, Arrayable, DataTransfer
      *
      * @param array <string, mixed>
      */
-    public function __construct(array $args)
+    public function __construct(...$args)
     {
+        if (is_array($args[0] ?? null)) {
+            $args = $args[0];
+        }
+
         $this->class = new DataTransferObjectClass($this);
 
         foreach ($this->class->getProperties() as $property) {
