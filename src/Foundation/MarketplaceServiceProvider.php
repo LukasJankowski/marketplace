@@ -30,14 +30,9 @@ final class MarketplaceServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-     *
-     * @throws BindingResolutionException
      */
-    public function boot(): void
+    public function boot(ModuleResolver $resolver): void
     {
-        /** @var ModuleResolver $resolver */
-        $resolver = $this->app->make(ModuleResolver::class);
-
         foreach ($resolver->resolveData() as $dir) {
             $this->loadMigrationsFrom($dir);
         }
