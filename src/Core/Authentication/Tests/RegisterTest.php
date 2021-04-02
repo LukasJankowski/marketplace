@@ -185,7 +185,7 @@ class RegisterTest extends TestCase
             ->assertJsonPath('data.errors.email.0', 'marketplace.core.authentication.register.duplicate');
     }
 
-    public function testCanRegisterSameUserWithDifferentTypes()
+    public function testCanRegisterSameUserWithDifferentRoles()
     {
         $this->postJson(
             $this->getRoute('customer'),
